@@ -1,0 +1,508 @@
+========================================
+PromptEHR Training Job
+========================================
+Job ID: 5449307
+Job Name: promptehr_train
+Node: ccc0390
+Partition: IllinoisComputes-GPU
+Working Directory: /u/jalenj4/pehr_scratch
+CUDA_VISIBLE_DEVICES: 0
+Start Time: Tue Oct 21 04:51:14 CDT 2025
+========================================
+GPU Information:
+Tue Oct 21 04:51:14 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:01:00.0 Off |                    0 |
+| N/A   33C    P0             64W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+========================================
+Environment:
+Python version: Python 3.12.11
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+CUDA version: 12.8
+========================================
+Starting PromptEHR training...
+2025-10-21 04:51:34,080 - INFO - ================================================================================
+2025-10-21 04:51:34,080 - INFO - PromptEHR Training Pipeline - Phase 3
+2025-10-21 04:51:34,081 - INFO - ================================================================================
+2025-10-21 04:51:34,081 - INFO - 
+Configuration:
+
+[Data]
+  Patients: 3000
+  Max sequence length: 256
+  Train/val split: 0.2
+
+[Model]
+  Base model: facebook/bart-base
+  Continuous features: 1
+  Categorical features: 2
+  Prompt length: 1
+
+[Training]
+  Batch size: 8
+  Epochs: 30
+  Learning rate: 0.0001
+  Warmup steps: 500
+  Device: cuda
+
+[Corruptions]
+  Lambda Poisson: 3.0
+  Deletion prob: 0.15
+  Replacement prob: 0.15
+  Corruption prob: 0.5
+  Mask infilling: True
+  Token deletion: True
+  Token replacement: True
+  Next-visit prediction: True
+
+[Evaluation]
+  Compute TPL: True
+  Compute SPL: False
+2025-10-21 04:51:34,092 - INFO - 
+Random seed: 42
+2025-10-21 04:51:34,252 - INFO - Device: cuda
+2025-10-21 04:51:34,252 - INFO - 
+================================================================================
+2025-10-21 04:51:34,252 - INFO - Loading MIMIC-III Data
+2025-10-21 04:51:34,252 - INFO - ================================================================================
+2025-10-21 04:51:34,252 - INFO - Loading MIMIC-III data files
+2025-10-21 04:51:34,332 - INFO - Loaded 46520 patients
+2025-10-21 04:51:34,526 - INFO - Loaded 58976 admissions
+2025-10-21 04:51:34,755 - INFO - Loaded 651047 diagnosis records
+2025-10-21 04:51:35,055 - INFO - Processing patient records
+2025-10-21 04:51:37,563 - INFO - Loaded 3000 patient records
+2025-10-21 04:51:37,563 - INFO - Diagnosis vocabulary size: 2823
+2025-10-21 04:51:37,564 - INFO - Average visits per patient: 1.27
+2025-10-21 04:51:37,564 - INFO - Average codes per visit: 9.27
+2025-10-21 04:51:37,565 - INFO - Gender distribution: {'M': 1686, 'F': 1314}
+2025-10-21 04:51:37,566 - INFO - Ethnicity distribution: {'WHITE': 1990, 'UNKNOWN/NOT SPECIFIED': 429, 'BLACK': 239, 'OTHER': 120, 'ASIAN': 119, 'HISPANIC OR LATINO': 103}
+2025-10-21 04:51:37,587 - INFO - Loaded 3000 patients
+2025-10-21 04:51:37,587 - INFO - Vocabulary size: 2823 diagnosis codes
+2025-10-21 04:51:37,587 - INFO - Tokenizer vocab size: 2830
+2025-10-21 04:51:37,587 - INFO - Dataset size: 3000 patients
+2025-10-21 04:51:37,591 - INFO - Train size: 2400, Validation size: 600
+2025-10-21 04:51:37,592 - INFO - Train batches: 300, Validation batches: 75
+2025-10-21 04:51:37,592 - INFO - 
+================================================================================
+2025-10-21 04:51:37,592 - INFO - Initializing Model
+2025-10-21 04:51:37,592 - INFO - ================================================================================
+2025-10-21 04:51:37,710 - INFO - BART config vocab size: 2830
+2025-10-21 04:51:39,815 - INFO - Total parameters: 103,386,624
+2025-10-21 04:51:39,816 - INFO - Trainable parameters: 103,386,624
+2025-10-21 04:51:39,817 - INFO - Total training steps: 9000
+2025-10-21 04:51:39,817 - INFO - Warmup steps: 500
+2025-10-21 04:51:39,817 - INFO - 
+================================================================================
+2025-10-21 04:51:39,817 - INFO - Starting Training
+2025-10-21 04:51:39,817 - INFO - ================================================================================
+2025-10-21 04:51:52,974 - INFO - Epoch 1, Step 50/300 - Loss: 6.9234, Perplexity: 1317.7680, LR: 1.00e-05
+2025-10-21 04:52:05,238 - INFO - Epoch 1, Step 100/300 - Loss: 6.0653, Perplexity: 768.3777, LR: 2.00e-05
+2025-10-21 04:52:17,281 - INFO - Epoch 1, Step 150/300 - Loss: 5.6223, Perplexity: 556.3372, LR: 3.00e-05
+2025-10-21 04:52:29,594 - INFO - Epoch 1, Step 200/300 - Loss: 5.3847, Perplexity: 449.1740, LR: 4.00e-05
+2025-10-21 04:52:42,244 - INFO - Epoch 1, Step 250/300 - Loss: 5.1862, Perplexity: 378.3048, LR: 5.00e-05
+2025-10-21 04:52:54,634 - INFO - Epoch 1, Step 300/300 - Loss: 5.0032, Perplexity: 328.4236, LR: 6.00e-05
+2025-10-21 04:52:54,635 - INFO - Epoch 1 Complete - Avg Loss: 5.0032, Avg Perplexity: 328.4236
+2025-10-21 04:53:00,502 - INFO - Validation - Loss: 4.0284, Perplexity: 66.2265, Token Accuracy: 0.3825, Code Accuracy: 0.1295
+2025-10-21 04:53:00,503 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 04:53:01,413 - INFO - TPL computed on 93 samples: 115.6087
+2025-10-21 04:53:01,414 - INFO - Temporal Perplexity (TPL): 115.6087
+2025-10-21 04:53:01,414 - INFO - New best model! Validation loss: 4.0284
+2025-10-21 04:53:05,523 - INFO - Checkpoint saved: epoch 1
+2025-10-21 04:53:17,965 - INFO - Epoch 2, Step 50/300 - Loss: 3.8017, Perplexity: 52.4999, LR: 7.00e-05
+2025-10-21 04:53:30,273 - INFO - Epoch 2, Step 100/300 - Loss: 3.4054, Perplexity: 40.3782, LR: 8.00e-05
+2025-10-21 04:53:42,547 - INFO - Epoch 2, Step 150/300 - Loss: 2.9840, Perplexity: 31.0987, LR: 9.00e-05
+2025-10-21 04:53:54,577 - INFO - Epoch 2, Step 200/300 - Loss: 2.5779, Perplexity: 25.2789, LR: 1.00e-04
+2025-10-21 04:54:06,903 - INFO - Epoch 2, Step 250/300 - Loss: 2.2443, Perplexity: 21.1192, LR: 9.94e-05
+2025-10-21 04:54:19,305 - INFO - Epoch 2, Step 300/300 - Loss: 1.9793, Perplexity: 18.0799, LR: 9.88e-05
+2025-10-21 04:54:19,305 - INFO - Epoch 2 Complete - Avg Loss: 1.9793, Avg Perplexity: 18.0799
+2025-10-21 04:54:25,239 - INFO - Validation - Loss: 0.4030, Perplexity: 1.7819, Token Accuracy: 0.9667, Code Accuracy: 0.9596
+2025-10-21 04:54:25,240 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 04:54:26,120 - INFO - TPL computed on 93 samples: 2.1910
+2025-10-21 04:54:26,121 - INFO - Temporal Perplexity (TPL): 2.1910
+2025-10-21 04:54:26,121 - INFO - New best model! Validation loss: 0.4030
+2025-10-21 04:54:30,713 - INFO - Checkpoint saved: epoch 2
+2025-10-21 04:54:43,178 - INFO - Epoch 3, Step 50/300 - Loss: 0.5013, Perplexity: 1.9336, LR: 9.82e-05
+2025-10-21 04:54:55,545 - INFO - Epoch 3, Step 100/300 - Loss: 0.5058, Perplexity: 2.3615, LR: 9.76e-05
+2025-10-21 04:55:07,990 - INFO - Epoch 3, Step 150/300 - Loss: 0.4918, Perplexity: 2.5964, LR: 9.71e-05
+2025-10-21 04:55:20,522 - INFO - Epoch 3, Step 200/300 - Loss: 0.4428, Perplexity: 2.3318, LR: 9.65e-05
+2025-10-21 04:55:33,072 - INFO - Epoch 3, Step 250/300 - Loss: 0.4237, Perplexity: 2.2148, LR: 9.59e-05
+2025-10-21 04:55:45,547 - INFO - Epoch 3, Step 300/300 - Loss: 0.3765, Perplexity: 2.0420, LR: 9.53e-05
+2025-10-21 04:55:45,548 - INFO - Epoch 3 Complete - Avg Loss: 0.3765, Avg Perplexity: 2.0420
+2025-10-21 04:55:51,315 - INFO - Validation - Loss: 0.1525, Perplexity: 1.2587, Token Accuracy: 0.9827, Code Accuracy: 0.9787
+2025-10-21 04:55:51,316 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 04:55:52,200 - INFO - TPL computed on 93 samples: 1.3722
+2025-10-21 04:55:52,200 - INFO - Temporal Perplexity (TPL): 1.3722
+2025-10-21 04:55:52,200 - INFO - New best model! Validation loss: 0.1525
+2025-10-21 04:55:56,570 - INFO - Checkpoint saved: epoch 3
+2025-10-21 04:56:09,054 - INFO - Epoch 4, Step 50/300 - Loss: 0.2965, Perplexity: 1.7888, LR: 9.47e-05
+2025-10-21 04:56:21,364 - INFO - Epoch 4, Step 100/300 - Loss: 0.1981, Perplexity: 1.4702, LR: 9.41e-05
+2025-10-21 04:56:34,012 - INFO - Epoch 4, Step 150/300 - Loss: 0.2047, Perplexity: 1.4996, LR: 9.35e-05
+2025-10-21 04:56:46,322 - INFO - Epoch 4, Step 200/300 - Loss: 0.2109, Perplexity: 1.5377, LR: 9.29e-05
+2025-10-21 04:56:58,785 - INFO - Epoch 4, Step 250/300 - Loss: 0.1892, Perplexity: 1.4570, LR: 9.24e-05
+2025-10-21 04:57:11,129 - INFO - Epoch 4, Step 300/300 - Loss: 0.1765, Perplexity: 1.4043, LR: 9.18e-05
+2025-10-21 04:57:11,130 - INFO - Epoch 4 Complete - Avg Loss: 0.1765, Avg Perplexity: 1.4043
+2025-10-21 04:57:17,068 - INFO - Validation - Loss: 0.0827, Perplexity: 1.1209, Token Accuracy: 0.9897, Code Accuracy: 0.9872
+2025-10-21 04:57:17,069 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 04:57:17,955 - INFO - TPL computed on 93 samples: 1.1932
+2025-10-21 04:57:17,955 - INFO - Temporal Perplexity (TPL): 1.1932
+2025-10-21 04:57:17,955 - INFO - New best model! Validation loss: 0.0827
+2025-10-21 04:57:22,254 - INFO - Checkpoint saved: epoch 4
+2025-10-21 04:57:34,406 - INFO - Epoch 5, Step 50/300 - Loss: 0.0864, Perplexity: 1.1198, LR: 9.12e-05
+2025-10-21 04:57:46,860 - INFO - Epoch 5, Step 100/300 - Loss: 0.0814, Perplexity: 1.1452, LR: 9.06e-05
+2025-10-21 04:57:59,251 - INFO - Epoch 5, Step 150/300 - Loss: 0.0844, Perplexity: 1.1367, LR: 9.00e-05
+2025-10-21 04:58:11,759 - INFO - Epoch 5, Step 200/300 - Loss: 0.0939, Perplexity: 1.1880, LR: 8.94e-05
+2025-10-21 04:58:23,903 - INFO - Epoch 5, Step 250/300 - Loss: 0.0890, Perplexity: 1.1798, LR: 8.88e-05
+2025-10-21 04:58:36,208 - INFO - Epoch 5, Step 300/300 - Loss: 0.1022, Perplexity: 1.2361, LR: 8.82e-05
+2025-10-21 04:58:36,209 - INFO - Epoch 5 Complete - Avg Loss: 0.1022, Avg Perplexity: 1.2361
+2025-10-21 04:58:42,101 - INFO - Validation - Loss: 0.0349, Perplexity: 1.0420, Token Accuracy: 0.9965, Code Accuracy: 0.9959
+2025-10-21 04:58:42,102 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 04:58:42,990 - INFO - TPL computed on 93 samples: 1.0688
+2025-10-21 04:58:42,990 - INFO - Temporal Perplexity (TPL): 1.0688
+2025-10-21 04:58:42,990 - INFO - New best model! Validation loss: 0.0349
+2025-10-21 04:58:47,361 - INFO - Checkpoint saved: epoch 5
+2025-10-21 04:58:59,773 - INFO - Epoch 6, Step 50/300 - Loss: 0.1423, Perplexity: 1.5022, LR: 8.76e-05
+2025-10-21 04:59:12,140 - INFO - Epoch 6, Step 100/300 - Loss: 0.1269, Perplexity: 1.3476, LR: 8.71e-05
+2025-10-21 04:59:24,414 - INFO - Epoch 6, Step 150/300 - Loss: 0.0919, Perplexity: 1.2397, LR: 8.65e-05
+2025-10-21 04:59:37,012 - INFO - Epoch 6, Step 200/300 - Loss: 0.0801, Perplexity: 1.1946, LR: 8.59e-05
+2025-10-21 04:59:49,315 - INFO - Epoch 6, Step 250/300 - Loss: 0.0710, Perplexity: 1.1639, LR: 8.53e-05
+2025-10-21 05:00:01,318 - INFO - Epoch 6, Step 300/300 - Loss: 0.0737, Perplexity: 1.1615, LR: 8.47e-05
+2025-10-21 05:00:01,319 - INFO - Epoch 6 Complete - Avg Loss: 0.0737, Avg Perplexity: 1.1615
+2025-10-21 05:00:07,171 - INFO - Validation - Loss: 0.0248, Perplexity: 1.0289, Token Accuracy: 0.9975, Code Accuracy: 0.9967
+2025-10-21 05:00:07,172 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:00:08,056 - INFO - TPL computed on 93 samples: 1.0605
+2025-10-21 05:00:08,056 - INFO - Temporal Perplexity (TPL): 1.0605
+2025-10-21 05:00:08,056 - INFO - New best model! Validation loss: 0.0248
+2025-10-21 05:00:12,521 - INFO - Checkpoint saved: epoch 6
+2025-10-21 05:00:24,854 - INFO - Epoch 7, Step 50/300 - Loss: 0.0862, Perplexity: 1.2222, LR: 8.41e-05
+2025-10-21 05:00:37,010 - INFO - Epoch 7, Step 100/300 - Loss: 0.0950, Perplexity: 1.2208, LR: 8.35e-05
+2025-10-21 05:00:49,439 - INFO - Epoch 7, Step 150/300 - Loss: 0.0750, Perplexity: 1.1614, LR: 8.29e-05
+2025-10-21 05:01:01,662 - INFO - Epoch 7, Step 200/300 - Loss: 0.0630, Perplexity: 1.1284, LR: 8.24e-05
+2025-10-21 05:01:13,911 - INFO - Epoch 7, Step 250/300 - Loss: 0.0627, Perplexity: 1.1231, LR: 8.18e-05
+2025-10-21 05:01:26,013 - INFO - Epoch 7, Step 300/300 - Loss: 0.0614, Perplexity: 1.1242, LR: 8.12e-05
+2025-10-21 05:01:26,014 - INFO - Epoch 7 Complete - Avg Loss: 0.0614, Avg Perplexity: 1.1242
+2025-10-21 05:01:31,763 - INFO - Validation - Loss: 0.0231, Perplexity: 1.0276, Token Accuracy: 0.9975, Code Accuracy: 0.9971
+2025-10-21 05:01:31,764 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:01:32,648 - INFO - TPL computed on 93 samples: 1.0533
+2025-10-21 05:01:32,648 - INFO - Temporal Perplexity (TPL): 1.0533
+2025-10-21 05:01:32,648 - INFO - New best model! Validation loss: 0.0231
+2025-10-21 05:01:37,030 - INFO - Checkpoint saved: epoch 7
+2025-10-21 05:01:49,049 - INFO - Epoch 8, Step 50/300 - Loss: 0.0089, Perplexity: 1.0090, LR: 8.06e-05
+2025-10-21 05:02:01,565 - INFO - Epoch 8, Step 100/300 - Loss: 0.0219, Perplexity: 1.0249, LR: 8.00e-05
+2025-10-21 05:02:13,897 - INFO - Epoch 8, Step 150/300 - Loss: 0.0268, Perplexity: 1.0323, LR: 7.94e-05
+2025-10-21 05:02:26,151 - INFO - Epoch 8, Step 200/300 - Loss: 0.0243, Perplexity: 1.0289, LR: 7.88e-05
+2025-10-21 05:02:38,822 - INFO - Epoch 8, Step 250/300 - Loss: 0.0375, Perplexity: 1.0708, LR: 7.82e-05
+2025-10-21 05:02:50,993 - INFO - Epoch 8, Step 300/300 - Loss: 0.0472, Perplexity: 1.1004, LR: 7.76e-05
+2025-10-21 05:02:50,994 - INFO - Epoch 8 Complete - Avg Loss: 0.0472, Avg Perplexity: 1.1004
+2025-10-21 05:02:56,847 - INFO - Validation - Loss: 0.0152, Perplexity: 1.0174, Token Accuracy: 0.9984, Code Accuracy: 0.9980
+2025-10-21 05:02:56,848 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:02:57,733 - INFO - TPL computed on 93 samples: 1.0365
+2025-10-21 05:02:57,733 - INFO - Temporal Perplexity (TPL): 1.0365
+2025-10-21 05:02:57,733 - INFO - New best model! Validation loss: 0.0152
+2025-10-21 05:03:02,087 - INFO - Checkpoint saved: epoch 8
+2025-10-21 05:03:14,597 - INFO - Epoch 9, Step 50/300 - Loss: 0.0096, Perplexity: 1.0098, LR: 7.71e-05
+2025-10-21 05:03:27,148 - INFO - Epoch 9, Step 100/300 - Loss: 0.0424, Perplexity: 1.1163, LR: 7.65e-05
+2025-10-21 05:03:39,104 - INFO - Epoch 9, Step 150/300 - Loss: 0.0437, Perplexity: 1.1020, LR: 7.59e-05
+2025-10-21 05:03:51,457 - INFO - Epoch 9, Step 200/300 - Loss: 0.0369, Perplexity: 1.0808, LR: 7.53e-05
+2025-10-21 05:04:03,684 - INFO - Epoch 9, Step 250/300 - Loss: 0.0451, Perplexity: 1.0948, LR: 7.47e-05
+2025-10-21 05:04:15,766 - INFO - Epoch 9, Step 300/300 - Loss: 0.0432, Perplexity: 1.0873, LR: 7.41e-05
+2025-10-21 05:04:15,767 - INFO - Epoch 9 Complete - Avg Loss: 0.0432, Avg Perplexity: 1.0873
+2025-10-21 05:04:21,643 - INFO - Validation - Loss: 0.0098, Perplexity: 1.0108, Token Accuracy: 0.9989, Code Accuracy: 0.9986
+2025-10-21 05:04:21,644 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:04:22,526 - INFO - TPL computed on 93 samples: 1.0255
+2025-10-21 05:04:22,526 - INFO - Temporal Perplexity (TPL): 1.0255
+2025-10-21 05:04:22,526 - INFO - New best model! Validation loss: 0.0098
+2025-10-21 05:04:27,059 - INFO - Checkpoint saved: epoch 9
+2025-10-21 05:04:39,631 - INFO - Epoch 10, Step 50/300 - Loss: 0.0656, Perplexity: 1.1088, LR: 7.35e-05
+2025-10-21 05:04:52,032 - INFO - Epoch 10, Step 100/300 - Loss: 0.0663, Perplexity: 1.1238, LR: 7.29e-05
+2025-10-21 05:05:04,162 - INFO - Epoch 10, Step 150/300 - Loss: 0.0510, Perplexity: 1.0905, LR: 7.24e-05
+2025-10-21 05:05:16,590 - INFO - Epoch 10, Step 200/300 - Loss: 0.0404, Perplexity: 1.0701, LR: 7.18e-05
+2025-10-21 05:05:28,859 - INFO - Epoch 10, Step 250/300 - Loss: 0.0348, Perplexity: 1.0588, LR: 7.12e-05
+2025-10-21 05:05:41,044 - INFO - Epoch 10, Step 300/300 - Loss: 0.0385, Perplexity: 1.0760, LR: 7.06e-05
+2025-10-21 05:05:41,044 - INFO - Epoch 10 Complete - Avg Loss: 0.0385, Avg Perplexity: 1.0760
+2025-10-21 05:05:47,010 - INFO - Validation - Loss: 0.0074, Perplexity: 1.0078, Token Accuracy: 0.9992, Code Accuracy: 0.9990
+2025-10-21 05:05:47,011 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:05:47,900 - INFO - TPL computed on 93 samples: 1.0200
+2025-10-21 05:05:47,900 - INFO - Temporal Perplexity (TPL): 1.0200
+2025-10-21 05:05:47,900 - INFO - New best model! Validation loss: 0.0074
+2025-10-21 05:05:52,304 - INFO - Checkpoint saved: epoch 10
+2025-10-21 05:06:04,467 - INFO - Epoch 11, Step 50/300 - Loss: 0.0320, Perplexity: 1.0511, LR: 7.00e-05
+2025-10-21 05:06:16,834 - INFO - Epoch 11, Step 100/300 - Loss: 0.0215, Perplexity: 1.0314, LR: 6.94e-05
+2025-10-21 05:06:28,825 - INFO - Epoch 11, Step 150/300 - Loss: 0.0193, Perplexity: 1.0265, LR: 6.88e-05
+2025-10-21 05:06:41,632 - INFO - Epoch 11, Step 200/300 - Loss: 0.0343, Perplexity: 1.0756, LR: 6.82e-05
+2025-10-21 05:06:53,963 - INFO - Epoch 11, Step 250/300 - Loss: 0.0364, Perplexity: 1.0759, LR: 6.76e-05
+2025-10-21 05:07:06,108 - INFO - Epoch 11, Step 300/300 - Loss: 0.0337, Perplexity: 1.0670, LR: 6.71e-05
+2025-10-21 05:07:06,108 - INFO - Epoch 11 Complete - Avg Loss: 0.0337, Avg Perplexity: 1.0670
+2025-10-21 05:07:12,053 - INFO - Validation - Loss: 0.0128, Perplexity: 1.0138, Token Accuracy: 0.9982, Code Accuracy: 0.9978
+2025-10-21 05:07:12,054 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:07:12,938 - INFO - TPL computed on 93 samples: 1.0278
+2025-10-21 05:07:12,939 - INFO - Temporal Perplexity (TPL): 1.0278
+2025-10-21 05:07:25,178 - INFO - Epoch 12, Step 50/300 - Loss: 0.0089, Perplexity: 1.0092, LR: 6.65e-05
+2025-10-21 05:07:37,554 - INFO - Epoch 12, Step 100/300 - Loss: 0.0285, Perplexity: 1.0877, LR: 6.59e-05
+2025-10-21 05:07:49,874 - INFO - Epoch 12, Step 150/300 - Loss: 0.0222, Perplexity: 1.0618, LR: 6.53e-05
+2025-10-21 05:08:02,331 - INFO - Epoch 12, Step 200/300 - Loss: 0.0323, Perplexity: 1.0860, LR: 6.47e-05
+2025-10-21 05:08:14,690 - INFO - Epoch 12, Step 250/300 - Loss: 0.0289, Perplexity: 1.0721, LR: 6.41e-05
+2025-10-21 05:08:26,963 - INFO - Epoch 12, Step 300/300 - Loss: 0.0324, Perplexity: 1.0731, LR: 6.35e-05
+2025-10-21 05:08:26,964 - INFO - Epoch 12 Complete - Avg Loss: 0.0324, Avg Perplexity: 1.0731
+2025-10-21 05:08:32,759 - INFO - Validation - Loss: 0.0064, Perplexity: 1.0069, Token Accuracy: 0.9992, Code Accuracy: 0.9991
+2025-10-21 05:08:32,760 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:08:33,643 - INFO - TPL computed on 93 samples: 1.0134
+2025-10-21 05:08:33,643 - INFO - Temporal Perplexity (TPL): 1.0134
+2025-10-21 05:08:33,643 - INFO - New best model! Validation loss: 0.0064
+2025-10-21 05:08:38,005 - INFO - Checkpoint saved: epoch 12
+2025-10-21 05:08:50,232 - INFO - Epoch 13, Step 50/300 - Loss: 0.0043, Perplexity: 1.0043, LR: 6.29e-05
+2025-10-21 05:09:02,720 - INFO - Epoch 13, Step 100/300 - Loss: 0.0386, Perplexity: 1.0926, LR: 6.24e-05
+2025-10-21 05:09:15,039 - INFO - Epoch 13, Step 150/300 - Loss: 0.0364, Perplexity: 1.0746, LR: 6.18e-05
+2025-10-21 05:09:27,437 - INFO - Epoch 13, Step 200/300 - Loss: 0.0351, Perplexity: 1.0699, LR: 6.12e-05
+2025-10-21 05:09:40,013 - INFO - Epoch 13, Step 250/300 - Loss: 0.0335, Perplexity: 1.0624, LR: 6.06e-05
+2025-10-21 05:09:52,549 - INFO - Epoch 13, Step 300/300 - Loss: 0.0289, Perplexity: 1.0531, LR: 6.00e-05
+2025-10-21 05:09:52,549 - INFO - Epoch 13 Complete - Avg Loss: 0.0289, Avg Perplexity: 1.0531
+2025-10-21 05:09:58,323 - INFO - Validation - Loss: 0.0038, Perplexity: 1.0039, Token Accuracy: 0.9996, Code Accuracy: 0.9995
+2025-10-21 05:09:58,324 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:09:59,212 - INFO - TPL computed on 93 samples: 1.0114
+2025-10-21 05:09:59,212 - INFO - Temporal Perplexity (TPL): 1.0114
+2025-10-21 05:09:59,212 - INFO - New best model! Validation loss: 0.0038
+2025-10-21 05:10:03,622 - INFO - Checkpoint saved: epoch 13
+2025-10-21 05:10:15,797 - INFO - Epoch 14, Step 50/300 - Loss: 0.0481, Perplexity: 1.1351, LR: 5.94e-05
+2025-10-21 05:10:28,500 - INFO - Epoch 14, Step 100/300 - Loss: 0.0419, Perplexity: 1.0936, LR: 5.88e-05
+2025-10-21 05:10:40,819 - INFO - Epoch 14, Step 150/300 - Loss: 0.0467, Perplexity: 1.0996, LR: 5.82e-05
+2025-10-21 05:10:53,153 - INFO - Epoch 14, Step 200/300 - Loss: 0.0370, Perplexity: 1.0766, LR: 5.76e-05
+2025-10-21 05:11:05,463 - INFO - Epoch 14, Step 250/300 - Loss: 0.0304, Perplexity: 1.0621, LR: 5.71e-05
+2025-10-21 05:11:17,529 - INFO - Epoch 14, Step 300/300 - Loss: 0.0258, Perplexity: 1.0523, LR: 5.65e-05
+2025-10-21 05:11:17,530 - INFO - Epoch 14 Complete - Avg Loss: 0.0258, Avg Perplexity: 1.0523
+2025-10-21 05:11:23,415 - INFO - Validation - Loss: 0.0039, Perplexity: 1.0040, Token Accuracy: 0.9995, Code Accuracy: 0.9993
+2025-10-21 05:11:23,416 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:11:24,303 - INFO - TPL computed on 93 samples: 1.0112
+2025-10-21 05:11:24,304 - INFO - Temporal Perplexity (TPL): 1.0112
+2025-10-21 05:11:36,802 - INFO - Epoch 15, Step 50/300 - Loss: 0.0460, Perplexity: 1.1464, LR: 5.59e-05
+2025-10-21 05:11:49,076 - INFO - Epoch 15, Step 100/300 - Loss: 0.0254, Perplexity: 1.0756, LR: 5.53e-05
+2025-10-21 05:12:01,466 - INFO - Epoch 15, Step 150/300 - Loss: 0.0305, Perplexity: 1.0729, LR: 5.47e-05
+2025-10-21 05:12:13,468 - INFO - Epoch 15, Step 200/300 - Loss: 0.0278, Perplexity: 1.0611, LR: 5.41e-05
+2025-10-21 05:12:25,930 - INFO - Epoch 15, Step 250/300 - Loss: 0.0285, Perplexity: 1.0618, LR: 5.35e-05
+2025-10-21 05:12:38,621 - INFO - Epoch 15, Step 300/300 - Loss: 0.0243, Perplexity: 1.0521, LR: 5.29e-05
+2025-10-21 05:12:38,622 - INFO - Epoch 15 Complete - Avg Loss: 0.0243, Avg Perplexity: 1.0521
+2025-10-21 05:12:44,469 - INFO - Validation - Loss: 0.0016, Perplexity: 1.0017, Token Accuracy: 0.9997, Code Accuracy: 0.9997
+2025-10-21 05:12:44,470 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:12:45,354 - INFO - TPL computed on 93 samples: 1.0064
+2025-10-21 05:12:45,354 - INFO - Temporal Perplexity (TPL): 1.0064
+2025-10-21 05:12:45,354 - INFO - New best model! Validation loss: 0.0016
+2025-10-21 05:12:49,714 - INFO - Checkpoint saved: epoch 15
+2025-10-21 05:13:02,229 - INFO - Epoch 16, Step 50/300 - Loss: 0.0187, Perplexity: 1.0266, LR: 5.24e-05
+2025-10-21 05:13:14,574 - INFO - Epoch 16, Step 100/300 - Loss: 0.0203, Perplexity: 1.0309, LR: 5.18e-05
+2025-10-21 05:13:26,740 - INFO - Epoch 16, Step 150/300 - Loss: 0.0361, Perplexity: 1.0781, LR: 5.12e-05
+2025-10-21 05:13:39,234 - INFO - Epoch 16, Step 200/300 - Loss: 0.0284, Perplexity: 1.0598, LR: 5.06e-05
+2025-10-21 05:13:51,735 - INFO - Epoch 16, Step 250/300 - Loss: 0.0231, Perplexity: 1.0483, LR: 5.00e-05
+2025-10-21 05:14:04,347 - INFO - Epoch 16, Step 300/300 - Loss: 0.0212, Perplexity: 1.0426, LR: 4.94e-05
+2025-10-21 05:14:04,348 - INFO - Epoch 16 Complete - Avg Loss: 0.0212, Avg Perplexity: 1.0426
+2025-10-21 05:14:10,307 - INFO - Validation - Loss: 0.0012, Perplexity: 1.0012, Token Accuracy: 0.9998, Code Accuracy: 0.9998
+2025-10-21 05:14:10,308 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:14:11,193 - INFO - TPL computed on 93 samples: 1.0079
+2025-10-21 05:14:11,194 - INFO - Temporal Perplexity (TPL): 1.0079
+2025-10-21 05:14:11,194 - INFO - New best model! Validation loss: 0.0012
+2025-10-21 05:14:15,849 - INFO - Checkpoint saved: epoch 16
+2025-10-21 05:14:28,070 - INFO - Epoch 17, Step 50/300 - Loss: 0.0022, Perplexity: 1.0022, LR: 4.88e-05
+2025-10-21 05:14:40,311 - INFO - Epoch 17, Step 100/300 - Loss: 0.0262, Perplexity: 1.0604, LR: 4.82e-05
+2025-10-21 05:14:52,418 - INFO - Epoch 17, Step 150/300 - Loss: 0.0231, Perplexity: 1.0486, LR: 4.76e-05
+2025-10-21 05:15:04,717 - INFO - Epoch 17, Step 200/300 - Loss: 0.0282, Perplexity: 1.0565, LR: 4.71e-05
+2025-10-21 05:15:17,267 - INFO - Epoch 17, Step 250/300 - Loss: 0.0228, Perplexity: 1.0455, LR: 4.65e-05
+2025-10-21 05:15:29,315 - INFO - Epoch 17, Step 300/300 - Loss: 0.0200, Perplexity: 1.0389, LR: 4.59e-05
+2025-10-21 05:15:29,315 - INFO - Epoch 17 Complete - Avg Loss: 0.0200, Avg Perplexity: 1.0389
+2025-10-21 05:15:35,118 - INFO - Validation - Loss: 0.0006, Perplexity: 1.0006, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:15:35,119 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:15:36,009 - INFO - TPL computed on 93 samples: 1.0019
+2025-10-21 05:15:36,009 - INFO - Temporal Perplexity (TPL): 1.0019
+2025-10-21 05:15:36,009 - INFO - New best model! Validation loss: 0.0006
+2025-10-21 05:15:40,419 - INFO - Checkpoint saved: epoch 17
+2025-10-21 05:15:52,552 - INFO - Epoch 18, Step 50/300 - Loss: 0.0161, Perplexity: 1.0205, LR: 4.53e-05
+2025-10-21 05:16:05,170 - INFO - Epoch 18, Step 100/300 - Loss: 0.0090, Perplexity: 1.0112, LR: 4.47e-05
+2025-10-21 05:16:17,828 - INFO - Epoch 18, Step 150/300 - Loss: 0.0118, Perplexity: 1.0154, LR: 4.41e-05
+2025-10-21 05:16:30,221 - INFO - Epoch 18, Step 200/300 - Loss: 0.0094, Perplexity: 1.0121, LR: 4.35e-05
+2025-10-21 05:16:42,570 - INFO - Epoch 18, Step 250/300 - Loss: 0.0231, Perplexity: 1.0448, LR: 4.29e-05
+2025-10-21 05:16:54,888 - INFO - Epoch 18, Step 300/300 - Loss: 0.0197, Perplexity: 1.0377, LR: 4.24e-05
+2025-10-21 05:16:54,889 - INFO - Epoch 18 Complete - Avg Loss: 0.0197, Avg Perplexity: 1.0377
+2025-10-21 05:17:00,819 - INFO - Validation - Loss: 0.0030, Perplexity: 1.0030, Token Accuracy: 0.9995, Code Accuracy: 0.9994
+2025-10-21 05:17:00,820 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:17:01,697 - INFO - TPL computed on 93 samples: 1.0065
+2025-10-21 05:17:01,697 - INFO - Temporal Perplexity (TPL): 1.0065
+2025-10-21 05:17:13,963 - INFO - Epoch 19, Step 50/300 - Loss: 0.0407, Perplexity: 1.0786, LR: 4.18e-05
+2025-10-21 05:17:26,361 - INFO - Epoch 19, Step 100/300 - Loss: 0.0208, Perplexity: 1.0397, LR: 4.12e-05
+2025-10-21 05:17:38,813 - INFO - Epoch 19, Step 150/300 - Loss: 0.0147, Perplexity: 1.0274, LR: 4.06e-05
+2025-10-21 05:17:51,109 - INFO - Epoch 19, Step 200/300 - Loss: 0.0214, Perplexity: 1.0407, LR: 4.00e-05
+2025-10-21 05:18:03,600 - INFO - Epoch 19, Step 250/300 - Loss: 0.0176, Perplexity: 1.0330, LR: 3.94e-05
+2025-10-21 05:18:15,935 - INFO - Epoch 19, Step 300/300 - Loss: 0.0170, Perplexity: 1.0304, LR: 3.88e-05
+2025-10-21 05:18:15,936 - INFO - Epoch 19 Complete - Avg Loss: 0.0170, Avg Perplexity: 1.0304
+2025-10-21 05:18:21,678 - INFO - Validation - Loss: 0.0004, Perplexity: 1.0004, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:18:21,679 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:18:22,563 - INFO - TPL computed on 93 samples: 1.0021
+2025-10-21 05:18:22,564 - INFO - Temporal Perplexity (TPL): 1.0021
+2025-10-21 05:18:22,564 - INFO - New best model! Validation loss: 0.0004
+2025-10-21 05:18:27,195 - INFO - Checkpoint saved: epoch 19
+2025-10-21 05:18:39,625 - INFO - Epoch 20, Step 50/300 - Loss: 0.0021, Perplexity: 1.0021, LR: 3.82e-05
+2025-10-21 05:18:52,397 - INFO - Epoch 20, Step 100/300 - Loss: 0.0022, Perplexity: 1.0023, LR: 3.76e-05
+2025-10-21 05:19:04,819 - INFO - Epoch 20, Step 150/300 - Loss: 0.0045, Perplexity: 1.0052, LR: 3.71e-05
+2025-10-21 05:19:17,356 - INFO - Epoch 20, Step 200/300 - Loss: 0.0038, Perplexity: 1.0043, LR: 3.65e-05
+2025-10-21 05:19:29,778 - INFO - Epoch 20, Step 250/300 - Loss: 0.0107, Perplexity: 1.0171, LR: 3.59e-05
+2025-10-21 05:19:42,225 - INFO - Epoch 20, Step 300/300 - Loss: 0.0150, Perplexity: 1.0242, LR: 3.53e-05
+2025-10-21 05:19:42,225 - INFO - Epoch 20 Complete - Avg Loss: 0.0150, Avg Perplexity: 1.0242
+2025-10-21 05:19:48,010 - INFO - Validation - Loss: 0.0004, Perplexity: 1.0004, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:19:48,010 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:19:48,895 - INFO - TPL computed on 93 samples: 1.0018
+2025-10-21 05:19:48,895 - INFO - Temporal Perplexity (TPL): 1.0018
+2025-10-21 05:19:51,128 - INFO - Checkpoint saved: epoch 20
+2025-10-21 05:20:03,415 - INFO - Epoch 21, Step 50/300 - Loss: 0.0027, Perplexity: 1.0028, LR: 3.47e-05
+2025-10-21 05:20:15,922 - INFO - Epoch 21, Step 100/300 - Loss: 0.0296, Perplexity: 1.0635, LR: 3.41e-05
+2025-10-21 05:20:28,242 - INFO - Epoch 21, Step 150/300 - Loss: 0.0234, Perplexity: 1.0469, LR: 3.35e-05
+2025-10-21 05:20:40,780 - INFO - Epoch 21, Step 200/300 - Loss: 0.0181, Perplexity: 1.0357, LR: 3.29e-05
+2025-10-21 05:20:53,167 - INFO - Epoch 21, Step 250/300 - Loss: 0.0166, Perplexity: 1.0311, LR: 3.24e-05
+2025-10-21 05:21:05,073 - INFO - Epoch 21, Step 300/300 - Loss: 0.0159, Perplexity: 1.0287, LR: 3.18e-05
+2025-10-21 05:21:05,073 - INFO - Epoch 21 Complete - Avg Loss: 0.0159, Avg Perplexity: 1.0287
+2025-10-21 05:21:10,944 - INFO - Validation - Loss: 0.0003, Perplexity: 1.0003, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:21:10,945 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:21:11,835 - INFO - TPL computed on 93 samples: 1.0003
+2025-10-21 05:21:11,836 - INFO - Temporal Perplexity (TPL): 1.0003
+2025-10-21 05:21:11,836 - INFO - New best model! Validation loss: 0.0003
+2025-10-21 05:21:16,430 - INFO - Checkpoint saved: epoch 21
+2025-10-21 05:21:28,704 - INFO - Epoch 22, Step 50/300 - Loss: 0.0010, Perplexity: 1.0011, LR: 3.12e-05
+2025-10-21 05:21:41,045 - INFO - Epoch 22, Step 100/300 - Loss: 0.0010, Perplexity: 1.0010, LR: 3.06e-05
+2025-10-21 05:21:53,168 - INFO - Epoch 22, Step 150/300 - Loss: 0.0013, Perplexity: 1.0013, LR: 3.00e-05
+2025-10-21 05:22:05,785 - INFO - Epoch 22, Step 200/300 - Loss: 0.0141, Perplexity: 1.0244, LR: 2.94e-05
+2025-10-21 05:22:17,984 - INFO - Epoch 22, Step 250/300 - Loss: 0.0172, Perplexity: 1.0324, LR: 2.88e-05
+2025-10-21 05:22:30,181 - INFO - Epoch 22, Step 300/300 - Loss: 0.0144, Perplexity: 1.0271, LR: 2.82e-05
+2025-10-21 05:22:30,182 - INFO - Epoch 22 Complete - Avg Loss: 0.0144, Avg Perplexity: 1.0271
+2025-10-21 05:22:36,019 - INFO - Validation - Loss: 0.0002, Perplexity: 1.0002, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:22:36,020 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:22:36,899 - INFO - TPL computed on 93 samples: 1.0002
+2025-10-21 05:22:36,899 - INFO - Temporal Perplexity (TPL): 1.0002
+2025-10-21 05:22:36,899 - INFO - New best model! Validation loss: 0.0002
+2025-10-21 05:22:41,454 - INFO - Checkpoint saved: epoch 22
+2025-10-21 05:22:53,820 - INFO - Epoch 23, Step 50/300 - Loss: 0.0009, Perplexity: 1.0009, LR: 2.76e-05
+2025-10-21 05:23:05,642 - INFO - Epoch 23, Step 100/300 - Loss: 0.0056, Perplexity: 1.0069, LR: 2.71e-05
+2025-10-21 05:23:18,279 - INFO - Epoch 23, Step 150/300 - Loss: 0.0070, Perplexity: 1.0086, LR: 2.65e-05
+2025-10-21 05:23:31,019 - INFO - Epoch 23, Step 200/300 - Loss: 0.0095, Perplexity: 1.0128, LR: 2.59e-05
+2025-10-21 05:23:43,513 - INFO - Epoch 23, Step 250/300 - Loss: 0.0141, Perplexity: 1.0259, LR: 2.53e-05
+2025-10-21 05:23:55,954 - INFO - Epoch 23, Step 300/300 - Loss: 0.0137, Perplexity: 1.0241, LR: 2.47e-05
+2025-10-21 05:23:55,954 - INFO - Epoch 23 Complete - Avg Loss: 0.0137, Avg Perplexity: 1.0241
+2025-10-21 05:24:01,764 - INFO - Validation - Loss: 0.0001, Perplexity: 1.0001, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:24:01,765 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:24:02,648 - INFO - TPL computed on 93 samples: 1.0002
+2025-10-21 05:24:02,648 - INFO - Temporal Perplexity (TPL): 1.0002
+2025-10-21 05:24:02,648 - INFO - New best model! Validation loss: 0.0001
+2025-10-21 05:24:07,252 - INFO - Checkpoint saved: epoch 23
+2025-10-21 05:24:19,775 - INFO - Epoch 24, Step 50/300 - Loss: 0.0141, Perplexity: 1.0197, LR: 2.41e-05
+2025-10-21 05:24:32,115 - INFO - Epoch 24, Step 100/300 - Loss: 0.0155, Perplexity: 1.0227, LR: 2.35e-05
+2025-10-21 05:24:44,629 - INFO - Epoch 24, Step 150/300 - Loss: 0.0181, Perplexity: 1.0293, LR: 2.29e-05
+2025-10-21 05:24:57,348 - INFO - Epoch 24, Step 200/300 - Loss: 0.0138, Perplexity: 1.0222, LR: 2.24e-05
+2025-10-21 05:25:09,826 - INFO - Epoch 24, Step 250/300 - Loss: 0.0119, Perplexity: 1.0187, LR: 2.18e-05
+2025-10-21 05:25:22,257 - INFO - Epoch 24, Step 300/300 - Loss: 0.0104, Perplexity: 1.0161, LR: 2.12e-05
+2025-10-21 05:25:22,258 - INFO - Epoch 24 Complete - Avg Loss: 0.0104, Avg Perplexity: 1.0161
+2025-10-21 05:25:28,077 - INFO - Validation - Loss: 0.0001, Perplexity: 1.0001, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:25:28,078 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:25:28,966 - INFO - TPL computed on 93 samples: 1.0002
+2025-10-21 05:25:28,966 - INFO - Temporal Perplexity (TPL): 1.0002
+2025-10-21 05:25:28,966 - INFO - New best model! Validation loss: 0.0001
+2025-10-21 05:25:33,574 - INFO - Checkpoint saved: epoch 24
+2025-10-21 05:25:46,002 - INFO - Epoch 25, Step 50/300 - Loss: 0.0110, Perplexity: 1.0142, LR: 2.06e-05
+2025-10-21 05:25:58,162 - INFO - Epoch 25, Step 100/300 - Loss: 0.0058, Perplexity: 1.0074, LR: 2.00e-05
+2025-10-21 05:26:10,830 - INFO - Epoch 25, Step 150/300 - Loss: 0.0122, Perplexity: 1.0213, LR: 1.94e-05
+2025-10-21 05:26:23,164 - INFO - Epoch 25, Step 200/300 - Loss: 0.0108, Perplexity: 1.0178, LR: 1.88e-05
+2025-10-21 05:26:35,663 - INFO - Epoch 25, Step 250/300 - Loss: 0.0087, Perplexity: 1.0143, LR: 1.82e-05
+2025-10-21 05:26:47,877 - INFO - Epoch 25, Step 300/300 - Loss: 0.0119, Perplexity: 1.0202, LR: 1.76e-05
+2025-10-21 05:26:47,877 - INFO - Epoch 25 Complete - Avg Loss: 0.0119, Avg Perplexity: 1.0202
+2025-10-21 05:26:53,851 - INFO - Validation - Loss: 0.0001, Perplexity: 1.0001, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:26:53,851 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:26:54,731 - INFO - TPL computed on 93 samples: 1.0002
+2025-10-21 05:26:54,731 - INFO - Temporal Perplexity (TPL): 1.0002
+2025-10-21 05:26:54,731 - INFO - New best model! Validation loss: 0.0001
+2025-10-21 05:26:59,348 - INFO - Checkpoint saved: epoch 25
+2025-10-21 05:27:11,354 - INFO - Epoch 26, Step 50/300 - Loss: 0.0085, Perplexity: 1.0104, LR: 1.71e-05
+2025-10-21 05:27:23,718 - INFO - Epoch 26, Step 100/300 - Loss: 0.0077, Perplexity: 1.0092, LR: 1.65e-05
+2025-10-21 05:27:35,969 - INFO - Epoch 26, Step 150/300 - Loss: 0.0055, Perplexity: 1.0065, LR: 1.59e-05
+2025-10-21 05:27:48,316 - INFO - Epoch 26, Step 200/300 - Loss: 0.0055, Perplexity: 1.0064, LR: 1.53e-05
+2025-10-21 05:28:00,717 - INFO - Epoch 26, Step 250/300 - Loss: 0.0141, Perplexity: 1.0237, LR: 1.47e-05
+2025-10-21 05:28:12,691 - INFO - Epoch 26, Step 300/300 - Loss: 0.0118, Perplexity: 1.0198, LR: 1.41e-05
+2025-10-21 05:28:12,692 - INFO - Epoch 26 Complete - Avg Loss: 0.0118, Avg Perplexity: 1.0198
+2025-10-21 05:28:18,575 - INFO - Validation - Loss: 0.0001, Perplexity: 1.0001, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:28:18,576 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:28:19,463 - INFO - TPL computed on 93 samples: 1.0001
+2025-10-21 05:28:19,463 - INFO - Temporal Perplexity (TPL): 1.0001
+2025-10-21 05:28:19,463 - INFO - New best model! Validation loss: 0.0001
+2025-10-21 05:28:24,076 - INFO - Checkpoint saved: epoch 26
+2025-10-21 05:28:36,917 - INFO - Epoch 27, Step 50/300 - Loss: 0.0026, Perplexity: 1.0028, LR: 1.35e-05
+2025-10-21 05:28:49,321 - INFO - Epoch 27, Step 100/300 - Loss: 0.0126, Perplexity: 1.0217, LR: 1.29e-05
+2025-10-21 05:29:01,970 - INFO - Epoch 27, Step 150/300 - Loss: 0.0115, Perplexity: 1.0181, LR: 1.24e-05
+2025-10-21 05:29:14,272 - INFO - Epoch 27, Step 200/300 - Loss: 0.0143, Perplexity: 1.0239, LR: 1.18e-05
+2025-10-21 05:29:26,669 - INFO - Epoch 27, Step 250/300 - Loss: 0.0116, Perplexity: 1.0192, LR: 1.12e-05
+2025-10-21 05:29:38,848 - INFO - Epoch 27, Step 300/300 - Loss: 0.0097, Perplexity: 1.0161, LR: 1.06e-05
+2025-10-21 05:29:38,848 - INFO - Epoch 27 Complete - Avg Loss: 0.0097, Avg Perplexity: 1.0161
+2025-10-21 05:29:44,627 - INFO - Validation - Loss: 0.0001, Perplexity: 1.0001, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:29:44,628 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:29:45,511 - INFO - TPL computed on 93 samples: 1.0001
+2025-10-21 05:29:45,511 - INFO - Temporal Perplexity (TPL): 1.0001
+2025-10-21 05:29:45,511 - INFO - New best model! Validation loss: 0.0001
+2025-10-21 05:29:49,899 - INFO - Checkpoint saved: epoch 27
+2025-10-21 05:30:02,442 - INFO - Epoch 28, Step 50/300 - Loss: 0.0196, Perplexity: 1.0301, LR: 1.00e-05
+2025-10-21 05:30:14,749 - INFO - Epoch 28, Step 100/300 - Loss: 0.0100, Perplexity: 1.0153, LR: 9.41e-06
+2025-10-21 05:30:27,211 - INFO - Epoch 28, Step 150/300 - Loss: 0.0069, Perplexity: 1.0104, LR: 8.82e-06
+2025-10-21 05:30:39,627 - INFO - Epoch 28, Step 200/300 - Loss: 0.0052, Perplexity: 1.0079, LR: 8.24e-06
+2025-10-21 05:30:51,670 - INFO - Epoch 28, Step 250/300 - Loss: 0.0043, Perplexity: 1.0064, LR: 7.65e-06
+2025-10-21 05:31:04,005 - INFO - Epoch 28, Step 300/300 - Loss: 0.0081, Perplexity: 1.0121, LR: 7.06e-06
+2025-10-21 05:31:04,005 - INFO - Epoch 28 Complete - Avg Loss: 0.0081, Avg Perplexity: 1.0121
+2025-10-21 05:31:09,822 - INFO - Validation - Loss: 0.0001, Perplexity: 1.0001, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:31:09,823 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:31:10,701 - INFO - TPL computed on 93 samples: 1.0001
+2025-10-21 05:31:10,701 - INFO - Temporal Perplexity (TPL): 1.0001
+2025-10-21 05:31:10,701 - INFO - New best model! Validation loss: 0.0001
+2025-10-21 05:31:15,323 - INFO - Checkpoint saved: epoch 28
+2025-10-21 05:31:27,319 - INFO - Epoch 29, Step 50/300 - Loss: 0.0199, Perplexity: 1.0308, LR: 6.47e-06
+2025-10-21 05:31:39,633 - INFO - Epoch 29, Step 100/300 - Loss: 0.0109, Perplexity: 1.0164, LR: 5.88e-06
+2025-10-21 05:31:52,275 - INFO - Epoch 29, Step 150/300 - Loss: 0.0075, Perplexity: 1.0111, LR: 5.29e-06
+2025-10-21 05:32:04,761 - INFO - Epoch 29, Step 200/300 - Loss: 0.0068, Perplexity: 1.0097, LR: 4.71e-06
+2025-10-21 05:32:17,011 - INFO - Epoch 29, Step 250/300 - Loss: 0.0085, Perplexity: 1.0122, LR: 4.12e-06
+2025-10-21 05:32:29,638 - INFO - Epoch 29, Step 300/300 - Loss: 0.0071, Perplexity: 1.0102, LR: 3.53e-06
+2025-10-21 05:32:29,639 - INFO - Epoch 29 Complete - Avg Loss: 0.0071, Avg Perplexity: 1.0102
+2025-10-21 05:32:35,493 - INFO - Validation - Loss: 0.0001, Perplexity: 1.0001, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:32:35,494 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:32:36,381 - INFO - TPL computed on 93 samples: 1.0001
+2025-10-21 05:32:36,381 - INFO - Temporal Perplexity (TPL): 1.0001
+2025-10-21 05:32:36,381 - INFO - New best model! Validation loss: 0.0001
+2025-10-21 05:32:40,313 - INFO - Checkpoint saved: epoch 29
+2025-10-21 05:32:52,505 - INFO - Epoch 30, Step 50/300 - Loss: 0.0018, Perplexity: 1.0019, LR: 2.94e-06
+2025-10-21 05:33:05,084 - INFO - Epoch 30, Step 100/300 - Loss: 0.0011, Perplexity: 1.0012, LR: 2.35e-06
+2025-10-21 05:33:17,148 - INFO - Epoch 30, Step 150/300 - Loss: 0.0055, Perplexity: 1.0075, LR: 1.76e-06
+2025-10-21 05:33:29,463 - INFO - Epoch 30, Step 200/300 - Loss: 0.0081, Perplexity: 1.0112, LR: 1.18e-06
+2025-10-21 05:33:41,868 - INFO - Epoch 30, Step 250/300 - Loss: 0.0067, Perplexity: 1.0091, LR: 5.88e-07
+2025-10-21 05:33:53,973 - INFO - Epoch 30, Step 300/300 - Loss: 0.0063, Perplexity: 1.0085, LR: 0.00e+00
+2025-10-21 05:33:53,974 - INFO - Epoch 30 Complete - Avg Loss: 0.0063, Avg Perplexity: 1.0085
+2025-10-21 05:33:59,783 - INFO - Validation - Loss: 0.0001, Perplexity: 1.0001, Token Accuracy: 1.0000, Code Accuracy: 1.0000
+2025-10-21 05:33:59,784 - INFO - Computing TPL on 93 patients with 2+ visits
+2025-10-21 05:34:00,665 - INFO - TPL computed on 93 samples: 1.0001
+2025-10-21 05:34:00,665 - INFO - Temporal Perplexity (TPL): 1.0001
+2025-10-21 05:34:00,665 - INFO - New best model! Validation loss: 0.0001
+2025-10-21 05:34:04,800 - INFO - Checkpoint saved: epoch 30
+2025-10-21 05:34:04,800 - INFO - 
+================================================================================
+2025-10-21 05:34:04,800 - INFO - Training Complete!
+2025-10-21 05:34:04,801 - INFO - ================================================================================
+2025-10-21 05:34:04,801 - INFO - Best validation loss: 0.0001
+2025-10-21 05:34:04,801 - INFO - Best validation perplexity: 1.0001
+========================================
+Training completed
+End Time: Tue Oct 21 05:34:05 CDT 2025
+Exit Code: 0
+========================================

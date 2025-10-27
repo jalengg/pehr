@@ -1,0 +1,107 @@
+========================================
+PromptEHR Training Job
+========================================
+Job ID: 5288124
+Job Name: promptehr_train
+Node: ccc0465
+Partition: IllinoisComputes-GPU
+Working Directory: /u/jalenj4/pehr_scratch
+CUDA_VISIBLE_DEVICES: 0
+Start Time: Sun Oct 12 19:01:18 CDT 2025
+========================================
+GPU Information:
+Sun Oct 12 19:01:18 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 575.57.08              Driver Version: 575.57.08      CUDA Version: 12.9     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H200                    Off |   00000000:19:00.0 Off |                    0 |
+| N/A   37C    P0             77W /  700W |       0MiB / 143771MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+========================================
+Environment:
+Python version: Python 3.12.11
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+CUDA version: 12.8
+========================================
+Starting PromptEHR training...
+2025-10-12 19:01:25,404 - INFO - ================================================================================
+2025-10-12 19:01:25,404 - INFO - PromptEHR Training Pipeline - Phase 3
+2025-10-12 19:01:25,404 - INFO - ================================================================================
+2025-10-12 19:01:25,404 - INFO - 
+Configuration:
+
+[Data]
+  Patients: 3000
+  Max sequence length: 256
+  Train/val split: 0.2
+
+[Model]
+  Base model: facebook/bart-base
+  Continuous features: 1
+  Categorical features: 2
+  Prompt length: 1
+
+[Training]
+  Batch size: 16
+  Epochs: 30
+  Learning rate: 0.0001
+  Warmup steps: 500
+  Device: cuda
+2025-10-12 19:01:25,414 - INFO - 
+Random seed: 42
+2025-10-12 19:01:25,633 - INFO - Device: cuda
+2025-10-12 19:01:25,633 - INFO - 
+================================================================================
+2025-10-12 19:01:25,633 - INFO - Loading MIMIC-III Data
+2025-10-12 19:01:25,633 - INFO - ================================================================================
+2025-10-12 19:01:25,633 - INFO - Loading MIMIC-III data files
+2025-10-12 19:01:25,681 - INFO - Loaded 46520 patients
+2025-10-12 19:01:25,805 - INFO - Loaded 58976 admissions
+2025-10-12 19:01:25,933 - INFO - Loaded 651047 diagnosis records
+2025-10-12 19:01:26,179 - INFO - Processing patient records
+2025-10-12 19:01:27,797 - INFO - Loaded 3000 patient records
+2025-10-12 19:01:27,797 - INFO - Diagnosis vocabulary size: 2823
+2025-10-12 19:01:27,798 - INFO - Average visits per patient: 1.27
+2025-10-12 19:01:27,798 - INFO - Average codes per visit: 9.27
+2025-10-12 19:01:27,798 - INFO - Gender distribution: {'M': 1686, 'F': 1314}
+2025-10-12 19:01:27,799 - INFO - Ethnicity distribution: {'WHITE': 1990, 'UNKNOWN/NOT SPECIFIED': 429, 'BLACK': 239, 'OTHER': 120, 'ASIAN': 119, 'HISPANIC OR LATINO': 103}
+2025-10-12 19:01:27,816 - INFO - Loaded 3000 patients
+2025-10-12 19:01:27,816 - INFO - Vocabulary size: 2823 diagnosis codes
+2025-10-12 19:01:27,816 - INFO - Tokenizer vocab size: 2829
+2025-10-12 19:01:27,816 - INFO - Dataset size: 3000 patients
+2025-10-12 19:01:27,817 - INFO - Train size: 2400, Validation size: 600
+2025-10-12 19:01:27,817 - INFO - Train batches: 150, Validation batches: 38
+2025-10-12 19:01:27,817 - INFO - 
+================================================================================
+2025-10-12 19:01:27,817 - INFO - Initializing Model
+2025-10-12 19:01:27,817 - INFO - ================================================================================
+2025-10-12 19:01:27,918 - INFO - BART config vocab size: 2829
+2025-10-12 19:01:29,568 - INFO - Total parameters: 102,997,248
+2025-10-12 19:01:29,568 - INFO - Trainable parameters: 102,997,248
+2025-10-12 19:01:29,569 - INFO - Total training steps: 4500
+2025-10-12 19:01:29,569 - INFO - Warmup steps: 500
+2025-10-12 19:01:29,569 - INFO - 
+================================================================================
+2025-10-12 19:01:29,569 - INFO - Starting Training
+2025-10-12 19:01:29,569 - INFO - ================================================================================
+2025-10-12 19:01:33,997 - INFO - Epoch 1, Step 50/150 - Loss: 6.9822, Perplexity: 1331.1336, LR: 1.00e-05
+2025-10-12 19:01:38,169 - INFO - Epoch 1, Step 100/150 - Loss: 6.2163, Perplexity: 792.8791, LR: 2.00e-05
+2025-10-12 19:01:42,343 - INFO - Epoch 1, Step 150/150 - Loss: 5.7679, Perplexity: 576.0411, LR: 3.00e-05
+2025-10-12 19:01:42,343 - INFO - Epoch 1 Complete - Avg Loss: 5.7679, Avg Perplexity: 576.0411
+2025-10-12 19:01:43,374 - INFO - Validation - Loss: 4.5975, Perplexity: 104.1221, Token Accuracy: 0.3202, Code Accuracy: 0.0608
+2025-10-12 19:01:43,374 - INFO - New best model! Validation loss: 4.5975
+2025-10-12 19:01:46,302 - INFO - Checkpoint saved: epoch 1

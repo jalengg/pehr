@@ -1,0 +1,495 @@
+
+████████████████████████████████████████████████████████████████████████████████
+█                                                                              █
+█               GENERATED SYNTHETIC PATIENTS - MEDICAL TRANSLATION             █
+█                                                                              █
+████████████████████████████████████████████████████████████████████████████████
+
+================================================================================
+PATIENT: 65.0yo WHITE M
+================================================================================
+
+--- VISIT 1 (12 diagnosis codes) ---
+
+   1. 4295     - Other ill-defined heart diseases
+   2. 82521    - Fracture of angle of mandible, closed
+   3. 7098     - Other disorders of skin and subcutaneous tissue
+   4. 42971    - Paroxysmal ventricular tachycardia
+   5. 3010     - Personality disorder, unspecified
+   6. 5968     - Other and unspecified disorders of kidney and ureter
+   7. 82521    - Fracture of angle of mandible, closed
+   8. 7718     - Shortness of breath
+   9. E8493    - Accidents occurring in residential institution
+  10. 73022    - Fracture of femur, closed
+  11. 9053     - Late effect of fracture of neck of femur
+  12. E8120    - Other and unspecified water transport accident, injuring unspecified person
+
+Total visits: 1
+Total diagnosis codes: 12
+Average codes per visit: 12.0
+
+================================================================================
+PATIENT: 45.0yo BLACK F
+================================================================================
+
+--- VISIT 1 (15 diagnosis codes) ---
+
+   1. 7795     - Other nonspecific abnormal findings of blood chemistry
+   2. 8600     - Traumatic pneumothorax without mention of open wound into thorax
+   3. 8072     - Fracture of nasal bones, unspecified
+   4. 7313     - Pathological fracture of vertebrae
+   5. 43882    - Other peripheral vascular disease
+   6. 99791    - Other and unspecified systemic manifestations of infection
+   7. 53641    - Duodenitis
+   8. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+   9. 42091    - Arteriovenous fistula, acquired
+  10. 25082    - Diabetes with other specified manifestations, type II or unspecified, not stated as uncontrolled
+  11. 1174     - Malignant neoplasm of breast (female), unspecified
+  12. 78839    - Other symptoms involving urinary system
+  13. 87320    - Open wound of scalp, without mention of complication
+  14. 73022    - Fracture of femur, closed
+  15. V8381    - Body Mass Index 25.0-25.9, adult
+
+--- VISIT 2 (13 diagnosis codes) ---
+
+   1. 9053     - Late effect of fracture of neck of femur
+   2. 75567    - Congenital anomalies of spinal cord
+   3. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+   4. V0251    - Need for prophylactic vaccination and inoculation against influenza
+   5. 6089     - Female infertility, unspecified
+   6. 76522    - Fetal distress first noted during labor and delivery in liveborn infant
+   7. V0381    - Need for prophylactic vaccination and inoculation against Hemophilus influenzae, type B [Hib]
+   8. 5198     - Other diseases of lung, not elsewhere classified
+   9. 9053     - Late effect of fracture of neck of femur
+  10. 7098     - Other disorders of skin and subcutaneous tissue
+  11. V4573    - Acquired absence of intestine (large) (small)
+  12. 73022    - Fracture of femur, closed
+  13. 7140     - Rheumatoid arthritis
+
+Total visits: 2
+Total diagnosis codes: 28
+Average codes per visit: 14.0
+
+================================================================================
+PATIENT: 30.0yo HISPANIC M
+================================================================================
+
+--- VISIT 1 (15 diagnosis codes) ---
+
+   1. 92400    - Fracture of carpal bone(s), unspecified, closed
+   2. 5968     - Other and unspecified disorders of kidney and ureter
+   3. 78839    - Other symptoms involving urinary system
+   4. 76407    - Polyhydramnios
+   5. 87349    - Other open wound of face
+   6. 42971    - Paroxysmal ventricular tachycardia
+   7. 7718     - Shortness of breath
+   8. 5258     - Gastrojejunal ulcer, unspecified as acute or chronic, without mention of hemorrhage or perforation, without mention of obstruction
+   9. 7313     - Pathological fracture of vertebrae
+  10. 76496    - Other multiple gestation
+  11. V4569    - Other postprocedural status, unspecified
+  12. 7313     - Pathological fracture of vertebrae
+  13. 0839     - Other specified intestinal infections
+  14. 9701     - Burn confined to eye and adnexa
+  15. 5224     - Chronic gastric ulcer without mention of hemorrhage or perforation, without mention of obstruction
+
+--- VISIT 2 (15 diagnosis codes) ---
+
+   1. 5258     - Gastrojejunal ulcer, unspecified as acute or chronic, without mention of hemorrhage or perforation, without mention of obstruction
+   2. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+   3. 76496    - Other multiple gestation
+   4. 3010     - Personality disorder, unspecified
+   5. 37943    - Other and unspecified disorders of the autonomic nervous system
+   6. V3201    - Twin pregnancy with antenatal problem
+   7. 3010     - Personality disorder, unspecified
+   8. 73022    - Fracture of femur, closed
+   9. 80221    - Fracture of nasal bones, closed
+  10. 8731     - Open wound of scalp, without mention of complication
+  11. 76522    - Fetal distress first noted during labor and delivery in liveborn infant
+  12. 73022    - Fracture of femur, closed
+  13. 5695     - Abscess of intestine
+  14. 72888    - Other disorders of muscle, ligament, and fascia
+  15. 3090     - Adjustment disorder, unspecified
+
+--- VISIT 3 (15 diagnosis codes) ---
+
+   1. 3010     - Personality disorder, unspecified
+   2. 25071    - Diabetes with peripheral circulatory disorders, type I, not stated as uncontrolled
+   3. 73022    - Fracture of femur, closed
+   4. 25071    - Diabetes with peripheral circulatory disorders, type I, not stated as uncontrolled
+   5. 9053     - Late effect of fracture of neck of femur
+   6. 37943    - Other and unspecified disorders of the autonomic nervous system
+   7. 99831    - Other and unspecified infection
+   8. 83905    - Disturbance of skin sensation
+   9. 42091    - Arteriovenous fistula, acquired
+  10. 4295     - Other ill-defined heart diseases
+  11. 28319    - Chronic lymphoid leukemia, without mention of having achieved remission
+  12. 80625    - Closed fracture of T7-T8
+  13. 5641     - Irritable bowel syndrome
+  14. 7778     - Other edema
+  15. 5641     - Irritable bowel syndrome
+
+Total visits: 3
+Total diagnosis codes: 45
+Average codes per visit: 15.0
+
+================================================================================
+PATIENT: 70.0yo WHITE F
+================================================================================
+
+--- VISIT 1 (15 diagnosis codes) ---
+
+   1. 7098     - Other disorders of skin and subcutaneous tissue
+   2. 9053     - Late effect of fracture of neck of femur
+   3. 5370     - Diverticulosis of small intestine without mention of hemorrhage
+   4. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+   5. 6089     - Female infertility, unspecified
+   6. E8493    - Accidents occurring in residential institution
+   7. 3688     - Other specified cerebral degenerations
+   8. 42091    - Arteriovenous fistula, acquired
+   9. 5968     - Other and unspecified disorders of kidney and ureter
+  10. E8538    - Accidental poisoning by other specified gases and vapors
+  11. 4267     - Cardiac dysrhythmias, unspecified
+  12. 5224     - Chronic gastric ulcer without mention of hemorrhage or perforation, without mention of obstruction
+  13. 30560    - Alcohol abuse, unspecified
+  14. 5370     - Diverticulosis of small intestine without mention of hemorrhage
+  15. E8493    - Accidents occurring in residential institution
+
+--- VISIT 2 (15 diagnosis codes) ---
+
+   1. 83905    - Disturbance of skin sensation
+   2. 5080     - Influenza with pneumonia
+   3. 99791    - Other and unspecified systemic manifestations of infection
+   4. 9950     - Certain adverse effects not elsewhere classified, unspecified
+   5. 92400    - Fracture of carpal bone(s), unspecified, closed
+   6. 76525    - Extreme immaturity
+   7. 42091    - Arteriovenous fistula, acquired
+   8. 7098     - Other disorders of skin and subcutaneous tissue
+   9. 46451    - Acute arterial embolism and thrombosis of iliac artery
+  10. 07020    - Varicella with other specified complications
+  11. 7718     - Shortness of breath
+  12. 7098     - Other disorders of skin and subcutaneous tissue
+  13. 76496    - Other multiple gestation
+  14. E8493    - Accidents occurring in residential institution
+  15. 34680    - Migraine, unspecified, without mention of intractable migraine
+
+--- VISIT 3 (15 diagnosis codes) ---
+
+   1. 99791    - Other and unspecified systemic manifestations of infection
+   2. 25071    - Diabetes with peripheral circulatory disorders, type I, not stated as uncontrolled
+   3. 4295     - Other ill-defined heart diseases
+   4. 80426    - Multiple fractures involving both lower limbs, lower with upper limb, and lower limb(s) with rib(s) and sternum, closed
+   5. E8493    - Accidents occurring in residential institution
+   6. 46410    - Acute arterial embolism and thrombosis of unspecified site
+   7. 7061     - Other regional lymphadenitis
+   8. 85142    - Sprains and strains of knee
+   9. 3010     - Personality disorder, unspecified
+  10. 25071    - Diabetes with peripheral circulatory disorders, type I, not stated as uncontrolled
+  11. 81341    - Sprains and strains of wrist
+  12. 87320    - Open wound of scalp, without mention of complication
+  13. 6089     - Female infertility, unspecified
+  14. E8493    - Accidents occurring in residential institution
+  15. 99831    - Other and unspecified infection
+
+Total visits: 3
+Total diagnosis codes: 45
+Average codes per visit: 15.0
+
+================================================================================
+PATIENT: 55.0yo ASIAN M
+================================================================================
+
+--- VISIT 1 (15 diagnosis codes) ---
+
+   1. 45189    - Other venous embolism and thrombosis
+   2. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+   3. V8541    - Body Mass Index 40.0-44.9, adult
+   4. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+   5. 76496    - Other multiple gestation
+   6. 5080     - Influenza with pneumonia
+   7. 7718     - Shortness of breath
+   8. 76526    - Other preterm infants
+   9. 7718     - Shortness of breath
+  10. 4254     - Other primary cardiomyopathies
+  11. 3310     - Alzheimer's disease
+  12. 76496    - Other multiple gestation
+  13. 4254     - Other primary cardiomyopathies
+  14. 73022    - Fracture of femur, closed
+  15. 5650     - Anal fissure
+
+--- VISIT 2 (15 diagnosis codes) ---
+
+   1. 53641    - Duodenitis
+   2. 77083    - Asphyxia and hypoxemia
+   3. 5968     - Other and unspecified disorders of kidney and ureter
+   4. 4847     - Other ventricular premature beats (VPB)
+   5. V4573    - Acquired absence of intestine (large) (small)
+   6. 25071    - Diabetes with peripheral circulatory disorders, type I, not stated as uncontrolled
+   7. 87320    - Open wound of scalp, without mention of complication
+   8. V0381    - Need for prophylactic vaccination and inoculation against Hemophilus influenzae, type B [Hib]
+   9. 7098     - Other disorders of skin and subcutaneous tissue
+  10. 80229    - Fracture of face bones, closed, other
+  11. 9092     - Late effect of injury to the trunk
+  12. 4295     - Other ill-defined heart diseases
+  13. 46451    - Acute arterial embolism and thrombosis of iliac artery
+  14. 25071    - Diabetes with peripheral circulatory disorders, type I, not stated as uncontrolled
+  15. V0381    - Need for prophylactic vaccination and inoculation against Hemophilus influenzae, type B [Hib]
+
+--- VISIT 3 (15 diagnosis codes) ---
+
+   1. 7313     - Pathological fracture of vertebrae
+   2. 30928    - Other and unspecified alcohol-induced mental disorders
+   3. 87320    - Open wound of scalp, without mention of complication
+   4. 5192     - Emphysema, unspecified
+   5. 5258     - Gastrojejunal ulcer, unspecified as acute or chronic, without mention of hemorrhage or perforation, without mention of obstruction
+   6. 2733     - Amyloidosis
+   7. 5370     - Diverticulosis of small intestine without mention of hemorrhage
+   8. V0381    - Need for prophylactic vaccination and inoculation against Hemophilus influenzae, type B [Hib]
+   9. 5081     - Influenza with other manifestations
+  10. 29633    - Bipolar II disorder
+  11. 80605    - Closed fracture of T5-T6
+  12. 87349    - Other open wound of face
+  13. 7098     - Other disorders of skin and subcutaneous tissue
+  14. 2518     - Other specified acquired hypothyroidism
+  15. 99831    - Other and unspecified infection
+
+Total visits: 3
+Total diagnosis codes: 45
+Average codes per visit: 15.0
+
+================================================================================
+PATIENT: 60.0yo BLACK M
+================================================================================
+
+--- VISIT 1 (11 diagnosis codes) ---
+
+   1. 5198     - Other diseases of lung, not elsewhere classified
+   2. E8493    - Accidents occurring in residential institution
+   3. 25071    - Diabetes with peripheral circulatory disorders, type I, not stated as uncontrolled
+   4. 87320    - Open wound of scalp, without mention of complication
+   5. 76525    - Extreme immaturity
+   6. 9053     - Late effect of fracture of neck of femur
+   7. 87363    - Open wound of cheek
+   8. 7718     - Shortness of breath
+   9. 42091    - Arteriovenous fistula, acquired
+  10. 4295     - Other ill-defined heart diseases
+  11. 37943    - Other and unspecified disorders of the autonomic nervous system
+
+Total visits: 1
+Total diagnosis codes: 11
+Average codes per visit: 11.0
+
+================================================================================
+PATIENT: 25.0yo HISPANIC F
+================================================================================
+
+--- VISIT 1 (15 diagnosis codes) ---
+
+   1. 3556     - Other forms of epilepsy and recurrent seizures
+   2. 3010     - Personality disorder, unspecified
+   3. 99831    - Other and unspecified infection
+   4. 3010     - Personality disorder, unspecified
+   5. 7098     - Other disorders of skin and subcutaneous tissue
+   6. 9211     - Burn of face, head, and neck, erythema [first degree]
+   7. 7718     - Shortness of breath
+   8. 56941    - Intestinal bypass
+   9. 1419     - Malignant neoplasm of tongue, unspecified
+  10. 7098     - Other disorders of skin and subcutaneous tissue
+  11. 80221    - Fracture of nasal bones, closed
+  12. E8528    - Accidental poisoning by other specified drugs and medicinal substances
+  13. 30560    - Alcohol abuse, unspecified
+  14. 44329    - Chronic venous insufficiency (CVI)
+  15. 83905    - Disturbance of skin sensation
+
+--- VISIT 2 (15 diagnosis codes) ---
+
+   1. 76496    - Other multiple gestation
+   2. 7534     - Hallux valgus (acquired)
+   3. 9754     - Superficial injury of fingers
+   4. 76525    - Extreme immaturity
+   5. 73022    - Fracture of femur, closed
+   6. 87320    - Open wound of scalp, without mention of complication
+   7. 73022    - Fracture of femur, closed
+   8. 3558     - Other forms of epilepsy
+   9. 30560    - Alcohol abuse, unspecified
+  10. 3010     - Personality disorder, unspecified
+  11. 6144     - Endometriosis of pelvic peritoneum
+  12. 80505    - Closed fracture of C5-C7
+  13. 80625    - Closed fracture of T7-T8
+  14. 37943    - Other and unspecified disorders of the autonomic nervous system
+  15. 83905    - Disturbance of skin sensation
+
+--- VISIT 3 (15 diagnosis codes) ---
+
+   1. 75567    - Congenital anomalies of spinal cord
+   2. 7458     - Other acquired deformities of limbs
+   3. 92400    - Fracture of carpal bone(s), unspecified, closed
+   4. 36210    - Background diabetic retinopathy
+   5. 1419     - Malignant neoplasm of tongue, unspecified
+   6. 6089     - Female infertility, unspecified
+   7. 76407    - Polyhydramnios
+   8. 34680    - Migraine, unspecified, without mention of intractable migraine
+   9. 85142    - Sprains and strains of knee
+  10. 7098     - Other disorders of skin and subcutaneous tissue
+  11. 80625    - Closed fracture of T7-T8
+  12. 73022    - Fracture of femur, closed
+  13. 6089     - Female infertility, unspecified
+  14. 47832    - Other skin rash
+  15. 73022    - Fracture of femur, closed
+
+Total visits: 3
+Total diagnosis codes: 45
+Average codes per visit: 15.0
+
+================================================================================
+PATIENT: 50.0yo OTHER F
+================================================================================
+
+--- VISIT 1 (15 diagnosis codes) ---
+
+   1. 45189    - Other venous embolism and thrombosis
+   2. 9053     - Late effect of fracture of neck of femur
+   3. 5570     - Acute vascular insufficiency of intestine
+   4. 5109     - Chronic obstructive pulmonary disease, unspecified
+   5. 46410    - Acute arterial embolism and thrombosis of unspecified site
+   6. 92810    - Contusion of face, scalp, and neck except eye(s)
+   7. 7313     - Pathological fracture of vertebrae
+   8. 9663     - Poisoning by antiallergic and antiemetic drugs
+   9. E8493    - Accidents occurring in residential institution
+  10. 76496    - Other multiple gestation
+  11. V4569    - Other postprocedural status, unspecified
+  12. 87320    - Open wound of scalp, without mention of complication
+  13. E8120    - Other and unspecified water transport accident, injuring unspecified person
+  14. 2989     - Other and unspecified endocrine disorders
+  15. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+
+--- VISIT 2 (15 diagnosis codes) ---
+
+   1. 76526    - Other preterm infants
+   2. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+   3. 76496    - Other multiple gestation
+   4. E8120    - Other and unspecified water transport accident, injuring unspecified person
+   5. 2939     - Nutritional deficiency, unspecified
+   6. 3090     - Adjustment disorder, unspecified
+   7. 34680    - Migraine, unspecified, without mention of intractable migraine
+   8. 3574     - Sleep apnea, unspecified
+   9. 5370     - Diverticulosis of small intestine without mention of hemorrhage
+  10. 7098     - Other disorders of skin and subcutaneous tissue
+  11. 4295     - Other ill-defined heart diseases
+  12. 76496    - Other multiple gestation
+  13. 99831    - Other and unspecified infection
+  14. 59589    - Other specified disorders resulting from impaired renal function
+  15. 5641     - Irritable bowel syndrome
+
+--- VISIT 3 (15 diagnosis codes) ---
+
+   1. 1642     - Malignant neoplasm of upper lobe, bronchus or lung
+   2. 3090     - Adjustment disorder, unspecified
+   3. 25082    - Diabetes with other specified manifestations, type II or unspecified, not stated as uncontrolled
+   4. 83905    - Disturbance of skin sensation
+   5. 36210    - Background diabetic retinopathy
+   6. 5060     - [5060 - description not available]
+   7. 56211    - Diverticulitis of colon without mention of hemorrhage
+   8. 3010     - Personality disorder, unspecified
+   9. 4295     - Other ill-defined heart diseases
+  10. 76496    - Other multiple gestation
+  11. 7098     - Other disorders of skin and subcutaneous tissue
+  12. 5081     - Influenza with other manifestations
+  13. 6089     - Female infertility, unspecified
+  14. 2518     - Other specified acquired hypothyroidism
+  15. 46410    - Acute arterial embolism and thrombosis of unspecified site
+
+Total visits: 3
+Total diagnosis codes: 45
+Average codes per visit: 15.0
+
+================================================================================
+PATIENT: 75.0yo WHITE M
+================================================================================
+
+--- VISIT 1 (12 diagnosis codes) ---
+
+   1. 23879    - Other specified endocrine tumors
+   2. 99791    - Other and unspecified systemic manifestations of infection
+   3. 9950     - Certain adverse effects not elsewhere classified, unspecified
+   4. 5224     - Chronic gastric ulcer without mention of hemorrhage or perforation, without mention of obstruction
+   5. 7718     - Shortness of breath
+   6. 82032    - Fracture of malar and maxillary bones, closed
+   7. E8493    - Accidents occurring in residential institution
+   8. 99939    - Other and unspecified complications of medical care, not elsewhere classified
+   9. 2553     - Disorders of adrenal medulla
+  10. 7718     - Shortness of breath
+  11. 36210    - Background diabetic retinopathy
+  12. 75567    - Congenital anomalies of spinal cord
+
+Total visits: 1
+Total diagnosis codes: 12
+Average codes per visit: 12.0
+
+================================================================================
+PATIENT: 80.0yo WHITE F
+================================================================================
+
+--- VISIT 1 (15 diagnosis codes) ---
+
+   1. 56211    - Diverticulitis of colon without mention of hemorrhage
+   2. 5224     - Chronic gastric ulcer without mention of hemorrhage or perforation, without mention of obstruction
+   3. 80700    - Closed fracture of ribs, unspecified
+   4. 2858     - Other and unspecified anemias
+   5. 8731     - Open wound of scalp, without mention of complication
+   6. 99791    - Other and unspecified systemic manifestations of infection
+   7. V8801    - Body Mass Index less than 19, pediatric
+   8. 5651     - Anal fistula
+   9. 36210    - Background diabetic retinopathy
+  10. 5224     - Chronic gastric ulcer without mention of hemorrhage or perforation, without mention of obstruction
+  11. 92810    - Contusion of face, scalp, and neck except eye(s)
+  12. 76525    - Extreme immaturity
+  13. 76077    - Late vomiting of pregnancy
+  14. V0381    - Need for prophylactic vaccination and inoculation against Hemophilus influenzae, type B [Hib]
+  15. E8493    - Accidents occurring in residential institution
+
+--- VISIT 2 (15 diagnosis codes) ---
+
+   1. E8493    - Accidents occurring in residential institution
+   2. 9053     - Late effect of fracture of neck of femur
+   3. 5224     - Chronic gastric ulcer without mention of hemorrhage or perforation, without mention of obstruction
+   4. 5370     - Diverticulosis of small intestine without mention of hemorrhage
+   5. V4573    - Acquired absence of intestine (large) (small)
+   6. 7098     - Other disorders of skin and subcutaneous tissue
+   7. E8538    - Accidental poisoning by other specified gases and vapors
+   8. 5370     - Diverticulosis of small intestine without mention of hemorrhage
+   9. 5695     - Abscess of intestine
+  10. 7061     - Other regional lymphadenitis
+  11. 46451    - Acute arterial embolism and thrombosis of iliac artery
+  12. 76496    - Other multiple gestation
+  13. 5370     - Diverticulosis of small intestine without mention of hemorrhage
+  14. 71107    - Pyogenic arthritis, ankle and foot
+  15. 30928    - Other and unspecified alcohol-induced mental disorders
+
+--- VISIT 3 (15 diagnosis codes) ---
+
+   1. 75567    - Congenital anomalies of spinal cord
+   2. 25071    - Diabetes with peripheral circulatory disorders, type I, not stated as uncontrolled
+   3. 30928    - Other and unspecified alcohol-induced mental disorders
+   4. V4579    - Other acquired absence of organ
+   5. 78839    - Other symptoms involving urinary system
+   6. 7313     - Pathological fracture of vertebrae
+   7. 5071     - Influenza with other respiratory manifestations
+   8. 83905    - Disturbance of skin sensation
+   9. 3010     - Personality disorder, unspecified
+  10. 4295     - Other ill-defined heart diseases
+  11. 2734     - Hypercalcemia
+  12. 80229    - Fracture of face bones, closed, other
+  13. 5224     - Chronic gastric ulcer without mention of hemorrhage or perforation, without mention of obstruction
+  14. 5060     - [5060 - description not available]
+  15. 075      - Infectious mononucleosis
+
+Total visits: 3
+Total diagnosis codes: 45
+Average codes per visit: 15.0
+
+████████████████████████████████████████████████████████████████████████████████
+█                                                                              █
+█                              TRANSLATION COMPLETE                            █
+█                                                                              █
+████████████████████████████████████████████████████████████████████████████████
+

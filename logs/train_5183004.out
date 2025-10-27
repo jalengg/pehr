@@ -1,0 +1,125 @@
+Job ID: 5183004
+Job Name: ehr_single_20251009_024814
+Node: ccc0388
+CUDA_VISIBLE_DEVICES: 0
+Start Time: Thu Oct  9 02:48:23 CDT 2025
+Working Directory: /u/jalenj4/pehr_scratch
+Thu Oct  9 02:48:23 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:81:00.0 Off |                    0 |
+| N/A   27C    P0             60W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Parameters:
+  NUM_PATIENTS: 3000
+  BATCH_SIZE: 16
+  NUM_EPOCHS: 30
+  LEARNING_RATE: 0.0001
+  GENERATION_TEMP: 1.3
+  TOP_K: 50
+INFO: === EHR Generation Training Started ===
+INFO: Configuration: {'model_name': 'facebook/bart-base', 'num_patients': 3000, 'max_seq_length': 256, 'batch_size': 16, 'num_epochs': 30, 'learning_rate': 0.0001, 'generation_temp': 1.3, 'generation_max_length': 256, 'num_warmup_steps': 0, 'top_k': 50, 'data_dir': 'data_files', 'mimic_paths': {'patients_path': 'data_files/PATIENTS.csv', 'admissions_path': 'data_files/ADMISSIONS.csv', 'diagnoses_path': 'data_files/DIAGNOSES_ICD.csv'}}
+INFO: Using device: cuda
+INFO: Loading pretrained BART model: facebook/bart-base
+INFO: Added 3 special tokens: <v>, <\v>, <END>
+INFO: Resized model embeddings to 50268 tokens
+INFO: Loading MIMIC-III data files
+INFO: Loaded 46520 patients
+INFO: Loaded 58976 admissions
+INFO: Loaded 651047 diagnosis records
+INFO: Data processing complete. Formatting sequences...
+INFO: Sequence formatting complete. Generated 3000 patient sequences
+INFO: Average visits per patient: 1.27
+INFO: Average tokens per sequence: 19.69
+INFO: Sample patient sequences:
+INFO: Sample 1: 44 BLACK/AFRICAN AMERICAN F <demo> <v> 1800 19882 2851 5990 99674 4538 19889 9982 5680 6268 4019 4589 27801 <\v> <END>...
+INFO: Sample 2: 83 UNKNOWN/NOT SPECIFIED F <demo> <v> 56983 5570 2851 9975 9971 42731 51881 7101 7885 <\v> <END>...
+INFO: Sample 3: 81 UNKNOWN/NOT SPECIFIED F <demo> <v> 41071 49121 4280 4240 42731 2875 2765 51881 5849 <\v> <END>...
+INFO: Sample 4: 55 WHITE M <demo> <v> 20280 2880 2875 5781 2851 2639 9998 5790 6930 <\v> <v> 20280 2848 99685 56983 5672 2762 0389 99591 2763 7994 1120 2765 4589 4273...
+INFO: Sample 5: 63 WHITE F <demo> <v> 9986 5672 5119 6822 9983 2766 5180 99859 V552 <\v> <v> 56969 5609 2765 2762 2720 <\v> <v> V552 57410 5753 4280 9974 5601 2851 26...
+INFO: Created dataset with 3000 samples, 188 batches
+INFO: Optimizer: AdamW with lr=0.0001
+INFO: Scheduler: linear with 0 warmup steps
+INFO: Starting model training for 30 epochs
+INFO: Training steps: 5640
+INFO: Device: cuda
+INFO: Epoch 1/30 completed | Avg Loss: 0.4460
+INFO: Epoch 2/30 completed | Avg Loss: 0.0703
+INFO: Epoch 3/30 completed | Avg Loss: 0.0387
+INFO: Epoch 4/30 completed | Avg Loss: 0.0087
+INFO: Epoch 5/30 completed | Avg Loss: 0.0064
+INFO: Epoch 6/30 completed | Avg Loss: 0.0052
+INFO: Epoch 7/30 completed | Avg Loss: 0.0075
+INFO: Epoch 8/30 completed | Avg Loss: 0.0064
+INFO: Epoch 9/30 completed | Avg Loss: 0.0066
+INFO: Epoch 10/30 completed | Avg Loss: 0.0032
+INFO: Epoch 11/30 completed | Avg Loss: 0.0036
+INFO: Epoch 12/30 completed | Avg Loss: 0.0029
+INFO: Epoch 13/30 completed | Avg Loss: 0.0042
+INFO: Epoch 14/30 completed | Avg Loss: 0.0059
+INFO: Epoch 15/30 completed | Avg Loss: 0.0027
+INFO: Epoch 16/30 completed | Avg Loss: 0.0041
+INFO: Epoch 17/30 completed | Avg Loss: 0.0025
+INFO: Epoch 18/30 completed | Avg Loss: 0.0019
+INFO: Epoch 19/30 completed | Avg Loss: 0.0017
+INFO: Epoch 20/30 completed | Avg Loss: 0.0036
+INFO: Epoch 21/30 completed | Avg Loss: 0.0019
+INFO: Epoch 22/30 completed | Avg Loss: 0.0017
+INFO: Epoch 23/30 completed | Avg Loss: 0.0051
+INFO: Epoch 24/30 completed | Avg Loss: 0.0015
+INFO: Epoch 25/30 completed | Avg Loss: 0.0007
+INFO: Epoch 26/30 completed | Avg Loss: 0.0015
+INFO: Epoch 27/30 completed | Avg Loss: 0.0013
+INFO: Epoch 28/30 completed | Avg Loss: 0.0010
+INFO: Epoch 29/30 completed | Avg Loss: 0.0008
+INFO: Epoch 30/30 completed | Avg Loss: 0.0003
+INFO: Training complete
+INFO: Final average loss: 0.0003
+INFO: === Generating synthetic patient data ===
+INFO: 
+--- Sample 1/5 ---
+INFO: Generating sequence for prompt: '80 ASIAN M <demo>'
+INFO: Starting generation with temp=1.3, top_k=50, max_length=256
+INFO: Generated token counts - <v>: 1, <\v>: 1, <END>: 1
+INFO: Generated sequence (clean): 80 ASIAN M <demo>17  
+INFO: 
+--- Sample 2/5 ---
+INFO: Generating sequence for prompt: '88 UNKNOWN/NOT SPECIFIED F <demo>'
+INFO: Starting generation with temp=1.3, top_k=50, max_length=256
+INFO: Generated token counts - <v>: 1, <\v>: 0, <END>: 1
+INFO: Generated sequence (clean): 88 UNKNOWN/NOT SPECIFIED F <demo> 
+INFO: 
+--- Sample 3/5 ---
+INFO: Generating sequence for prompt: '23 WHITE F <demo>'
+INFO: Starting generation with temp=1.3, top_k=50, max_length=256
+INFO: Generated token counts - <v>: 1, <\v>: 1, <END>: 1
+INFO: Generated sequence (clean): 23 WHITE F <demo>980117010117  
+INFO: 
+--- Sample 4/5 ---
+INFO: Generating sequence for prompt: '77 WHITE M <demo>'
+INFO: Starting generation with temp=1.3, top_k=50, max_length=256
+INFO: Generated token counts - <v>: 1, <\v>: 1, <END>: 1
+INFO: Generated sequence (clean): 77 WHITE M <demo>1772  
+INFO: 
+--- Sample 5/5 ---
+INFO: Generating sequence for prompt: '22 WHITE F <demo>'
+INFO: Starting generation with temp=1.3, top_k=50, max_length=256
+INFO: Generated token counts - <v>: 1, <\v>: 1, <END>: 1
+INFO: Generated sequence (clean): 22 WHITE F <demo>7420  
+INFO: === Training and generation complete ===
+End Time: Thu Oct  9 03:12:04 CDT 2025
+Exit Code: 0

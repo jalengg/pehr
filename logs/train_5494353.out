@@ -1,0 +1,121 @@
+========================================
+PromptEHR Training Job
+========================================
+Job ID: 5494353
+Job Name: promptehr_token_age_30ep
+Node: ccc0387
+Partition: IllinoisComputes-GPU
+Working Directory: /u/jalenj4/pehr_scratch
+CUDA_VISIBLE_DEVICES: 0
+Start Time: Thu Oct 23 16:36:24 CDT 2025
+========================================
+GPU Information:
+Thu Oct 23 16:36:24 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:01:00.0 Off |                    0 |
+| N/A   28C    P0             59W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+========================================
+Environment:
+Python version: Python 3.12.11
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+CUDA version: 12.8
+========================================
+Starting PromptEHR training...
+2025-10-23 16:36:34,842 - INFO - ================================================================================
+2025-10-23 16:36:34,843 - INFO - PromptEHR Training Pipeline - Phase 3
+2025-10-23 16:36:34,843 - INFO - ================================================================================
+2025-10-23 16:36:34,843 - INFO - 
+Configuration:
+
+[Data]
+  Patients: 10000
+  Max sequence length: 256
+  Train/val split: 0.2
+
+[Model]
+  Base model: facebook/bart-base
+  Continuous features: 1
+  Categorical features: 1
+  Prompt length: 1
+
+[Training]
+  Batch size: 8
+  Epochs: 30
+  Learning rate: 0.0001
+  Warmup steps: 1000
+  Device: cuda
+
+[Corruptions]
+  Lambda Poisson: 3.0
+  Deletion prob: 0.15
+  Replacement prob: 0.15
+  Corruption prob: 0.5
+  Mask infilling: True
+  Token deletion: True
+  Token replacement: True
+  Next-visit prediction: True
+
+[Evaluation]
+  Compute TPL: True
+  Compute SPL: False
+2025-10-23 16:36:34,847 - INFO - 
+Random seed: 42
+2025-10-23 16:36:35,105 - INFO - Device: cuda
+2025-10-23 16:36:35,105 - INFO - 
+================================================================================
+2025-10-23 16:36:35,105 - INFO - Loading MIMIC-III Data
+2025-10-23 16:36:35,105 - INFO - ================================================================================
+2025-10-23 16:36:35,105 - INFO - Loading MIMIC-III data files
+2025-10-23 16:36:35,166 - INFO - Loaded 46520 patients
+2025-10-23 16:36:35,317 - INFO - Loaded 58976 admissions
+2025-10-23 16:36:35,490 - INFO - Loaded 651047 diagnosis records
+2025-10-23 16:36:35,773 - INFO - Processing patient records
+2025-10-23 16:36:44,277 - INFO - Loaded 10000 patient records
+2025-10-23 16:36:44,277 - INFO - Diagnosis vocabulary size: 4253
+2025-10-23 16:36:44,286 - INFO - Average visits per patient: 1.29
+2025-10-23 16:36:44,286 - INFO - Average codes per visit: 9.16
+2025-10-23 16:36:44,290 - INFO - Gender distribution: {'M': 5615, 'F': 4385}
+2025-10-23 16:36:44,317 - INFO - Loaded 10000 patients
+2025-10-23 16:36:44,317 - INFO - Vocabulary size: 4253 diagnosis codes
+2025-10-23 16:36:44,317 - INFO - Tokenizer vocab size: 4260
+2025-10-23 16:36:44,317 - INFO - Dataset size: 10000 patients
+2025-10-23 16:36:44,318 - INFO - Train size: 8000, Validation size: 2000
+2025-10-23 16:36:44,319 - INFO - Train batches: 1000, Validation batches: 250
+2025-10-23 16:36:44,319 - INFO - 
+================================================================================
+2025-10-23 16:36:44,319 - INFO - Initializing Model
+2025-10-23 16:36:44,319 - INFO - ================================================================================
+2025-10-23 16:36:44,459 - INFO - BART config vocab size: 4260
+2025-10-23 16:36:46,508 - INFO - Model: PromptBartWithDemographicPrediction (multi-task learning)
+2025-10-23 16:36:46,509 - INFO -   Age loss weight: 0.05
+2025-10-23 16:36:46,509 - INFO -   Sex loss weight: 0.2
+2025-10-23 16:36:46,803 - INFO - Total parameters: 104,683,016
+2025-10-23 16:36:46,803 - INFO - Trainable parameters: 104,683,016
+2025-10-23 16:36:46,804 - INFO - Total training steps: 30000
+2025-10-23 16:36:46,804 - INFO - Warmup steps: 1000
+2025-10-23 16:36:46,804 - INFO - 
+================================================================================
+2025-10-23 16:36:46,804 - INFO - Starting Training
+2025-10-23 16:36:46,804 - INFO - ================================================================================
+========================================
+Training completed
+End Time: Thu Oct 23 16:36:47 CDT 2025
+Exit Code: 1
+========================================

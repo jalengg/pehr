@@ -1,0 +1,261 @@
+========================================
+PromptEHR Training Job
+========================================
+Job ID: 5494398
+Job Name: promptehr_token_age_30ep
+Node: ccc0387
+Partition: IllinoisComputes-GPU
+Working Directory: /u/jalenj4/pehr_scratch
+CUDA_VISIBLE_DEVICES: 0
+Start Time: Thu Oct 23 16:42:57 CDT 2025
+========================================
+GPU Information:
+Thu Oct 23 16:42:57 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:01:00.0 Off |                    0 |
+| N/A   27C    P0             59W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+========================================
+Environment:
+Python version: Python 3.12.11
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+CUDA version: 12.8
+========================================
+Starting PromptEHR training...
+2025-10-23 16:43:07,207 - INFO - ================================================================================
+2025-10-23 16:43:07,207 - INFO - PromptEHR Training Pipeline - Phase 3
+2025-10-23 16:43:07,207 - INFO - ================================================================================
+2025-10-23 16:43:07,208 - INFO - 
+Configuration:
+
+[Data]
+  Patients: 10000
+  Max sequence length: 256
+  Train/val split: 0.2
+
+[Model]
+  Base model: facebook/bart-base
+  Continuous features: 1
+  Categorical features: 1
+  Prompt length: 1
+
+[Training]
+  Batch size: 8
+  Epochs: 30
+  Learning rate: 0.0001
+  Warmup steps: 1000
+  Device: cuda
+
+[Corruptions]
+  Lambda Poisson: 3.0
+  Deletion prob: 0.15
+  Replacement prob: 0.15
+  Corruption prob: 0.5
+  Mask infilling: True
+  Token deletion: True
+  Token replacement: True
+  Next-visit prediction: True
+
+[Evaluation]
+  Compute TPL: True
+  Compute SPL: False
+2025-10-23 16:43:07,211 - INFO - 
+Random seed: 42
+2025-10-23 16:43:07,480 - INFO - Device: cuda
+2025-10-23 16:43:07,480 - INFO - 
+================================================================================
+2025-10-23 16:43:07,480 - INFO - Loading MIMIC-III Data
+2025-10-23 16:43:07,480 - INFO - ================================================================================
+2025-10-23 16:43:07,481 - INFO - Loading MIMIC-III data files
+2025-10-23 16:43:07,544 - INFO - Loaded 46520 patients
+2025-10-23 16:43:07,687 - INFO - Loaded 58976 admissions
+2025-10-23 16:43:07,852 - INFO - Loaded 651047 diagnosis records
+2025-10-23 16:43:08,128 - INFO - Processing patient records
+2025-10-23 16:43:16,766 - INFO - Loaded 10000 patient records
+2025-10-23 16:43:16,766 - INFO - Diagnosis vocabulary size: 4253
+2025-10-23 16:43:16,772 - INFO - Average visits per patient: 1.29
+2025-10-23 16:43:16,773 - INFO - Average codes per visit: 9.16
+2025-10-23 16:43:16,774 - INFO - Gender distribution: {'M': 5615, 'F': 4385}
+2025-10-23 16:43:16,829 - INFO - Loaded 10000 patients
+2025-10-23 16:43:16,829 - INFO - Vocabulary size: 4253 diagnosis codes
+2025-10-23 16:43:16,829 - INFO - Tokenizer vocab size: 4260
+2025-10-23 16:43:16,829 - INFO - Dataset size: 10000 patients
+2025-10-23 16:43:16,830 - INFO - Train size: 8000, Validation size: 2000
+2025-10-23 16:43:16,831 - INFO - Train batches: 1000, Validation batches: 250
+2025-10-23 16:43:16,831 - INFO - 
+================================================================================
+2025-10-23 16:43:16,831 - INFO - Initializing Model
+2025-10-23 16:43:16,831 - INFO - ================================================================================
+2025-10-23 16:43:16,922 - INFO - BART config vocab size: 4260
+2025-10-23 16:43:18,869 - INFO - Model: PromptBartWithDemographicPrediction (multi-task learning)
+2025-10-23 16:43:18,869 - INFO -   Age loss weight: 0.05
+2025-10-23 16:43:18,869 - INFO -   Sex loss weight: 0.2
+2025-10-23 16:43:19,145 - INFO - Total parameters: 104,683,016
+2025-10-23 16:43:19,146 - INFO - Trainable parameters: 104,683,016
+2025-10-23 16:43:19,147 - INFO - Total training steps: 30000
+2025-10-23 16:43:19,147 - INFO - Warmup steps: 1000
+2025-10-23 16:43:19,147 - INFO - 
+================================================================================
+2025-10-23 16:43:19,147 - INFO - Starting Training
+2025-10-23 16:43:19,147 - INFO - ================================================================================
+2025-10-23 16:43:32,449 - INFO - Epoch 1, Step 50/1000 - Loss: 7.8228, Perplexity: 2877.0353, LR: 5.00e-06, LM: 7.6007, Age: 1.76, Sex: 0.669
+2025-10-23 16:43:45,368 - INFO - Epoch 1, Step 100/1000 - Loss: 7.0280, Perplexity: 1739.7464, LR: 1.00e-05, LM: 6.8313, Age: 1.69, Sex: 0.560
+2025-10-23 16:43:58,194 - INFO - Epoch 1, Step 150/1000 - Loss: 6.5256, Perplexity: 1253.2064, LR: 1.50e-05, LM: 6.3613, Age: 1.62, Sex: 0.416
+2025-10-23 16:44:10,904 - INFO - Epoch 1, Step 200/1000 - Loss: 6.1608, Perplexity: 987.8524, LR: 2.00e-05, LM: 6.0173, Age: 1.54, Sex: 0.333
+2025-10-23 16:44:23,811 - INFO - Epoch 1, Step 250/1000 - Loss: 5.8817, Perplexity: 817.7355, LR: 2.50e-05, LM: 5.7543, Age: 1.44, Sex: 0.278
+2025-10-23 16:44:36,822 - INFO - Epoch 1, Step 300/1000 - Loss: 5.6644, Perplexity: 700.5180, LR: 3.00e-05, LM: 5.5492, Age: 1.35, Sex: 0.238
+2025-10-23 16:44:49,355 - INFO - Epoch 1, Step 350/1000 - Loss: 5.5006, Perplexity: 614.9938, LR: 3.50e-05, LM: 5.3949, Age: 1.28, Sex: 0.207
+2025-10-23 16:45:01,890 - INFO - Epoch 1, Step 400/1000 - Loss: 5.3382, Perplexity: 547.5230, LR: 4.00e-05, LM: 5.2405, Age: 1.22, Sex: 0.183
+2025-10-23 16:45:14,439 - INFO - Epoch 1, Step 450/1000 - Loss: 5.2003, Perplexity: 495.0689, LR: 4.50e-05, LM: 5.1088, Age: 1.17, Sex: 0.164
+2025-10-23 16:45:27,199 - INFO - Epoch 1, Step 500/1000 - Loss: 5.0418, Perplexity: 450.6905, LR: 5.00e-05, LM: 4.9554, Age: 1.13, Sex: 0.148
+2025-10-23 16:45:40,123 - INFO - Epoch 1, Step 550/1000 - Loss: 4.8562, Perplexity: 411.9441, LR: 5.50e-05, LM: 4.7740, Age: 1.10, Sex: 0.135
+2025-10-23 16:45:52,587 - INFO - Epoch 1, Step 600/1000 - Loss: 4.6438, Perplexity: 379.0207, LR: 6.00e-05, LM: 4.5647, Age: 1.08, Sex: 0.125
+2025-10-23 16:46:05,445 - INFO - Epoch 1, Step 650/1000 - Loss: 4.4223, Perplexity: 350.5887, LR: 6.50e-05, LM: 4.3459, Age: 1.07, Sex: 0.115
+2025-10-23 16:46:17,898 - INFO - Epoch 1, Step 700/1000 - Loss: 4.1930, Perplexity: 325.9782, LR: 7.00e-05, LM: 4.1189, Age: 1.05, Sex: 0.107
+2025-10-23 16:46:30,679 - INFO - Epoch 1, Step 750/1000 - Loss: 3.9778, Perplexity: 304.4926, LR: 7.50e-05, LM: 3.9059, Age: 1.03, Sex: 0.100
+2025-10-23 16:46:43,377 - INFO - Epoch 1, Step 800/1000 - Loss: 3.7851, Perplexity: 285.7541, LR: 8.00e-05, LM: 3.7152, Age: 1.02, Sex: 0.094
+2025-10-23 16:46:55,716 - INFO - Epoch 1, Step 850/1000 - Loss: 3.6071, Perplexity: 269.1207, LR: 8.50e-05, LM: 3.5390, Age: 1.01, Sex: 0.089
+2025-10-23 16:47:08,177 - INFO - Epoch 1, Step 900/1000 - Loss: 3.4349, Perplexity: 254.2904, LR: 9.00e-05, LM: 3.3683, Age: 1.00, Sex: 0.084
+2025-10-23 16:47:20,971 - INFO - Epoch 1, Step 950/1000 - Loss: 3.2842, Perplexity: 241.0346, LR: 9.50e-05, LM: 3.2191, Age: 0.98, Sex: 0.080
+2025-10-23 16:47:33,679 - INFO - Epoch 1, Step 1000/1000 - Loss: 3.1380, Perplexity: 229.0600, LR: 1.00e-04, LM: 3.0742, Age: 0.97, Sex: 0.076
+2025-10-23 16:47:33,680 - INFO - Epoch 1 Complete - Avg Loss: 3.1380, Avg Perplexity: 229.0600, LM: 3.0742, Age: 0.97, Sex: 0.076
+2025-10-23 16:47:53,710 - INFO - Validation - Loss: 0.3384, Perplexity: 2.2116, Token Accuracy: 0.9637, Code Accuracy: 0.9568
+2025-10-23 16:47:53,711 - INFO - Computing TPL on 351 patients with 2+ visits
+2025-10-23 16:47:57,147 - INFO - TPL computed on 351 samples: 1.6449
+2025-10-23 16:47:57,148 - INFO - Temporal Perplexity (TPL): 1.6449
+2025-10-23 16:47:57,148 - INFO - New best model! Validation loss: 0.3384
+2025-10-23 16:48:01,708 - INFO - Checkpoint saved: epoch 1
+2025-10-23 16:48:14,463 - INFO - Epoch 2, Step 50/1000 - Loss: 0.3993, Perplexity: 2.1757, LR: 9.98e-05, LM: 0.3551, Age: 0.88, Sex: 0.002
+2025-10-23 16:48:27,021 - INFO - Epoch 2, Step 100/1000 - Loss: 0.3416, Perplexity: 1.8437, LR: 9.97e-05, LM: 0.3014, Age: 0.80, Sex: 0.001
+2025-10-23 16:48:39,541 - INFO - Epoch 2, Step 150/1000 - Loss: 0.3062, Perplexity: 1.6634, LR: 9.95e-05, LM: 0.2671, Age: 0.78, Sex: 0.001
+2025-10-23 16:48:52,222 - INFO - Epoch 2, Step 200/1000 - Loss: 0.3250, Perplexity: 1.7944, LR: 9.93e-05, LM: 0.2867, Age: 0.76, Sex: 0.001
+2025-10-23 16:49:04,725 - INFO - Epoch 2, Step 250/1000 - Loss: 0.3107, Perplexity: 1.7111, LR: 9.91e-05, LM: 0.2731, Age: 0.75, Sex: 0.001
+2025-10-23 16:49:17,457 - INFO - Epoch 2, Step 300/1000 - Loss: 0.2890, Perplexity: 1.6311, LR: 9.90e-05, LM: 0.2512, Age: 0.75, Sex: 0.001
+2025-10-23 16:49:29,538 - INFO - Epoch 2, Step 350/1000 - Loss: 0.3016, Perplexity: 1.7813, LR: 9.88e-05, LM: 0.2640, Age: 0.75, Sex: 0.001
+2025-10-23 16:49:41,966 - INFO - Epoch 2, Step 400/1000 - Loss: 0.2813, Perplexity: 1.7059, LR: 9.86e-05, LM: 0.2441, Age: 0.74, Sex: 0.001
+2025-10-23 16:49:54,325 - INFO - Epoch 2, Step 450/1000 - Loss: 0.2673, Perplexity: 1.6511, LR: 9.84e-05, LM: 0.2304, Age: 0.73, Sex: 0.001
+2025-10-23 16:50:07,253 - INFO - Epoch 2, Step 500/1000 - Loss: 0.2556, Perplexity: 1.6057, LR: 9.83e-05, LM: 0.2188, Age: 0.73, Sex: 0.001
+2025-10-23 16:50:19,731 - INFO - Epoch 2, Step 550/1000 - Loss: 0.2550, Perplexity: 1.5936, LR: 9.81e-05, LM: 0.2182, Age: 0.73, Sex: 0.001
+2025-10-23 16:50:32,363 - INFO - Epoch 2, Step 600/1000 - Loss: 0.2507, Perplexity: 1.6240, LR: 9.79e-05, LM: 0.2141, Age: 0.73, Sex: 0.001
+2025-10-23 16:50:45,218 - INFO - Epoch 2, Step 650/1000 - Loss: 0.2510, Perplexity: 1.6573, LR: 9.78e-05, LM: 0.2146, Age: 0.72, Sex: 0.001
+2025-10-23 16:50:57,584 - INFO - Epoch 2, Step 700/1000 - Loss: 0.2414, Perplexity: 1.6230, LR: 9.76e-05, LM: 0.2052, Age: 0.72, Sex: 0.001
+2025-10-23 16:51:10,157 - INFO - Epoch 2, Step 750/1000 - Loss: 0.2331, Perplexity: 1.5914, LR: 9.74e-05, LM: 0.1972, Age: 0.71, Sex: 0.001
+2025-10-23 16:51:22,757 - INFO - Epoch 2, Step 800/1000 - Loss: 0.2254, Perplexity: 1.5633, LR: 9.72e-05, LM: 0.1896, Age: 0.71, Sex: 0.001
+2025-10-23 16:51:35,582 - INFO - Epoch 2, Step 850/1000 - Loss: 0.2192, Perplexity: 1.5407, LR: 9.71e-05, LM: 0.1835, Age: 0.71, Sex: 0.001
+2025-10-23 16:51:48,225 - INFO - Epoch 2, Step 900/1000 - Loss: 0.2149, Perplexity: 1.5280, LR: 9.69e-05, LM: 0.1794, Age: 0.70, Sex: 0.001
+2025-10-23 16:52:00,862 - INFO - Epoch 2, Step 950/1000 - Loss: 0.2101, Perplexity: 1.5087, LR: 9.67e-05, LM: 0.1746, Age: 0.70, Sex: 0.001
+2025-10-23 16:52:13,623 - INFO - Epoch 2, Step 1000/1000 - Loss: 0.2082, Perplexity: 1.5051, LR: 9.66e-05, LM: 0.1729, Age: 0.70, Sex: 0.001
+2025-10-23 16:52:13,625 - INFO - Epoch 2 Complete - Avg Loss: 0.2082, Avg Perplexity: 1.5051, LM: 0.1729, Age: 0.70, Sex: 0.001
+2025-10-23 16:52:33,439 - INFO - Validation - Loss: 0.1233, Perplexity: 1.4171, Token Accuracy: 0.9833, Code Accuracy: 0.9807
+2025-10-23 16:52:33,441 - INFO - Computing TPL on 351 patients with 2+ visits
+2025-10-23 16:52:36,909 - INFO - TPL computed on 351 samples: 1.2147
+2025-10-23 16:52:36,909 - INFO - Temporal Perplexity (TPL): 1.2147
+2025-10-23 16:52:36,909 - INFO - New best model! Validation loss: 0.1233
+2025-10-23 16:52:41,404 - INFO - Checkpoint saved: epoch 2
+2025-10-23 16:52:53,902 - INFO - Epoch 3, Step 50/1000 - Loss: 0.0689, Perplexity: 1.0739, LR: 9.64e-05, LM: 0.0363, Age: 0.65, Sex: 0.000
+2025-10-23 16:53:06,596 - INFO - Epoch 3, Step 100/1000 - Loss: 0.0789, Perplexity: 1.0976, LR: 9.62e-05, LM: 0.0471, Age: 0.63, Sex: 0.000
+2025-10-23 16:53:19,170 - INFO - Epoch 3, Step 150/1000 - Loss: 0.0760, Perplexity: 1.0922, LR: 9.60e-05, LM: 0.0444, Age: 0.63, Sex: 0.000
+2025-10-23 16:53:31,749 - INFO - Epoch 3, Step 200/1000 - Loss: 0.0860, Perplexity: 1.1921, LR: 9.59e-05, LM: 0.0539, Age: 0.64, Sex: 0.001
+2025-10-23 16:53:44,152 - INFO - Epoch 3, Step 250/1000 - Loss: 0.0902, Perplexity: 1.1971, LR: 9.57e-05, LM: 0.0577, Age: 0.65, Sex: 0.001
+2025-10-23 16:53:56,848 - INFO - Epoch 3, Step 300/1000 - Loss: 0.0979, Perplexity: 1.2006, LR: 9.55e-05, LM: 0.0656, Age: 0.64, Sex: 0.001
+2025-10-23 16:54:09,869 - INFO - Epoch 3, Step 350/1000 - Loss: 0.0991, Perplexity: 1.2065, LR: 9.53e-05, LM: 0.0667, Age: 0.65, Sex: 0.001
+2025-10-23 16:54:22,509 - INFO - Epoch 3, Step 400/1000 - Loss: 0.0950, Perplexity: 1.1894, LR: 9.52e-05, LM: 0.0625, Age: 0.65, Sex: 0.001
+2025-10-23 16:54:34,937 - INFO - Epoch 3, Step 450/1000 - Loss: 0.0915, Perplexity: 1.1765, LR: 9.50e-05, LM: 0.0586, Age: 0.66, Sex: 0.000
+2025-10-23 16:54:47,770 - INFO - Epoch 3, Step 500/1000 - Loss: 0.0887, Perplexity: 1.1658, LR: 9.48e-05, LM: 0.0556, Age: 0.66, Sex: 0.000
+2025-10-23 16:55:00,314 - INFO - Epoch 3, Step 550/1000 - Loss: 0.0927, Perplexity: 1.1802, LR: 9.47e-05, LM: 0.0598, Age: 0.66, Sex: 0.001
+2025-10-23 16:55:13,323 - INFO - Epoch 3, Step 600/1000 - Loss: 0.0905, Perplexity: 1.1715, LR: 9.45e-05, LM: 0.0578, Age: 0.65, Sex: 0.001
+2025-10-23 16:55:25,581 - INFO - Epoch 3, Step 650/1000 - Loss: 0.0882, Perplexity: 1.1647, LR: 9.43e-05, LM: 0.0558, Age: 0.65, Sex: 0.000
+2025-10-23 16:55:37,819 - INFO - Epoch 3, Step 700/1000 - Loss: 0.0856, Perplexity: 1.1568, LR: 9.41e-05, LM: 0.0533, Age: 0.64, Sex: 0.000
+2025-10-23 16:55:50,538 - INFO - Epoch 3, Step 750/1000 - Loss: 0.0942, Perplexity: 1.1848, LR: 9.40e-05, LM: 0.0620, Age: 0.64, Sex: 0.001
+2025-10-23 16:56:02,995 - INFO - Epoch 3, Step 800/1000 - Loss: 0.0915, Perplexity: 1.1769, LR: 9.38e-05, LM: 0.0597, Age: 0.63, Sex: 0.001
+2025-10-23 16:56:15,893 - INFO - Epoch 3, Step 850/1000 - Loss: 0.0917, Perplexity: 1.1854, LR: 9.36e-05, LM: 0.0600, Age: 0.63, Sex: 0.001
+2025-10-23 16:56:28,883 - INFO - Epoch 3, Step 900/1000 - Loss: 0.0916, Perplexity: 1.1815, LR: 9.34e-05, LM: 0.0598, Age: 0.63, Sex: 0.001
+2025-10-23 16:56:41,567 - INFO - Epoch 3, Step 950/1000 - Loss: 0.0902, Perplexity: 1.1757, LR: 9.33e-05, LM: 0.0586, Age: 0.63, Sex: 0.001
+2025-10-23 16:56:54,022 - INFO - Epoch 3, Step 1000/1000 - Loss: 0.0911, Perplexity: 1.1750, LR: 9.31e-05, LM: 0.0595, Age: 0.63, Sex: 0.001
+2025-10-23 16:56:54,023 - INFO - Epoch 3 Complete - Avg Loss: 0.0911, Avg Perplexity: 1.1750, LM: 0.0595, Age: 0.63, Sex: 0.001
+2025-10-23 16:57:14,067 - INFO - Validation - Loss: 0.0679, Perplexity: 1.2067, Token Accuracy: 0.9903, Code Accuracy: 0.9885
+2025-10-23 16:57:14,069 - INFO - Computing TPL on 351 patients with 2+ visits
+2025-10-23 16:57:17,536 - INFO - TPL computed on 351 samples: 1.1169
+2025-10-23 16:57:17,536 - INFO - Temporal Perplexity (TPL): 1.1169
+2025-10-23 16:57:17,536 - INFO - New best model! Validation loss: 0.0679
+2025-10-23 16:57:22,233 - INFO - Checkpoint saved: epoch 3
+2025-10-23 16:57:35,189 - INFO - Epoch 4, Step 50/1000 - Loss: 0.0872, Perplexity: 1.2428, LR: 9.29e-05, LM: 0.0571, Age: 0.60, Sex: 0.000
+2025-10-23 16:57:48,088 - INFO - Epoch 4, Step 100/1000 - Loss: 0.0657, Perplexity: 1.1443, LR: 9.28e-05, LM: 0.0368, Age: 0.58, Sex: 0.000
+2025-10-23 16:58:00,722 - INFO - Epoch 4, Step 150/1000 - Loss: 0.0569, Perplexity: 1.1097, LR: 9.26e-05, LM: 0.0279, Age: 0.58, Sex: 0.000
+2025-10-23 16:58:13,366 - INFO - Epoch 4, Step 200/1000 - Loss: 0.0683, Perplexity: 1.1554, LR: 9.24e-05, LM: 0.0404, Age: 0.56, Sex: 0.000
+2025-10-23 16:58:26,061 - INFO - Epoch 4, Step 250/1000 - Loss: 0.0804, Perplexity: 1.1843, LR: 9.22e-05, LM: 0.0524, Age: 0.56, Sex: 0.000
+2025-10-23 16:58:38,832 - INFO - Epoch 4, Step 300/1000 - Loss: 0.0767, Perplexity: 1.1644, LR: 9.21e-05, LM: 0.0483, Age: 0.57, Sex: 0.000
+2025-10-23 16:58:51,837 - INFO - Epoch 4, Step 350/1000 - Loss: 0.0787, Perplexity: 1.1591, LR: 9.19e-05, LM: 0.0501, Age: 0.57, Sex: 0.000
+2025-10-23 16:59:04,593 - INFO - Epoch 4, Step 400/1000 - Loss: 0.0754, Perplexity: 1.1463, LR: 9.17e-05, LM: 0.0468, Age: 0.57, Sex: 0.000
+2025-10-23 16:59:17,161 - INFO - Epoch 4, Step 450/1000 - Loss: 0.0859, Perplexity: 1.1897, LR: 9.16e-05, LM: 0.0572, Age: 0.57, Sex: 0.000
+2025-10-23 16:59:29,867 - INFO - Epoch 4, Step 500/1000 - Loss: 0.0812, Perplexity: 1.1747, LR: 9.14e-05, LM: 0.0525, Age: 0.57, Sex: 0.000
+2025-10-23 16:59:42,501 - INFO - Epoch 4, Step 550/1000 - Loss: 0.0782, Perplexity: 1.1634, LR: 9.12e-05, LM: 0.0493, Age: 0.58, Sex: 0.000
+2025-10-23 16:59:54,955 - INFO - Epoch 4, Step 600/1000 - Loss: 0.0785, Perplexity: 1.1592, LR: 9.10e-05, LM: 0.0494, Age: 0.58, Sex: 0.000
+2025-10-23 17:00:07,560 - INFO - Epoch 4, Step 650/1000 - Loss: 0.0760, Perplexity: 1.1508, LR: 9.09e-05, LM: 0.0470, Age: 0.58, Sex: 0.000
+2025-10-23 17:00:19,991 - INFO - Epoch 4, Step 700/1000 - Loss: 0.0750, Perplexity: 1.1451, LR: 9.07e-05, LM: 0.0460, Age: 0.58, Sex: 0.000
+2025-10-23 17:00:32,697 - INFO - Epoch 4, Step 750/1000 - Loss: 0.0768, Perplexity: 1.1537, LR: 9.05e-05, LM: 0.0476, Age: 0.58, Sex: 0.001
+2025-10-23 17:00:45,005 - INFO - Epoch 4, Step 800/1000 - Loss: 0.0747, Perplexity: 1.1469, LR: 9.03e-05, LM: 0.0455, Age: 0.58, Sex: 0.001
+2025-10-23 17:00:57,338 - INFO - Epoch 4, Step 850/1000 - Loss: 0.0725, Perplexity: 1.1405, LR: 9.02e-05, LM: 0.0432, Age: 0.58, Sex: 0.001
+2025-10-23 17:01:09,735 - INFO - Epoch 4, Step 900/1000 - Loss: 0.0727, Perplexity: 1.1418, LR: 9.00e-05, LM: 0.0436, Age: 0.58, Sex: 0.000
+2025-10-23 17:01:22,255 - INFO - Epoch 4, Step 950/1000 - Loss: 0.0718, Perplexity: 1.1374, LR: 8.98e-05, LM: 0.0425, Age: 0.58, Sex: 0.000
+2025-10-23 17:01:35,073 - INFO - Epoch 4, Step 1000/1000 - Loss: 0.0712, Perplexity: 1.1339, LR: 8.97e-05, LM: 0.0420, Age: 0.58, Sex: 0.000
+2025-10-23 17:01:35,075 - INFO - Epoch 4 Complete - Avg Loss: 0.0712, Avg Perplexity: 1.1339, LM: 0.0420, Age: 0.58, Sex: 0.000
+2025-10-23 17:01:55,197 - INFO - Validation - Loss: 0.0516, Perplexity: 1.1815, Token Accuracy: 0.9925, Code Accuracy: 0.9911
+2025-10-23 17:01:55,199 - INFO - Computing TPL on 351 patients with 2+ visits
+2025-10-23 17:01:58,686 - INFO - TPL computed on 351 samples: 1.0971
+2025-10-23 17:01:58,687 - INFO - Temporal Perplexity (TPL): 1.0971
+2025-10-23 17:01:58,687 - INFO - New best model! Validation loss: 0.0516
+2025-10-23 17:02:03,227 - INFO - Checkpoint saved: epoch 4
+2025-10-23 17:02:15,710 - INFO - Epoch 5, Step 50/1000 - Loss: 0.0473, Perplexity: 1.0510, LR: 8.95e-05, LM: 0.0228, Age: 0.49, Sex: 0.000
+2025-10-23 17:02:28,569 - INFO - Epoch 5, Step 100/1000 - Loss: 0.0618, Perplexity: 1.0785, LR: 8.93e-05, LM: 0.0353, Age: 0.53, Sex: 0.000
+2025-10-23 17:02:41,368 - INFO - Epoch 5, Step 150/1000 - Loss: 0.0830, Perplexity: 1.1663, LR: 8.91e-05, LM: 0.0564, Age: 0.53, Sex: 0.000
+2025-10-23 17:02:53,930 - INFO - Epoch 5, Step 200/1000 - Loss: 0.0717, Perplexity: 1.1345, LR: 8.90e-05, LM: 0.0443, Age: 0.55, Sex: 0.000
+2025-10-23 17:03:06,344 - INFO - Epoch 5, Step 250/1000 - Loss: 0.0720, Perplexity: 1.1360, LR: 8.88e-05, LM: 0.0447, Age: 0.55, Sex: 0.000
+2025-10-23 17:03:18,991 - INFO - Epoch 5, Step 300/1000 - Loss: 0.0748, Perplexity: 1.1542, LR: 8.86e-05, LM: 0.0476, Age: 0.54, Sex: 0.000
+2025-10-23 17:03:31,265 - INFO - Epoch 5, Step 350/1000 - Loss: 0.0752, Perplexity: 1.1570, LR: 8.84e-05, LM: 0.0482, Age: 0.54, Sex: 0.000
+2025-10-23 17:03:43,829 - INFO - Epoch 5, Step 400/1000 - Loss: 0.0718, Perplexity: 1.1438, LR: 8.83e-05, LM: 0.0445, Age: 0.54, Sex: 0.000
+2025-10-23 17:03:56,568 - INFO - Epoch 5, Step 450/1000 - Loss: 0.0743, Perplexity: 1.1503, LR: 8.81e-05, LM: 0.0470, Age: 0.55, Sex: 0.000
+2025-10-23 17:04:09,398 - INFO - Epoch 5, Step 500/1000 - Loss: 0.0716, Perplexity: 1.1405, LR: 8.79e-05, LM: 0.0443, Age: 0.54, Sex: 0.000
+2025-10-23 17:04:21,973 - INFO - Epoch 5, Step 550/1000 - Loss: 0.0711, Perplexity: 1.1356, LR: 8.78e-05, LM: 0.0438, Age: 0.54, Sex: 0.000
+2025-10-23 17:04:34,514 - INFO - Epoch 5, Step 600/1000 - Loss: 0.0696, Perplexity: 1.1298, LR: 8.76e-05, LM: 0.0425, Age: 0.54, Sex: 0.000
+2025-10-23 17:04:46,942 - INFO - Epoch 5, Step 650/1000 - Loss: 0.0685, Perplexity: 1.1247, LR: 8.74e-05, LM: 0.0410, Age: 0.55, Sex: 0.000
+2025-10-23 17:04:59,486 - INFO - Epoch 5, Step 700/1000 - Loss: 0.0669, Perplexity: 1.1194, LR: 8.72e-05, LM: 0.0394, Age: 0.55, Sex: 0.000
+2025-10-23 17:05:12,147 - INFO - Epoch 5, Step 750/1000 - Loss: 0.0650, Perplexity: 1.1141, LR: 8.71e-05, LM: 0.0375, Age: 0.55, Sex: 0.000
+2025-10-23 17:05:24,698 - INFO - Epoch 5, Step 800/1000 - Loss: 0.0643, Perplexity: 1.1116, LR: 8.69e-05, LM: 0.0370, Age: 0.54, Sex: 0.000
+2025-10-23 17:05:37,220 - INFO - Epoch 5, Step 850/1000 - Loss: 0.0625, Perplexity: 1.1071, LR: 8.67e-05, LM: 0.0353, Age: 0.54, Sex: 0.000
+2025-10-23 17:05:49,896 - INFO - Epoch 5, Step 900/1000 - Loss: 0.0624, Perplexity: 1.1054, LR: 8.66e-05, LM: 0.0356, Age: 0.54, Sex: 0.000
+2025-10-23 17:06:02,636 - INFO - Epoch 5, Step 950/1000 - Loss: 0.0613, Perplexity: 1.1022, LR: 8.64e-05, LM: 0.0344, Age: 0.54, Sex: 0.000
+2025-10-23 17:06:15,167 - INFO - Epoch 5, Step 1000/1000 - Loss: 0.0598, Perplexity: 1.0987, LR: 8.62e-05, LM: 0.0331, Age: 0.53, Sex: 0.000
+2025-10-23 17:06:15,168 - INFO - Epoch 5 Complete - Avg Loss: 0.0598, Avg Perplexity: 1.0987, LM: 0.0331, Age: 0.53, Sex: 0.000
+2025-10-23 17:06:34,962 - INFO - Validation - Loss: 0.0491, Perplexity: 1.1673, Token Accuracy: 0.9926, Code Accuracy: 0.9914
+2025-10-23 17:06:34,964 - INFO - Computing TPL on 351 patients with 2+ visits
+2025-10-23 17:06:38,432 - INFO - TPL computed on 351 samples: 1.0814
+2025-10-23 17:06:38,432 - INFO - Temporal Perplexity (TPL): 1.0814
+2025-10-23 17:06:38,432 - INFO - New best model! Validation loss: 0.0491
+2025-10-23 17:06:43,258 - INFO - Checkpoint saved: epoch 5
+2025-10-23 17:06:55,863 - INFO - Epoch 6, Step 50/1000 - Loss: 0.0794, Perplexity: 1.1562, LR: 8.60e-05, LM: 0.0572, Age: 0.44, Sex: 0.000
+2025-10-23 17:07:08,557 - INFO - Epoch 6, Step 100/1000 - Loss: 0.0560, Perplexity: 1.0947, LR: 8.59e-05, LM: 0.0335, Age: 0.45, Sex: 0.000
+2025-10-23 17:07:21,213 - INFO - Epoch 6, Step 150/1000 - Loss: 0.0596, Perplexity: 1.0981, LR: 8.57e-05, LM: 0.0366, Age: 0.46, Sex: 0.000
+2025-10-23 17:07:33,896 - INFO - Epoch 6, Step 200/1000 - Loss: 0.0546, Perplexity: 1.0837, LR: 8.55e-05, LM: 0.0301, Age: 0.49, Sex: 0.000
+2025-10-23 17:07:46,430 - INFO - Epoch 6, Step 250/1000 - Loss: 0.0492, Perplexity: 1.0726, LR: 8.53e-05, LM: 0.0250, Age: 0.48, Sex: 0.000
+2025-10-23 17:07:59,118 - INFO - Epoch 6, Step 300/1000 - Loss: 0.0455, Perplexity: 1.0651, LR: 8.52e-05, LM: 0.0217, Age: 0.48, Sex: 0.000
+2025-10-23 17:08:12,239 - INFO - Epoch 6, Step 350/1000 - Loss: 0.0463, Perplexity: 1.0644, LR: 8.50e-05, LM: 0.0226, Age: 0.47, Sex: 0.000
+2025-10-23 17:08:24,969 - INFO - Epoch 6, Step 400/1000 - Loss: 0.0459, Perplexity: 1.0620, LR: 8.48e-05, LM: 0.0219, Age: 0.48, Sex: 0.000
+2025-10-23 17:08:37,704 - INFO - Epoch 6, Step 450/1000 - Loss: 0.0492, Perplexity: 1.0744, LR: 8.47e-05, LM: 0.0252, Age: 0.48, Sex: 0.000
+2025-10-23 17:08:50,542 - INFO - Epoch 6, Step 500/1000 - Loss: 0.0473, Perplexity: 1.0700, LR: 8.45e-05, LM: 0.0234, Age: 0.48, Sex: 0.000

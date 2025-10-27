@@ -1,0 +1,265 @@
+2025-10-09 05:12:33 | INFO     | <module>:562 | === EHR Generation Training Started ===
+2025-10-09 05:12:33 | INFO     | <module>:583 | Configuration: {'model_name': 'facebook/bart-base', 'num_patients': 3000, 'max_seq_length': 256, 'batch_size': 16, 'num_epochs': 30, 'learning_rate': 0.0002, 'generation_temp': 1.5, 'generation_max_length': 256, 'num_warmup_steps': 0, 'top_k': 50, 'data_dir': 'data_files', 'mimic_paths': {'patients_path': 'data_files/PATIENTS.csv', 'admissions_path': 'data_files/ADMISSIONS.csv', 'diagnoses_path': 'data_files/DIAGNOSES_ICD.csv'}}
+2025-10-09 05:12:34 | INFO     | <module>:587 | Using device: cuda
+2025-10-09 05:12:34 | INFO     | <module>:590 | Loading pretrained BART model: facebook/bart-base
+2025-10-09 05:12:34 | INFO     | <module>:599 | Added 3 special tokens: <v>, <\v>, <END>
+2025-10-09 05:12:35 | INFO     | <module>:603 | Resized model embeddings to 50268 tokens
+2025-10-09 05:12:35 | DEBUG    | <module>:606 | Token ID for <v>: 50265
+2025-10-09 05:12:35 | DEBUG    | <module>:607 | Token ID for <\v>: 50266
+2025-10-09 05:12:35 | DEBUG    | <module>:608 | Token ID for <END>: 50267
+2025-10-09 05:12:35 | INFO     | load_and_format_mimic_data:147 | Loading MIMIC-III data files
+2025-10-09 05:12:35 | DEBUG    | load_and_format_mimic_data:148 | Patients: data_files/PATIENTS.csv
+2025-10-09 05:12:35 | DEBUG    | load_and_format_mimic_data:149 | Admissions: data_files/ADMISSIONS.csv
+2025-10-09 05:12:35 | DEBUG    | load_and_format_mimic_data:150 | Diagnoses: data_files/DIAGNOSES_ICD.csv
+2025-10-09 05:12:35 | INFO     | load_and_format_mimic_data:155 | Loaded 46520 patients
+2025-10-09 05:12:35 | INFO     | load_and_format_mimic_data:158 | Loaded 58976 admissions
+2025-10-09 05:12:35 | INFO     | load_and_format_mimic_data:161 | Loaded 651047 diagnosis records
+2025-10-09 05:12:35 | INFO     | load_and_format_mimic_data:219 | Data processing complete. Formatting sequences...
+2025-10-09 05:12:38 | INFO     | load_and_format_mimic_data:258 | Sequence formatting complete. Generated 3000 patient sequences
+2025-10-09 05:12:38 | DEBUG    | load_and_format_mimic_data:262 | Sample sequence: 0 ASIAN M <demo> <v> V3001 V053 V290 <\v> <END>...
+2025-10-09 05:12:38 | INFO     | load_and_format_mimic_data:267 | Average visits per patient: 1.27
+2025-10-09 05:12:38 | INFO     | load_and_format_mimic_data:268 | Average tokens per sequence: 19.69
+2025-10-09 05:12:38 | INFO     | <module>:622 | Sample patient sequences:
+2025-10-09 05:12:38 | INFO     | <module>:624 | Sample 1: 0 ASIAN M <demo> <v> V3000 77989 7441 V053 V290 V180 <\v> <END>...
+2025-10-09 05:12:38 | INFO     | <module>:624 | Sample 2: 72 UNKNOWN/NOT SPECIFIED M <demo> <v> 43330 4241 4019 41401 25000 V4581 <\v> <END>...
+2025-10-09 05:12:38 | INFO     | <module>:624 | Sample 3: 0 WHITE F <demo> <v> V3000 V293 V053 <\v> <END>...
+2025-10-09 05:12:38 | INFO     | <module>:624 | Sample 4: 82 UNKNOWN/NOT SPECIFIED F <demo> <v> 1983 1991 9971 41071 4010 5121 4280 48230 5990 51881 7866 27651 496 5070 2536 V1082 2859 2724 V1582 <\v> <END>...
+2025-10-09 05:12:38 | INFO     | <module>:624 | Sample 5: 48 BLACK/AFRICAN AMERICAN F <demo> <v> 49301 4019 4739 53081 <\v> <END>...
+2025-10-09 05:12:38 | DEBUG    | __init__:294 | First sequence length: 24 tokens
+2025-10-09 05:12:38 | DEBUG    | __init__:295 | Pad token ID: 1
+2025-10-09 05:12:38 | INFO     | <module>:628 | Created dataset with 3000 samples, 188 batches
+2025-10-09 05:12:38 | INFO     | <module>:639 | Optimizer: AdamW with lr=0.0002
+2025-10-09 05:12:38 | INFO     | <module>:640 | Scheduler: linear with 0 warmup steps
+2025-10-09 05:12:38 | INFO     | train_model:351 | Starting model training for 30 epochs
+2025-10-09 05:12:38 | INFO     | train_model:352 | Training steps: 5640
+2025-10-09 05:12:38 | INFO     | train_model:353 | Device: cuda
+2025-10-09 05:12:38 | DEBUG    | train_model:372 | First batch input_ids shape: torch.Size([16, 256])
+2025-10-09 05:12:38 | DEBUG    | train_model:373 | First batch labels shape: torch.Size([16, 256])
+2025-10-09 05:12:38 | DEBUG    | train_model:374 | First batch attention_mask shape: torch.Size([16, 256])
+2025-10-09 05:12:38 | DEBUG    | train_model:375 | Initial loss: 2.3913
+2025-10-09 05:12:38 | DEBUG    | train_model:382 | Special tokens in first batch: {'pad': 3419, 'masked_labels': 3419}
+2025-10-09 05:13:25 | INFO     | train_model:401 | Epoch 1/30 completed | Avg Loss: 0.4966
+2025-10-09 05:14:12 | INFO     | train_model:401 | Epoch 2/30 completed | Avg Loss: 0.0260
+2025-10-09 05:14:58 | INFO     | train_model:401 | Epoch 3/30 completed | Avg Loss: 0.0243
+2025-10-09 05:15:45 | INFO     | train_model:401 | Epoch 4/30 completed | Avg Loss: 0.0217
+2025-10-09 05:16:32 | INFO     | train_model:401 | Epoch 5/30 completed | Avg Loss: 0.0174
+2025-10-09 05:17:18 | INFO     | train_model:401 | Epoch 6/30 completed | Avg Loss: 0.0198
+2025-10-09 05:18:05 | INFO     | train_model:401 | Epoch 7/30 completed | Avg Loss: 0.0136
+2025-10-09 05:18:51 | INFO     | train_model:401 | Epoch 8/30 completed | Avg Loss: 0.0095
+2025-10-09 05:19:38 | INFO     | train_model:401 | Epoch 9/30 completed | Avg Loss: 0.0097
+2025-10-09 05:20:25 | INFO     | train_model:401 | Epoch 10/30 completed | Avg Loss: 0.0118
+2025-10-09 05:21:11 | INFO     | train_model:401 | Epoch 11/30 completed | Avg Loss: 0.0149
+2025-10-09 05:21:58 | INFO     | train_model:401 | Epoch 12/30 completed | Avg Loss: 0.0118
+2025-10-09 05:22:44 | INFO     | train_model:401 | Epoch 13/30 completed | Avg Loss: 0.0060
+2025-10-09 05:23:31 | INFO     | train_model:401 | Epoch 14/30 completed | Avg Loss: 0.0087
+2025-10-09 05:24:18 | INFO     | train_model:401 | Epoch 15/30 completed | Avg Loss: 0.0182
+2025-10-09 05:25:04 | INFO     | train_model:401 | Epoch 16/30 completed | Avg Loss: 0.0059
+2025-10-09 05:25:51 | INFO     | train_model:401 | Epoch 17/30 completed | Avg Loss: 0.0047
+2025-10-09 05:26:37 | INFO     | train_model:401 | Epoch 18/30 completed | Avg Loss: 0.0040
+2025-10-09 05:27:24 | INFO     | train_model:401 | Epoch 19/30 completed | Avg Loss: 0.0032
+2025-10-09 05:28:11 | INFO     | train_model:401 | Epoch 20/30 completed | Avg Loss: 0.0021
+2025-10-09 05:28:57 | INFO     | train_model:401 | Epoch 21/30 completed | Avg Loss: 0.0022
+2025-10-09 05:29:44 | INFO     | train_model:401 | Epoch 22/30 completed | Avg Loss: 0.0012
+2025-10-09 05:30:30 | INFO     | train_model:401 | Epoch 23/30 completed | Avg Loss: 0.0019
+2025-10-09 05:31:17 | INFO     | train_model:401 | Epoch 24/30 completed | Avg Loss: 0.0016
+2025-10-09 05:32:03 | INFO     | train_model:401 | Epoch 25/30 completed | Avg Loss: 0.0018
+2025-10-09 05:32:50 | INFO     | train_model:401 | Epoch 26/30 completed | Avg Loss: 0.0004
+2025-10-09 05:33:37 | INFO     | train_model:401 | Epoch 27/30 completed | Avg Loss: 0.0010
+2025-10-09 05:34:23 | INFO     | train_model:401 | Epoch 28/30 completed | Avg Loss: 0.0006
+2025-10-09 05:35:10 | INFO     | train_model:401 | Epoch 29/30 completed | Avg Loss: 0.0008
+2025-10-09 05:35:56 | INFO     | train_model:401 | Epoch 30/30 completed | Avg Loss: 0.0009
+2025-10-09 05:35:56 | INFO     | train_model:403 | Training complete
+2025-10-09 05:35:56 | INFO     | train_model:404 | Final average loss: 0.0009
+2025-10-09 05:35:56 | DEBUG    | train_model:405 | Loss history: [0.4966161691068493, 0.02596532462345575, 0.024303033870540836, 0.02171022486792471, 0.017372689848614637, 0.0197562491169826, 0.013601314511299976, 0.009474190946345148, 0.009658124383930315, 0.011791898433272009, 0.014934524171737993, 0.011830180778293226, 0.006047295582786628, 0.008724598910122679, 0.018170618652607603, 0.00593892712377636, 0.004691742394959178, 0.004044049216935627, 0.003186056481547681, 0.0020855607425549717, 0.0022483559515092837, 0.0012402117407428375, 0.001874163513887052, 0.0015821623772237527, 0.001768456197440057, 0.00040562757486112147, 0.000990254822159415, 0.0006237821631812233, 0.0007886419463752548, 0.0008622104734697248]
+2025-10-09 05:35:56 | INFO     | <module>:654 | === Generating synthetic patient data ===
+2025-10-09 05:35:56 | INFO     | <module>:663 | 
+--- Sample 1/5 ---
+2025-10-09 05:35:56 | INFO     | generate_patient_sequence:443 | Generating sequence for prompt: '60 WHITE M <demo>'
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:447 | Prompt token IDs: [0, 2466, 38503, 256, 28696, 12789, 139, 15698, 2]
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:448 | Prompt tokens: ['<s>', '60', ' WHITE', ' M', ' <', 'dem', 'o', '>', '</s>']
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:457 | Special token IDs - <v>: 50265, <\v>: 50266, <END>: 50267, PAD: 1, EOS: 2
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:464 | Initial decoder input (with forced <v>): [0, 2466, 38503, 256, 28696, 12789, 139, 15698, 2, 50265]
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:478 | After prompt, probability of <v>: 0.000012
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:479 | After prompt, probability of <END>: 0.000014
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:480 | After prompt, probability of PAD: 0.000000
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:481 | After prompt, probability of EOS: 0.984738
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:485 | Top 20 next token predictions after prompt:
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 1: <EOS>                | Prob: 0.984738 | ID: 2
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 2: 60                   | Prob: 0.013717 | ID: 2466
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 3:  WHITE               | Prob: 0.000443 | ID: 38503
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 4:  <                   | Prob: 0.000212 | ID: 28696
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 5: >                    | Prob: 0.000108 | ID: 15698
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 6: KNOWN                | Prob: 0.000078 | ID: 47300
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 7: 600                  | Prob: 0.000046 | ID: 4697
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 8: 80                   | Prob: 0.000029 | ID: 2940
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 9:                      | Prob: 0.000020 | ID: 1437
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 10:  AMER                | Prob: 0.000018 | ID: 37501
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 11: 00                   | Prob: 0.000017 | ID: 612
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 12: 40                   | Prob: 0.000016 | ID: 1749
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 13: <END>                | Prob: 0.000014 | ID: 50267
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 14: <v>                  | Prob: 0.000012 | ID: 50265
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 15: 70                   | Prob: 0.000012 | ID: 3083
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 16:  OR                  | Prob: 0.000011 | ID: 6532
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 17:  BLACK               | Prob: 0.000009 | ID: 34101
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 18: <\v>                 | Prob: 0.000009 | ID: 50266
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 19: <s>                  | Prob: 0.000008 | ID: 0
+2025-10-09 05:35:56 | DEBUG    | generate_patient_sequence:503 |   Rank 20:  1960                | Prob: 0.000008 | ID: 7571
+2025-10-09 05:35:56 | INFO     | generate_patient_sequence:507 | Starting generation with temp=1.5, top_k=50, max_length=256
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:520 | Generated token IDs: [2, 0, 2466, 38503, 256, 28696, 12789, 139, 15698, 2, 50265, 2, 2, 2466, 38503, 274, 28696, 46128, 139, 15698, 1437, 50265, 2, 2466, 2, 2466, 3858, 10296, 1437, 50266, 1437, 50267]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:521 | Generated length: 32 tokens
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:529 | Generated token counts - <v>: 2, <\v>: 1, <END>: 1
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:537 | Raw generated sequence: </s><s>60 WHITE M <demo></s> <v> </s></s>60 WHITE F <DEMo>  <v> </s>60</s>60 CHIAN  <\v>   <END>
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:540 | Generated sequence (clean): 60 WHITE M <demo>60 WHITE F <DEMo> 6060 CHIAN  
+2025-10-09 05:35:57 | INFO     | <module>:663 | 
+--- Sample 2/5 ---
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:443 | Generating sequence for prompt: '26 WHITE F <demo>'
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:447 | Prompt token IDs: [0, 2481, 38503, 274, 28696, 12789, 139, 15698, 2]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:448 | Prompt tokens: ['<s>', '26', ' WHITE', ' F', ' <', 'dem', 'o', '>', '</s>']
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:457 | Special token IDs - <v>: 50265, <\v>: 50266, <END>: 50267, PAD: 1, EOS: 2
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:464 | Initial decoder input (with forced <v>): [0, 2481, 38503, 274, 28696, 12789, 139, 15698, 2, 50265]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:478 | After prompt, probability of <v>: 0.000017
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:479 | After prompt, probability of <END>: 0.000010
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:480 | After prompt, probability of PAD: 0.000000
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:481 | After prompt, probability of EOS: 0.996906
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:485 | Top 20 next token predictions after prompt:
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 1: <EOS>                | Prob: 0.996906 | ID: 2
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 2: 26                   | Prob: 0.001725 | ID: 2481
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 3:  E                   | Prob: 0.000201 | ID: 381
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 4:  WHITE               | Prob: 0.000173 | ID: 38503
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 5:  <                   | Prob: 0.000078 | ID: 28696
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 6: <s>                  | Prob: 0.000043 | ID: 0
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 7: 74                   | Prob: 0.000041 | ID: 5243
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 8: WH                   | Prob: 0.000031 | ID: 26369
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 9: >                    | Prob: 0.000031 | ID: 15698
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 10: 70                   | Prob: 0.000023 | ID: 3083
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 11: E                    | Prob: 0.000022 | ID: 717
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 12: 4                    | Prob: 0.000021 | ID: 306
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 13: <v>                  | Prob: 0.000017 | ID: 50265
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 14:                      | Prob: 0.000015 | ID: 1437
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 15: 300                  | Prob: 0.000014 | ID: 2965
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 16: 47                   | Prob: 0.000010 | ID: 3706
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 17: KNOWN                | Prob: 0.000010 | ID: 47300
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 18: <END>                | Prob: 0.000010 | ID: 50267
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 19: 7                    | Prob: 0.000009 | ID: 406
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 20: 73                   | Prob: 0.000008 | ID: 5352
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:507 | Starting generation with temp=1.5, top_k=50, max_length=256
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:520 | Generated token IDs: [2, 0, 2481, 38503, 274, 28696, 12789, 139, 15698, 2, 50265, 2, 2, 2, 2481, 38503, 3858, 28696, 12789, 15244, 15698, 1437, 50267]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:521 | Generated length: 23 tokens
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:529 | Generated token counts - <v>: 1, <\v>: 0, <END>: 1
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:537 | Raw generated sequence: </s><s>26 WHITE F <demo></s> <v> </s></s></s>26 WHITE CH <demothe>  <END>
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:540 | Generated sequence (clean): 26 WHITE F <demo>26 WHITE CH <demothe> 
+2025-10-09 05:35:57 | INFO     | <module>:663 | 
+--- Sample 3/5 ---
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:443 | Generating sequence for prompt: '59 ASIAN F <demo>'
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:447 | Prompt token IDs: [0, 4156, 6015, 10296, 274, 28696, 12789, 139, 15698, 2]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:448 | Prompt tokens: ['<s>', '59', ' AS', 'IAN', ' F', ' <', 'dem', 'o', '>', '</s>']
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:457 | Special token IDs - <v>: 50265, <\v>: 50266, <END>: 50267, PAD: 1, EOS: 2
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:464 | Initial decoder input (with forced <v>): [0, 4156, 6015, 10296, 274, 28696, 12789, 139, 15698, 2, 50265]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:478 | After prompt, probability of <v>: 0.861292
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:479 | After prompt, probability of <END>: 0.069196
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:480 | After prompt, probability of PAD: 0.000000
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:481 | After prompt, probability of EOS: 0.065426
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:485 | Top 20 next token predictions after prompt:
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 1: <v>                  | Prob: 0.861292 | ID: 50265
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 2: <END>                | Prob: 0.069196 | ID: 50267
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 3: <EOS>                | Prob: 0.065426 | ID: 2
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 4: KNOWN                | Prob: 0.002033 | ID: 47300
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 5: <\v>                 | Prob: 0.001002 | ID: 50266
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 6:  AMER                | Prob: 0.000289 | ID: 37501
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 7: NOT                  | Prob: 0.000158 | ID: 37049
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 8: dem                  | Prob: 0.000052 | ID: 12789
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 9: RIC                  | Prob: 0.000026 | ID: 36570
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 10:  DEC                 | Prob: 0.000019 | ID: 16718
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 11:  SPEC                | Prob: 0.000018 | ID: 44921
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 12:  AS                  | Prob: 0.000016 | ID: 6015
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 13: >                    | Prob: 0.000014 | ID: 15698
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 14: IAN                  | Prob: 0.000013 | ID: 10296
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 15: 389                  | Prob: 0.000008 | ID: 34682
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 16: DIR                  | Prob: 0.000008 | ID: 47992
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 17:  LAT                 | Prob: 0.000006 | ID: 21455
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 18:  <                   | Prob: 0.000005 | ID: 28696
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 19: LIN                  | Prob: 0.000005 | ID: 13748
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 20: IENT                 | Prob: 0.000005 | ID: 44735
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:507 | Starting generation with temp=1.5, top_k=50, max_length=256
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:520 | Generated token IDs: [2, 0, 4156, 6015, 10296, 274, 28696, 12789, 139, 15698, 2, 50265, 2, 2, 2, 5169, 6015, 10296, 37501, 25692, 15698, 2, 2, 4156, 6015, 2371, 274, 28696, 46128, 139, 15698, 1437, 50265, 2, 4156, 6532, 2371, 30535, 15698, 1437, 50267]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:521 | Generated length: 41 tokens
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:529 | Generated token counts - <v>: 2, <\v>: 0, <END>: 1
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:537 | Raw generated sequence: </s><s>59 ASIAN F <demo></s> <v> </s></s></s> 59 ASIAN AMERICAN></s></s>59 ASIC F <DEMo>  <v> </s>59 ORICINO>  <END>
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:540 | Generated sequence (clean): 59 ASIAN F <demo> 59 ASIAN AMERICAN>59 ASIC F <DEMo> 59 ORICINO> 
+2025-10-09 05:35:57 | INFO     | <module>:663 | 
+--- Sample 4/5 ---
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:443 | Generating sequence for prompt: '38 OTHER F <demo>'
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:447 | Prompt token IDs: [0, 3170, 16536, 274, 28696, 12789, 139, 15698, 2]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:448 | Prompt tokens: ['<s>', '38', ' OTHER', ' F', ' <', 'dem', 'o', '>', '</s>']
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:457 | Special token IDs - <v>: 50265, <\v>: 50266, <END>: 50267, PAD: 1, EOS: 2
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:464 | Initial decoder input (with forced <v>): [0, 3170, 16536, 274, 28696, 12789, 139, 15698, 2, 50265]
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:478 | After prompt, probability of <v>: 0.000039
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:479 | After prompt, probability of <END>: 0.000008
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:480 | After prompt, probability of PAD: 0.000000
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:481 | After prompt, probability of EOS: 0.918522
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:485 | Top 20 next token predictions after prompt:
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 1: <EOS>                | Prob: 0.918522 | ID: 2
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 2:  OTHER               | Prob: 0.059929 | ID: 16536
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 3: 38                   | Prob: 0.020169 | ID: 3170
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 4: >                    | Prob: 0.000087 | ID: 15698
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 5:  <                   | Prob: 0.000078 | ID: 28696
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 6: KNOWN                | Prob: 0.000076 | ID: 47300
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 7: <s>                  | Prob: 0.000044 | ID: 0
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 8: <v>                  | Prob: 0.000039 | ID: 50265
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 9:  E                   | Prob: 0.000029 | ID: 381
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 10:                      | Prob: 0.000025 | ID: 1437
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 11: NOT                  | Prob: 0.000022 | ID: 37049
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 12: 390                  | Prob: 0.000022 | ID: 27873
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 13:  DEC                 | Prob: 0.000021 | ID: 16718
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 14: 0                    | Prob: 0.000020 | ID: 288
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 15: 65                   | Prob: 0.000020 | ID: 3506
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 16: 66                   | Prob: 0.000020 | ID: 4280
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 17: 010                  | Prob: 0.000015 | ID: 30583
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 18: 48                   | Prob: 0.000013 | ID: 3818
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 19:  38                  | Prob: 0.000013 | ID: 2843
+2025-10-09 05:35:57 | DEBUG    | generate_patient_sequence:503 |   Rank 20: 800                  | Prob: 0.000012 | ID: 3913
+2025-10-09 05:35:57 | INFO     | generate_patient_sequence:507 | Starting generation with temp=1.5, top_k=50, max_length=256
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:520 | Generated token IDs: [2, 0, 3170, 16536, 274, 28696, 12789, 139, 15698, 2, 50265, 2, 2, 3170, 16536, 597, 28696, 12789, 15244, 15698, 1437, 50267]
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:521 | Generated length: 22 tokens
+2025-10-09 05:35:58 | INFO     | generate_patient_sequence:529 | Generated token counts - <v>: 1, <\v>: 0, <END>: 1
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:537 | Raw generated sequence: </s><s>38 OTHER F <demo></s> <v> </s></s>38 OTHERF <demothe>  <END>
+2025-10-09 05:35:58 | INFO     | generate_patient_sequence:540 | Generated sequence (clean): 38 OTHER F <demo>38 OTHERF <demothe> 
+2025-10-09 05:35:58 | INFO     | <module>:663 | 
+--- Sample 5/5 ---
+2025-10-09 05:35:58 | INFO     | generate_patient_sequence:443 | Generating sequence for prompt: '45 ASIAN F <demo>'
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:447 | Prompt token IDs: [0, 1898, 6015, 10296, 274, 28696, 12789, 139, 15698, 2]
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:448 | Prompt tokens: ['<s>', '45', ' AS', 'IAN', ' F', ' <', 'dem', 'o', '>', '</s>']
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:457 | Special token IDs - <v>: 50265, <\v>: 50266, <END>: 50267, PAD: 1, EOS: 2
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:464 | Initial decoder input (with forced <v>): [0, 1898, 6015, 10296, 274, 28696, 12789, 139, 15698, 2, 50265]
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:478 | After prompt, probability of <v>: 0.363519
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:479 | After prompt, probability of <END>: 0.033586
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:480 | After prompt, probability of PAD: 0.000000
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:481 | After prompt, probability of EOS: 0.591047
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:485 | Top 20 next token predictions after prompt:
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 1: <EOS>                | Prob: 0.591047 | ID: 2
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 2: <v>                  | Prob: 0.363519 | ID: 50265
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 3: <END>                | Prob: 0.033586 | ID: 50267
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 4: 45                   | Prob: 0.004704 | ID: 1898
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 5: KNOWN                | Prob: 0.002320 | ID: 47300
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 6: <\v>                 | Prob: 0.001691 | ID: 50266
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 7:  AMER                | Prob: 0.000538 | ID: 37501
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 8: RIC                  | Prob: 0.000175 | ID: 36570
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 9: NOT                  | Prob: 0.000157 | ID: 37049
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 10: 470                  | Prob: 0.000121 | ID: 29748
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 11: >                    | Prob: 0.000092 | ID: 15698
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 12: 440                  | Prob: 0.000085 | ID: 26634
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 13: dem                  | Prob: 0.000085 | ID: 12789
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 14:  <                   | Prob: 0.000082 | ID: 28696
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 15: 80                   | Prob: 0.000080 | ID: 2940
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 16: 455                  | Prob: 0.000064 | ID: 31546
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 17: 667                  | Prob: 0.000036 | ID: 29312
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 18: AF                   | Prob: 0.000033 | ID: 8573
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 19: 911                  | Prob: 0.000032 | ID: 37157
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:503 |   Rank 20: 1945                 | Prob: 0.000029 | ID: 45391
+2025-10-09 05:35:58 | INFO     | generate_patient_sequence:507 | Starting generation with temp=1.5, top_k=50, max_length=256
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:520 | Generated token IDs: [2, 0, 1898, 6015, 10296, 274, 28696, 12789, 139, 15698, 2, 50265, 15698, 2, 2, 2, 1898, 6015, 2336, 274, 28696, 46128, 139, 15698, 1437, 50265, 2, 2, 612, 2, 2, 2248, 6015, 10296, 1437, 50266, 1437, 50267]
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:521 | Generated length: 38 tokens
+2025-10-09 05:35:58 | INFO     | generate_patient_sequence:529 | Generated token counts - <v>: 2, <\v>: 1, <END>: 1
+2025-10-09 05:35:58 | DEBUG    | generate_patient_sequence:537 | Raw generated sequence: </s><s>45 ASIAN F <demo></s> <v> ></s></s></s>45 ASAS F <DEMo>  <v> </s></s>00</s></s> 45 ASIAN  <\v>   <END>
+2025-10-09 05:35:58 | INFO     | generate_patient_sequence:540 | Generated sequence (clean): 45 ASIAN F <demo>>45 ASAS F <DEMo> 00 45 ASIAN  
+2025-10-09 05:35:58 | INFO     | <module>:677 | === Training and generation complete ===

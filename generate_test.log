@@ -1,0 +1,94 @@
+2025-10-22 01:24:23,467 - INFO - Using device: cpu
+2025-10-22 01:24:23,467 - INFO - Loading vocabulary from data_splits/vocabulary.pkl
+2025-10-22 01:24:23,468 - INFO - Tokenizer initialized: 2830 tokens
+2025-10-22 01:24:23,468 - INFO - Loading model from checkpoints/best_model.pt
+2025-10-22 01:27:58,414 - INFO - Using device: cpu
+2025-10-22 01:27:58,414 - INFO - Loading vocabulary from data_splits/vocabulary.pkl
+2025-10-22 01:27:58,416 - INFO - Tokenizer initialized: 2830 tokens
+2025-10-22 01:27:58,416 - INFO - Loading model from /scratch/jalenj4/promptehr_checkpoints/best_model.pt
+2025-10-22 01:28:01,149 - INFO - Model loaded from epoch 30
+2025-10-22 01:28:01,149 - INFO - Validation loss: 0.0001
+2025-10-22 01:28:01,150 - INFO - Loading test patients from data_splits/test_patients.pkl
+2025-10-22 01:28:01,152 - INFO - Loaded 600 test patients
+2025-10-22 01:28:01,153 - INFO - Evaluating on 20 patients
+2025-10-22 01:28:01,155 - INFO - Generating patient 1/20
+2025-10-22 01:37:01,690 - INFO - Using device: cpu
+2025-10-22 01:37:01,690 - INFO - Loading vocabulary from data_splits/vocabulary.pkl
+2025-10-22 01:37:01,692 - INFO - Tokenizer initialized: 2830 tokens
+2025-10-22 01:37:01,692 - INFO - Loading model from /scratch/jalenj4/promptehr_checkpoints/best_model.pt
+2025-10-22 01:37:04,164 - INFO - Model loaded from epoch 30
+2025-10-22 01:37:04,164 - INFO - Validation loss: 0.0001
+2025-10-22 01:37:04,165 - INFO - Loading test patients from data_splits/test_patients.pkl
+2025-10-22 01:37:04,167 - INFO - Loaded 600 test patients
+2025-10-22 01:37:04,168 - INFO - Evaluating on 20 patients
+2025-10-22 01:37:04,170 - INFO - Generating patient 1/20
+2025-10-22 01:37:04,401 - INFO - Generating patient 2/20
+2025-10-22 01:37:04,586 - INFO - Generating patient 3/20
+2025-10-22 01:37:04,742 - INFO - Generating patient 4/20
+2025-10-22 01:37:05,050 - INFO - Generating patient 5/20
+2025-10-22 01:37:05,922 - INFO - Generating patient 6/20
+2025-10-22 01:37:06,106 - INFO - Generating patient 7/20
+2025-10-22 01:37:06,593 - INFO - Generating patient 8/20
+2025-10-22 01:37:07,336 - INFO - Generating patient 9/20
+2025-10-22 01:37:07,469 - INFO - Generating patient 10/20
+2025-10-22 01:37:08,219 - INFO - Generating patient 11/20
+2025-10-22 01:37:08,559 - INFO - Generating patient 12/20
+2025-10-22 01:37:08,658 - INFO - Generating patient 13/20
+2025-10-22 01:37:08,751 - INFO - Generating patient 14/20
+2025-10-22 01:37:08,940 - INFO - Generating patient 15/20
+2025-10-22 01:37:09,476 - INFO - Generating patient 16/20
+2025-10-22 01:37:09,683 - INFO - Generating patient 17/20
+2025-10-22 01:37:09,821 - INFO - Generating patient 18/20
+2025-10-22 01:37:10,566 - INFO - Generating patient 19/20
+2025-10-22 01:37:10,646 - INFO - Generating patient 20/20
+2025-10-22 01:37:10,848 - INFO - 
+================================================================================
+2025-10-22 01:37:10,848 - INFO - AGGREGATE STATISTICS
+2025-10-22 01:37:10,849 - INFO - ================================================================================
+2025-10-22 01:37:10,849 - INFO - Average Jaccard Similarity: 0.249
+2025-10-22 01:37:10,850 - INFO - Average Exact Match Rate: 0.000
+2025-10-22 01:37:10,850 - INFO - Average Codes Generated: 7.38
+2025-10-22 01:37:10,851 - INFO - Average Codes Target: 7.41
+2025-10-22 01:37:10,854 - INFO - 
+Results saved to reconstruction_results/reconstruction_results.txt
+2025-10-22 01:37:10,854 - INFO - Aggregate stats saved to reconstruction_results/aggregate_stats.txt
+2025-10-23 00:55:03,473 - INFO - Using device: cpu
+2025-10-23 00:55:03,473 - INFO - Loading vocabulary from data_splits/vocabulary.pkl
+2025-10-23 00:55:03,475 - INFO - Tokenizer initialized: 4260 tokens
+2025-10-23 00:55:03,475 - INFO - Loading model from /scratch/jalenj4/promptehr_checkpoints/best_model.pt
+2025-10-23 00:55:06,019 - INFO - Model loaded from epoch 48
+2025-10-23 00:55:06,020 - INFO - Validation loss: 0.0000
+2025-10-23 00:55:06,059 - INFO - Loading test patients from data_splits/test_patients.pkl
+2025-10-23 00:55:06,063 - INFO - Loaded 2000 test patients
+2025-10-23 00:55:06,064 - INFO - Evaluating on 20 patients
+2025-10-23 00:55:06,066 - INFO - Generating patient 1/20
+2025-10-23 00:55:06,407 - INFO - Generating patient 2/20
+2025-10-23 00:55:06,678 - INFO - Generating patient 3/20
+2025-10-23 00:55:06,989 - INFO - Generating patient 4/20
+2025-10-23 00:55:07,184 - INFO - Generating patient 5/20
+2025-10-23 00:55:07,440 - INFO - Generating patient 6/20
+2025-10-23 00:55:07,582 - INFO - Generating patient 7/20
+2025-10-23 00:55:07,953 - INFO - Generating patient 8/20
+2025-10-23 00:55:08,126 - INFO - Generating patient 9/20
+2025-10-23 00:55:08,279 - INFO - Generating patient 10/20
+2025-10-23 00:55:08,490 - INFO - Generating patient 11/20
+2025-10-23 00:55:08,599 - INFO - Generating patient 12/20
+2025-10-23 00:55:09,055 - INFO - Generating patient 13/20
+2025-10-23 00:55:09,196 - INFO - Generating patient 14/20
+2025-10-23 00:55:09,417 - INFO - Generating patient 15/20
+2025-10-23 00:55:09,501 - INFO - Generating patient 16/20
+2025-10-23 00:55:09,824 - INFO - Generating patient 17/20
+2025-10-23 00:55:10,057 - INFO - Generating patient 18/20
+2025-10-23 00:55:10,302 - INFO - Generating patient 19/20
+2025-10-23 00:55:10,519 - INFO - Generating patient 20/20
+2025-10-23 00:55:10,874 - INFO - 
+================================================================================
+2025-10-23 00:55:10,874 - INFO - AGGREGATE STATISTICS
+2025-10-23 00:55:10,875 - INFO - ================================================================================
+2025-10-23 00:55:10,876 - INFO - Average Jaccard Similarity: 0.403
+2025-10-23 00:55:10,877 - INFO - Average Exact Match Rate: 0.000
+2025-10-23 00:55:10,878 - INFO - Average Codes Generated: 6.83
+2025-10-23 00:55:10,878 - INFO - Average Codes Target: 6.83
+2025-10-23 00:55:10,882 - INFO - 
+Results saved to reconstruction_results/reconstruction_results.txt
+2025-10-23 00:55:10,882 - INFO - Aggregate stats saved to reconstruction_results/aggregate_stats.txt

@@ -1,0 +1,313 @@
+========================================
+PromptEHR Training Job
+========================================
+Job ID: 5289999
+Job Name: promptehr_train
+Node: ccc0387
+Partition: IllinoisComputes-GPU
+Working Directory: /u/jalenj4/pehr_scratch
+CUDA_VISIBLE_DEVICES: 0
+Start Time: Mon Oct 13 01:24:45 CDT 2025
+========================================
+GPU Information:
+Mon Oct 13 01:24:45 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 575.57.08              Driver Version: 575.57.08      CUDA Version: 12.9     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          Off |   00000000:81:00.0 Off |                    0 |
+| N/A   29C    P0             60W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+========================================
+Environment:
+Python version: Python 3.12.11
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+CUDA version: 12.8
+========================================
+Starting PromptEHR training...
+2025-10-13 01:24:54,736 - INFO - ================================================================================
+2025-10-13 01:24:54,736 - INFO - PromptEHR Training Pipeline - Phase 3
+2025-10-13 01:24:54,736 - INFO - ================================================================================
+2025-10-13 01:24:54,736 - INFO - 
+Configuration:
+
+[Data]
+  Patients: 3000
+  Max sequence length: 256
+  Train/val split: 0.2
+
+[Model]
+  Base model: facebook/bart-base
+  Continuous features: 1
+  Categorical features: 2
+  Prompt length: 1
+
+[Training]
+  Batch size: 16
+  Epochs: 30
+  Learning rate: 0.0001
+  Warmup steps: 500
+  Device: cuda
+2025-10-13 01:24:54,740 - INFO - 
+Random seed: 42
+2025-10-13 01:24:54,998 - INFO - Device: cuda
+2025-10-13 01:24:54,998 - INFO - 
+================================================================================
+2025-10-13 01:24:54,998 - INFO - Loading MIMIC-III Data
+2025-10-13 01:24:54,998 - INFO - ================================================================================
+2025-10-13 01:24:54,998 - INFO - Loading MIMIC-III data files
+2025-10-13 01:24:55,060 - INFO - Loaded 46520 patients
+2025-10-13 01:24:55,208 - INFO - Loaded 58976 admissions
+2025-10-13 01:24:55,374 - INFO - Loaded 651047 diagnosis records
+2025-10-13 01:24:55,649 - INFO - Processing patient records
+2025-10-13 01:24:58,155 - INFO - Loaded 3000 patient records
+2025-10-13 01:24:58,155 - INFO - Diagnosis vocabulary size: 2823
+2025-10-13 01:24:58,156 - INFO - Average visits per patient: 1.27
+2025-10-13 01:24:58,156 - INFO - Average codes per visit: 9.27
+2025-10-13 01:24:58,157 - INFO - Gender distribution: {'M': 1686, 'F': 1314}
+2025-10-13 01:24:58,158 - INFO - Ethnicity distribution: {'WHITE': 1990, 'UNKNOWN/NOT SPECIFIED': 429, 'BLACK': 239, 'OTHER': 120, 'ASIAN': 119, 'HISPANIC OR LATINO': 103}
+2025-10-13 01:24:58,180 - INFO - Loaded 3000 patients
+2025-10-13 01:24:58,180 - INFO - Vocabulary size: 2823 diagnosis codes
+2025-10-13 01:24:58,180 - INFO - Tokenizer vocab size: 2829
+2025-10-13 01:24:58,180 - INFO - Dataset size: 3000 patients
+2025-10-13 01:24:58,181 - INFO - Train size: 2400, Validation size: 600
+2025-10-13 01:24:58,181 - INFO - Train batches: 150, Validation batches: 38
+2025-10-13 01:24:58,181 - INFO - 
+================================================================================
+2025-10-13 01:24:58,181 - INFO - Initializing Model
+2025-10-13 01:24:58,181 - INFO - ================================================================================
+2025-10-13 01:24:58,281 - INFO - BART config vocab size: 2829
+2025-10-13 01:25:00,572 - INFO - Total parameters: 102,997,248
+2025-10-13 01:25:00,572 - INFO - Trainable parameters: 102,997,248
+2025-10-13 01:25:00,573 - INFO - Total training steps: 4500
+2025-10-13 01:25:00,573 - INFO - Warmup steps: 500
+2025-10-13 01:25:00,574 - INFO - 
+================================================================================
+2025-10-13 01:25:00,574 - INFO - Starting Training
+2025-10-13 01:25:00,574 - INFO - ================================================================================
+2025-10-13 01:25:10,300 - INFO - Epoch 1, Step 50/150 - Loss: 6.9795, Perplexity: 1323.7613, LR: 1.00e-05
+2025-10-13 01:25:19,880 - INFO - Epoch 1, Step 100/150 - Loss: 6.2147, Perplexity: 789.0978, LR: 2.00e-05
+2025-10-13 01:25:29,463 - INFO - Epoch 1, Step 150/150 - Loss: 5.7660, Perplexity: 573.3345, LR: 3.00e-05
+2025-10-13 01:25:29,463 - INFO - Epoch 1 Complete - Avg Loss: 5.7660, Avg Perplexity: 573.3345
+2025-10-13 01:25:31,710 - INFO - Validation - Loss: 4.6012, Perplexity: 104.5094, Token Accuracy: 0.3205, Code Accuracy: 0.0640
+2025-10-13 01:25:31,710 - INFO - New best model! Validation loss: 4.6012
+2025-10-13 01:25:35,476 - INFO - Checkpoint saved: epoch 1
+2025-10-13 01:25:45,088 - INFO - Epoch 2, Step 50/150 - Loss: 4.4004, Perplexity: 87.5821, LR: 4.00e-05
+2025-10-13 01:25:54,669 - INFO - Epoch 2, Step 100/150 - Loss: 4.3532, Perplexity: 84.8713, LR: 5.00e-05
+2025-10-13 01:26:04,253 - INFO - Epoch 2, Step 150/150 - Loss: 4.1708, Perplexity: 73.4170, LR: 6.00e-05
+2025-10-13 01:26:04,253 - INFO - Epoch 2 Complete - Avg Loss: 4.1708, Avg Perplexity: 73.4170
+2025-10-13 01:26:06,493 - INFO - Validation - Loss: 3.5863, Perplexity: 39.1152, Token Accuracy: 0.4419, Code Accuracy: 0.2331
+2025-10-13 01:26:06,493 - INFO - New best model! Validation loss: 3.5863
+2025-10-13 01:26:10,311 - INFO - Checkpoint saved: epoch 2
+2025-10-13 01:26:19,911 - INFO - Epoch 3, Step 50/150 - Loss: 3.1813, Perplexity: 29.0400, LR: 7.00e-05
+2025-10-13 01:26:29,490 - INFO - Epoch 3, Step 100/150 - Loss: 2.8358, Perplexity: 22.2423, LR: 8.00e-05
+2025-10-13 01:26:39,069 - INFO - Epoch 3, Step 150/150 - Loss: 2.4274, Perplexity: 16.8419, LR: 9.00e-05
+2025-10-13 01:26:39,070 - INFO - Epoch 3 Complete - Avg Loss: 2.4274, Avg Perplexity: 16.8419
+2025-10-13 01:26:41,308 - INFO - Validation - Loss: 1.2031, Perplexity: 3.8968, Token Accuracy: 0.8698, Code Accuracy: 0.8358
+2025-10-13 01:26:41,308 - INFO - New best model! Validation loss: 1.2031
+2025-10-13 01:26:45,312 - INFO - Checkpoint saved: epoch 3
+2025-10-13 01:26:54,910 - INFO - Epoch 4, Step 50/150 - Loss: 1.1247, Perplexity: 3.6754, LR: 1.00e-04
+2025-10-13 01:27:04,490 - INFO - Epoch 4, Step 100/150 - Loss: 0.9538, Perplexity: 3.0622, LR: 9.88e-05
+2025-10-13 01:27:14,067 - INFO - Epoch 4, Step 150/150 - Loss: 0.8670, Perplexity: 2.9322, LR: 9.75e-05
+2025-10-13 01:27:14,068 - INFO - Epoch 4 Complete - Avg Loss: 0.8670, Avg Perplexity: 2.9322
+2025-10-13 01:27:16,305 - INFO - Validation - Loss: 0.5117, Perplexity: 1.8459, Token Accuracy: 0.9487, Code Accuracy: 0.9340
+2025-10-13 01:27:16,305 - INFO - New best model! Validation loss: 0.5117
+2025-10-13 01:27:19,941 - INFO - Checkpoint saved: epoch 4
+2025-10-13 01:27:29,539 - INFO - Epoch 5, Step 50/150 - Loss: 0.5525, Perplexity: 2.1145, LR: 9.63e-05
+2025-10-13 01:27:39,117 - INFO - Epoch 5, Step 100/150 - Loss: 0.4707, Perplexity: 1.8752, LR: 9.50e-05
+2025-10-13 01:27:48,691 - INFO - Epoch 5, Step 150/150 - Loss: 0.4126, Perplexity: 1.7261, LR: 9.38e-05
+2025-10-13 01:27:48,692 - INFO - Epoch 5 Complete - Avg Loss: 0.4126, Avg Perplexity: 1.7261
+2025-10-13 01:27:50,928 - INFO - Validation - Loss: 0.3117, Perplexity: 1.4625, Token Accuracy: 0.9676, Code Accuracy: 0.9597
+2025-10-13 01:27:50,929 - INFO - New best model! Validation loss: 0.3117
+2025-10-13 01:27:54,682 - INFO - Checkpoint saved: epoch 5
+2025-10-13 01:28:04,290 - INFO - Epoch 6, Step 50/150 - Loss: 0.2602, Perplexity: 1.3998, LR: 9.25e-05
+2025-10-13 01:28:13,867 - INFO - Epoch 6, Step 100/150 - Loss: 0.2477, Perplexity: 1.3891, LR: 9.12e-05
+2025-10-13 01:28:23,441 - INFO - Epoch 6, Step 150/150 - Loss: 0.2231, Perplexity: 1.3322, LR: 9.00e-05
+2025-10-13 01:28:23,442 - INFO - Epoch 6 Complete - Avg Loss: 0.2231, Avg Perplexity: 1.3322
+2025-10-13 01:28:25,679 - INFO - Validation - Loss: 0.2046, Perplexity: 1.2777, Token Accuracy: 0.9811, Code Accuracy: 0.9764
+2025-10-13 01:28:25,679 - INFO - New best model! Validation loss: 0.2046
+2025-10-13 01:28:29,724 - INFO - Checkpoint saved: epoch 6
+2025-10-13 01:28:39,323 - INFO - Epoch 7, Step 50/150 - Loss: 0.1315, Perplexity: 1.1958, LR: 8.88e-05
+2025-10-13 01:28:48,899 - INFO - Epoch 7, Step 100/150 - Loss: 0.1505, Perplexity: 1.2219, LR: 8.75e-05
+2025-10-13 01:28:58,474 - INFO - Epoch 7, Step 150/150 - Loss: 0.1273, Perplexity: 1.1805, LR: 8.63e-05
+2025-10-13 01:28:58,475 - INFO - Epoch 7 Complete - Avg Loss: 0.1273, Avg Perplexity: 1.1805
+2025-10-13 01:29:00,717 - INFO - Validation - Loss: 0.1420, Perplexity: 1.1805, Token Accuracy: 0.9880, Code Accuracy: 0.9848
+2025-10-13 01:29:00,717 - INFO - New best model! Validation loss: 0.1420
+2025-10-13 01:29:04,979 - INFO - Checkpoint saved: epoch 7
+2025-10-13 01:29:14,604 - INFO - Epoch 8, Step 50/150 - Loss: 0.0871, Perplexity: 1.1052, LR: 8.50e-05
+2025-10-13 01:29:24,180 - INFO - Epoch 8, Step 100/150 - Loss: 0.0808, Perplexity: 1.0948, LR: 8.38e-05
+2025-10-13 01:29:33,758 - INFO - Epoch 8, Step 150/150 - Loss: 0.0807, Perplexity: 1.1008, LR: 8.25e-05
+2025-10-13 01:29:33,759 - INFO - Epoch 8 Complete - Avg Loss: 0.0807, Avg Perplexity: 1.1008
+2025-10-13 01:29:35,995 - INFO - Validation - Loss: 0.1065, Perplexity: 1.1246, Token Accuracy: 0.9929, Code Accuracy: 0.9906
+2025-10-13 01:29:35,995 - INFO - New best model! Validation loss: 0.1065
+2025-10-13 01:29:40,165 - INFO - Checkpoint saved: epoch 8
+2025-10-13 01:29:49,757 - INFO - Epoch 9, Step 50/150 - Loss: 0.0466, Perplexity: 1.0519, LR: 8.13e-05
+2025-10-13 01:29:59,331 - INFO - Epoch 9, Step 100/150 - Loss: 0.0423, Perplexity: 1.0459, LR: 8.00e-05
+2025-10-13 01:30:08,911 - INFO - Epoch 9, Step 150/150 - Loss: 0.0533, Perplexity: 1.0625, LR: 7.88e-05
+2025-10-13 01:30:08,912 - INFO - Epoch 9 Complete - Avg Loss: 0.0533, Avg Perplexity: 1.0625
+2025-10-13 01:30:11,148 - INFO - Validation - Loss: 0.0949, Perplexity: 1.1058, Token Accuracy: 0.9949, Code Accuracy: 0.9937
+2025-10-13 01:30:11,148 - INFO - New best model! Validation loss: 0.0949
+2025-10-13 01:30:15,342 - INFO - Checkpoint saved: epoch 9
+2025-10-13 01:30:24,989 - INFO - Epoch 10, Step 50/150 - Loss: 0.0250, Perplexity: 1.0258, LR: 7.75e-05
+2025-10-13 01:30:34,565 - INFO - Epoch 10, Step 100/150 - Loss: 0.0282, Perplexity: 1.0297, LR: 7.62e-05
+2025-10-13 01:30:44,139 - INFO - Epoch 10, Step 150/150 - Loss: 0.0370, Perplexity: 1.0413, LR: 7.50e-05
+2025-10-13 01:30:44,139 - INFO - Epoch 10 Complete - Avg Loss: 0.0370, Avg Perplexity: 1.0413
+2025-10-13 01:30:46,375 - INFO - Validation - Loss: 0.0956, Perplexity: 1.1065, Token Accuracy: 0.9953, Code Accuracy: 0.9940
+2025-10-13 01:30:48,546 - INFO - Checkpoint saved: epoch 10
+2025-10-13 01:30:58,137 - INFO - Epoch 11, Step 50/150 - Loss: 0.0226, Perplexity: 1.0235, LR: 7.38e-05
+2025-10-13 01:31:07,716 - INFO - Epoch 11, Step 100/150 - Loss: 0.0206, Perplexity: 1.0213, LR: 7.25e-05
+2025-10-13 01:31:17,289 - INFO - Epoch 11, Step 150/150 - Loss: 0.0262, Perplexity: 1.0282, LR: 7.13e-05
+2025-10-13 01:31:17,290 - INFO - Epoch 11 Complete - Avg Loss: 0.0262, Avg Perplexity: 1.0282
+2025-10-13 01:31:19,525 - INFO - Validation - Loss: 0.0800, Perplexity: 1.0866, Token Accuracy: 0.9961, Code Accuracy: 0.9951
+2025-10-13 01:31:19,525 - INFO - New best model! Validation loss: 0.0800
+2025-10-13 01:31:23,657 - INFO - Checkpoint saved: epoch 11
+2025-10-13 01:31:33,257 - INFO - Epoch 12, Step 50/150 - Loss: 0.0106, Perplexity: 1.0107, LR: 7.00e-05
+2025-10-13 01:31:42,831 - INFO - Epoch 12, Step 100/150 - Loss: 0.0159, Perplexity: 1.0163, LR: 6.88e-05
+2025-10-13 01:31:52,405 - INFO - Epoch 12, Step 150/150 - Loss: 0.0187, Perplexity: 1.0197, LR: 6.75e-05
+2025-10-13 01:31:52,406 - INFO - Epoch 12 Complete - Avg Loss: 0.0187, Avg Perplexity: 1.0197
+2025-10-13 01:31:54,643 - INFO - Validation - Loss: 0.0771, Perplexity: 1.0828, Token Accuracy: 0.9968, Code Accuracy: 0.9961
+2025-10-13 01:31:54,643 - INFO - New best model! Validation loss: 0.0771
+2025-10-13 01:31:58,803 - INFO - Checkpoint saved: epoch 12
+2025-10-13 01:32:08,395 - INFO - Epoch 13, Step 50/150 - Loss: 0.0126, Perplexity: 1.0127, LR: 6.62e-05
+2025-10-13 01:32:17,969 - INFO - Epoch 13, Step 100/150 - Loss: 0.0110, Perplexity: 1.0111, LR: 6.50e-05
+2025-10-13 01:32:27,544 - INFO - Epoch 13, Step 150/150 - Loss: 0.0141, Perplexity: 1.0146, LR: 6.38e-05
+2025-10-13 01:32:27,545 - INFO - Epoch 13 Complete - Avg Loss: 0.0141, Avg Perplexity: 1.0146
+2025-10-13 01:32:29,782 - INFO - Validation - Loss: 0.0750, Perplexity: 1.0803, Token Accuracy: 0.9970, Code Accuracy: 0.9962
+2025-10-13 01:32:29,782 - INFO - New best model! Validation loss: 0.0750
+2025-10-13 01:32:33,992 - INFO - Checkpoint saved: epoch 13
+2025-10-13 01:32:43,580 - INFO - Epoch 14, Step 50/150 - Loss: 0.0084, Perplexity: 1.0085, LR: 6.25e-05
+2025-10-13 01:32:53,157 - INFO - Epoch 14, Step 100/150 - Loss: 0.0097, Perplexity: 1.0100, LR: 6.13e-05
+2025-10-13 01:33:02,738 - INFO - Epoch 14, Step 150/150 - Loss: 0.0103, Perplexity: 1.0106, LR: 6.00e-05
+2025-10-13 01:33:02,738 - INFO - Epoch 14 Complete - Avg Loss: 0.0103, Avg Perplexity: 1.0106
+2025-10-13 01:33:04,976 - INFO - Validation - Loss: 0.0727, Perplexity: 1.0775, Token Accuracy: 0.9972, Code Accuracy: 0.9963
+2025-10-13 01:33:04,977 - INFO - New best model! Validation loss: 0.0727
+2025-10-13 01:33:09,009 - INFO - Checkpoint saved: epoch 14
+2025-10-13 01:33:18,619 - INFO - Epoch 15, Step 50/150 - Loss: 0.0105, Perplexity: 1.0107, LR: 5.88e-05
+2025-10-13 01:33:28,193 - INFO - Epoch 15, Step 100/150 - Loss: 0.0097, Perplexity: 1.0098, LR: 5.75e-05
+2025-10-13 01:33:37,767 - INFO - Epoch 15, Step 150/150 - Loss: 0.0091, Perplexity: 1.0092, LR: 5.63e-05
+2025-10-13 01:33:37,768 - INFO - Epoch 15 Complete - Avg Loss: 0.0091, Avg Perplexity: 1.0092
+2025-10-13 01:33:40,004 - INFO - Validation - Loss: 0.0711, Perplexity: 1.0758, Token Accuracy: 0.9975, Code Accuracy: 0.9967
+2025-10-13 01:33:40,004 - INFO - New best model! Validation loss: 0.0711
+2025-10-13 01:33:44,559 - INFO - Checkpoint saved: epoch 15
+2025-10-13 01:33:54,196 - INFO - Epoch 16, Step 50/150 - Loss: 0.0080, Perplexity: 1.0082, LR: 5.50e-05
+2025-10-13 01:34:03,776 - INFO - Epoch 16, Step 100/150 - Loss: 0.0072, Perplexity: 1.0073, LR: 5.37e-05
+2025-10-13 01:34:13,349 - INFO - Epoch 16, Step 150/150 - Loss: 0.0066, Perplexity: 1.0067, LR: 5.25e-05
+2025-10-13 01:34:13,350 - INFO - Epoch 16 Complete - Avg Loss: 0.0066, Avg Perplexity: 1.0067
+2025-10-13 01:34:15,587 - INFO - Validation - Loss: 0.0658, Perplexity: 1.0699, Token Accuracy: 0.9979, Code Accuracy: 0.9973
+2025-10-13 01:34:15,587 - INFO - New best model! Validation loss: 0.0658
+2025-10-13 01:34:19,769 - INFO - Checkpoint saved: epoch 16
+2025-10-13 01:34:29,355 - INFO - Epoch 17, Step 50/150 - Loss: 0.0037, Perplexity: 1.0037, LR: 5.12e-05
+2025-10-13 01:34:38,931 - INFO - Epoch 17, Step 100/150 - Loss: 0.0060, Perplexity: 1.0061, LR: 5.00e-05
+2025-10-13 01:34:48,504 - INFO - Epoch 17, Step 150/150 - Loss: 0.0060, Perplexity: 1.0060, LR: 4.87e-05
+2025-10-13 01:34:48,505 - INFO - Epoch 17 Complete - Avg Loss: 0.0060, Avg Perplexity: 1.0060
+2025-10-13 01:34:50,740 - INFO - Validation - Loss: 0.0663, Perplexity: 1.0700, Token Accuracy: 0.9981, Code Accuracy: 0.9975
+2025-10-13 01:35:00,319 - INFO - Epoch 18, Step 50/150 - Loss: 0.0047, Perplexity: 1.0047, LR: 4.75e-05
+2025-10-13 01:35:09,896 - INFO - Epoch 18, Step 100/150 - Loss: 0.0045, Perplexity: 1.0045, LR: 4.63e-05
+2025-10-13 01:35:19,474 - INFO - Epoch 18, Step 150/150 - Loss: 0.0050, Perplexity: 1.0050, LR: 4.50e-05
+2025-10-13 01:35:19,475 - INFO - Epoch 18 Complete - Avg Loss: 0.0050, Avg Perplexity: 1.0050
+2025-10-13 01:35:21,711 - INFO - Validation - Loss: 0.0669, Perplexity: 1.0708, Token Accuracy: 0.9980, Code Accuracy: 0.9973
+2025-10-13 01:35:31,285 - INFO - Epoch 19, Step 50/150 - Loss: 0.0045, Perplexity: 1.0045, LR: 4.37e-05
+2025-10-13 01:35:40,858 - INFO - Epoch 19, Step 100/150 - Loss: 0.0051, Perplexity: 1.0052, LR: 4.25e-05
+2025-10-13 01:35:50,432 - INFO - Epoch 19, Step 150/150 - Loss: 0.0054, Perplexity: 1.0054, LR: 4.12e-05
+2025-10-13 01:35:50,433 - INFO - Epoch 19 Complete - Avg Loss: 0.0054, Avg Perplexity: 1.0054
+2025-10-13 01:35:52,667 - INFO - Validation - Loss: 0.0691, Perplexity: 1.0732, Token Accuracy: 0.9974, Code Accuracy: 0.9966
+2025-10-13 01:36:02,247 - INFO - Epoch 20, Step 50/150 - Loss: 0.0046, Perplexity: 1.0046, LR: 4.00e-05
+2025-10-13 01:36:11,821 - INFO - Epoch 20, Step 100/150 - Loss: 0.0058, Perplexity: 1.0058, LR: 3.87e-05
+2025-10-13 01:36:21,395 - INFO - Epoch 20, Step 150/150 - Loss: 0.0052, Perplexity: 1.0053, LR: 3.75e-05
+2025-10-13 01:36:21,396 - INFO - Epoch 20 Complete - Avg Loss: 0.0052, Avg Perplexity: 1.0053
+2025-10-13 01:36:23,631 - INFO - Validation - Loss: 0.0674, Perplexity: 1.0717, Token Accuracy: 0.9977, Code Accuracy: 0.9971
+2025-10-13 01:36:25,549 - INFO - Checkpoint saved: epoch 20
+2025-10-13 01:36:35,143 - INFO - Epoch 21, Step 50/150 - Loss: 0.0034, Perplexity: 1.0034, LR: 3.63e-05
+2025-10-13 01:36:44,718 - INFO - Epoch 21, Step 100/150 - Loss: 0.0034, Perplexity: 1.0035, LR: 3.50e-05
+2025-10-13 01:36:54,292 - INFO - Epoch 21, Step 150/150 - Loss: 0.0033, Perplexity: 1.0033, LR: 3.38e-05
+2025-10-13 01:36:54,293 - INFO - Epoch 21 Complete - Avg Loss: 0.0033, Avg Perplexity: 1.0033
+2025-10-13 01:36:56,529 - INFO - Validation - Loss: 0.0626, Perplexity: 1.0662, Token Accuracy: 0.9982, Code Accuracy: 0.9976
+2025-10-13 01:36:56,529 - INFO - New best model! Validation loss: 0.0626
+2025-10-13 01:37:00,936 - INFO - Checkpoint saved: epoch 21
+2025-10-13 01:37:10,529 - INFO - Epoch 22, Step 50/150 - Loss: 0.0034, Perplexity: 1.0035, LR: 3.25e-05
+2025-10-13 01:37:20,103 - INFO - Epoch 22, Step 100/150 - Loss: 0.0034, Perplexity: 1.0034, LR: 3.13e-05
+2025-10-13 01:37:29,676 - INFO - Epoch 22, Step 150/150 - Loss: 0.0032, Perplexity: 1.0032, LR: 3.00e-05
+2025-10-13 01:37:29,677 - INFO - Epoch 22 Complete - Avg Loss: 0.0032, Avg Perplexity: 1.0032
+2025-10-13 01:37:31,912 - INFO - Validation - Loss: 0.0606, Perplexity: 1.0641, Token Accuracy: 0.9984, Code Accuracy: 0.9978
+2025-10-13 01:37:31,912 - INFO - New best model! Validation loss: 0.0606
+2025-10-13 01:37:35,741 - INFO - Checkpoint saved: epoch 22
+2025-10-13 01:37:45,335 - INFO - Epoch 23, Step 50/150 - Loss: 0.0020, Perplexity: 1.0020, LR: 2.87e-05
+2025-10-13 01:37:54,908 - INFO - Epoch 23, Step 100/150 - Loss: 0.0022, Perplexity: 1.0022, LR: 2.75e-05
+2025-10-13 01:38:04,486 - INFO - Epoch 23, Step 150/150 - Loss: 0.0023, Perplexity: 1.0023, LR: 2.63e-05
+2025-10-13 01:38:04,486 - INFO - Epoch 23 Complete - Avg Loss: 0.0023, Avg Perplexity: 1.0023
+2025-10-13 01:38:06,723 - INFO - Validation - Loss: 0.0596, Perplexity: 1.0631, Token Accuracy: 0.9983, Code Accuracy: 0.9977
+2025-10-13 01:38:06,723 - INFO - New best model! Validation loss: 0.0596
+2025-10-13 01:38:10,710 - INFO - Checkpoint saved: epoch 23
+2025-10-13 01:38:20,306 - INFO - Epoch 24, Step 50/150 - Loss: 0.0022, Perplexity: 1.0022, LR: 2.50e-05
+2025-10-13 01:38:29,878 - INFO - Epoch 24, Step 100/150 - Loss: 0.0020, Perplexity: 1.0020, LR: 2.38e-05
+2025-10-13 01:38:39,451 - INFO - Epoch 24, Step 150/150 - Loss: 0.0020, Perplexity: 1.0020, LR: 2.25e-05
+2025-10-13 01:38:39,452 - INFO - Epoch 24 Complete - Avg Loss: 0.0020, Avg Perplexity: 1.0020
+2025-10-13 01:38:41,689 - INFO - Validation - Loss: 0.0581, Perplexity: 1.0614, Token Accuracy: 0.9985, Code Accuracy: 0.9979
+2025-10-13 01:38:41,689 - INFO - New best model! Validation loss: 0.0581
+2025-10-13 01:38:45,634 - INFO - Checkpoint saved: epoch 24
+2025-10-13 01:38:55,235 - INFO - Epoch 25, Step 50/150 - Loss: 0.0019, Perplexity: 1.0019, LR: 2.13e-05
+2025-10-13 01:39:04,816 - INFO - Epoch 25, Step 100/150 - Loss: 0.0018, Perplexity: 1.0018, LR: 2.00e-05
+2025-10-13 01:39:14,389 - INFO - Epoch 25, Step 150/150 - Loss: 0.0019, Perplexity: 1.0019, LR: 1.88e-05
+2025-10-13 01:39:14,390 - INFO - Epoch 25 Complete - Avg Loss: 0.0019, Avg Perplexity: 1.0019
+2025-10-13 01:39:16,626 - INFO - Validation - Loss: 0.0573, Perplexity: 1.0605, Token Accuracy: 0.9985, Code Accuracy: 0.9979
+2025-10-13 01:39:16,626 - INFO - New best model! Validation loss: 0.0573
+2025-10-13 01:39:20,561 - INFO - Checkpoint saved: epoch 25
+2025-10-13 01:39:30,151 - INFO - Epoch 26, Step 50/150 - Loss: 0.0017, Perplexity: 1.0017, LR: 1.75e-05
+2025-10-13 01:39:39,724 - INFO - Epoch 26, Step 100/150 - Loss: 0.0018, Perplexity: 1.0018, LR: 1.63e-05
+2025-10-13 01:39:49,297 - INFO - Epoch 26, Step 150/150 - Loss: 0.0017, Perplexity: 1.0018, LR: 1.50e-05
+2025-10-13 01:39:49,298 - INFO - Epoch 26 Complete - Avg Loss: 0.0017, Avg Perplexity: 1.0018
+2025-10-13 01:39:51,533 - INFO - Validation - Loss: 0.0567, Perplexity: 1.0599, Token Accuracy: 0.9985, Code Accuracy: 0.9979
+2025-10-13 01:39:51,534 - INFO - New best model! Validation loss: 0.0567
+2025-10-13 01:39:55,342 - INFO - Checkpoint saved: epoch 26
+2025-10-13 01:40:04,939 - INFO - Epoch 27, Step 50/150 - Loss: 0.0017, Perplexity: 1.0017, LR: 1.38e-05
+2025-10-13 01:40:14,511 - INFO - Epoch 27, Step 100/150 - Loss: 0.0017, Perplexity: 1.0017, LR: 1.25e-05
+2025-10-13 01:40:24,084 - INFO - Epoch 27, Step 150/150 - Loss: 0.0017, Perplexity: 1.0017, LR: 1.13e-05
+2025-10-13 01:40:24,085 - INFO - Epoch 27 Complete - Avg Loss: 0.0017, Avg Perplexity: 1.0017
+2025-10-13 01:40:26,320 - INFO - Validation - Loss: 0.0565, Perplexity: 1.0596, Token Accuracy: 0.9985, Code Accuracy: 0.9979
+2025-10-13 01:40:26,320 - INFO - New best model! Validation loss: 0.0565
+2025-10-13 01:40:30,186 - INFO - Checkpoint saved: epoch 27
+2025-10-13 01:40:39,776 - INFO - Epoch 28, Step 50/150 - Loss: 0.0015, Perplexity: 1.0015, LR: 1.00e-05
+2025-10-13 01:40:49,348 - INFO - Epoch 28, Step 100/150 - Loss: 0.0016, Perplexity: 1.0016, LR: 8.75e-06
+2025-10-13 01:40:58,920 - INFO - Epoch 28, Step 150/150 - Loss: 0.0016, Perplexity: 1.0016, LR: 7.50e-06
+2025-10-13 01:40:58,921 - INFO - Epoch 28 Complete - Avg Loss: 0.0016, Avg Perplexity: 1.0016
+2025-10-13 01:41:01,163 - INFO - Validation - Loss: 0.0562, Perplexity: 1.0593, Token Accuracy: 0.9985, Code Accuracy: 0.9979
+2025-10-13 01:41:01,163 - INFO - New best model! Validation loss: 0.0562
+2025-10-13 01:41:05,118 - INFO - Checkpoint saved: epoch 28
+2025-10-13 01:41:14,712 - INFO - Epoch 29, Step 50/150 - Loss: 0.0016, Perplexity: 1.0016, LR: 6.25e-06
+2025-10-13 01:41:24,288 - INFO - Epoch 29, Step 100/150 - Loss: 0.0017, Perplexity: 1.0017, LR: 5.00e-06
+2025-10-13 01:41:33,862 - INFO - Epoch 29, Step 150/150 - Loss: 0.0016, Perplexity: 1.0016, LR: 3.75e-06
+2025-10-13 01:41:33,862 - INFO - Epoch 29 Complete - Avg Loss: 0.0016, Avg Perplexity: 1.0016
+2025-10-13 01:41:36,098 - INFO - Validation - Loss: 0.0560, Perplexity: 1.0591, Token Accuracy: 0.9985, Code Accuracy: 0.9979
+2025-10-13 01:41:36,098 - INFO - New best model! Validation loss: 0.0560
+2025-10-13 01:41:40,032 - INFO - Checkpoint saved: epoch 29
+2025-10-13 01:41:49,632 - INFO - Epoch 30, Step 50/150 - Loss: 0.0013, Perplexity: 1.0013, LR: 2.50e-06
+2025-10-13 01:41:59,205 - INFO - Epoch 30, Step 100/150 - Loss: 0.0015, Perplexity: 1.0015, LR: 1.25e-06
+2025-10-13 01:42:08,784 - INFO - Epoch 30, Step 150/150 - Loss: 0.0016, Perplexity: 1.0016, LR: 0.00e+00
+2025-10-13 01:42:08,785 - INFO - Epoch 30 Complete - Avg Loss: 0.0016, Avg Perplexity: 1.0016
+2025-10-13 01:42:11,020 - INFO - Validation - Loss: 0.0560, Perplexity: 1.0590, Token Accuracy: 0.9985, Code Accuracy: 0.9979
+2025-10-13 01:42:11,020 - INFO - New best model! Validation loss: 0.0560
+2025-10-13 01:42:15,061 - INFO - Checkpoint saved: epoch 30
+2025-10-13 01:42:15,061 - INFO - 
+================================================================================
+2025-10-13 01:42:15,061 - INFO - Training Complete!
+2025-10-13 01:42:15,061 - INFO - ================================================================================
+2025-10-13 01:42:15,061 - INFO - Best validation loss: 0.0560
+2025-10-13 01:42:15,061 - INFO - Best validation perplexity: 1.0575
+========================================
+Training completed
+End Time: Mon Oct 13 01:42:15 CDT 2025
+Exit Code: 0
+========================================

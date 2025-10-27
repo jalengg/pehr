@@ -1,0 +1,160 @@
+========================================
+PromptEHR Training Job
+========================================
+Job ID: 5289886
+Job Name: promptehr_train
+Node: ccc0387
+Partition: IllinoisComputes-GPU
+Working Directory: /u/jalenj4/pehr_scratch
+CUDA_VISIBLE_DEVICES: 0
+Start Time: Mon Oct 13 01:01:42 CDT 2025
+========================================
+GPU Information:
+Mon Oct 13 01:01:42 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 575.57.08              Driver Version: 575.57.08      CUDA Version: 12.9     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          Off |   00000000:81:00.0 Off |                    0 |
+| N/A   32C    P0             62W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+========================================
+Environment:
+Python version: Python 3.12.11
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+CUDA version: 12.8
+========================================
+Starting PromptEHR training...
+2025-10-13 01:01:51,716 - INFO - ================================================================================
+2025-10-13 01:01:51,717 - INFO - PromptEHR Training Pipeline - Phase 3
+2025-10-13 01:01:51,717 - INFO - ================================================================================
+2025-10-13 01:01:51,717 - INFO - 
+Configuration:
+
+[Data]
+  Patients: 3000
+  Max sequence length: 256
+  Train/val split: 0.2
+
+[Model]
+  Base model: facebook/bart-base
+  Continuous features: 1
+  Categorical features: 2
+  Prompt length: 1
+
+[Training]
+  Batch size: 16
+  Epochs: 30
+  Learning rate: 0.0001
+  Warmup steps: 500
+  Device: cuda
+2025-10-13 01:01:51,727 - INFO - 
+Random seed: 42
+2025-10-13 01:01:51,987 - INFO - Device: cuda
+2025-10-13 01:01:51,988 - INFO - 
+================================================================================
+2025-10-13 01:01:51,988 - INFO - Loading MIMIC-III Data
+2025-10-13 01:01:51,988 - INFO - ================================================================================
+2025-10-13 01:01:51,988 - INFO - Loading MIMIC-III data files
+2025-10-13 01:01:52,049 - INFO - Loaded 46520 patients
+2025-10-13 01:01:52,199 - INFO - Loaded 58976 admissions
+2025-10-13 01:01:52,376 - INFO - Loaded 651047 diagnosis records
+2025-10-13 01:01:52,657 - INFO - Processing patient records
+2025-10-13 01:01:55,205 - INFO - Loaded 3000 patient records
+2025-10-13 01:01:55,206 - INFO - Diagnosis vocabulary size: 2823
+2025-10-13 01:01:55,207 - INFO - Average visits per patient: 1.27
+2025-10-13 01:01:55,207 - INFO - Average codes per visit: 9.27
+2025-10-13 01:01:55,208 - INFO - Gender distribution: {'M': 1686, 'F': 1314}
+2025-10-13 01:01:55,209 - INFO - Ethnicity distribution: {'WHITE': 1990, 'UNKNOWN/NOT SPECIFIED': 429, 'BLACK': 239, 'OTHER': 120, 'ASIAN': 119, 'HISPANIC OR LATINO': 103}
+2025-10-13 01:01:55,226 - INFO - Loaded 3000 patients
+2025-10-13 01:01:55,226 - INFO - Vocabulary size: 2823 diagnosis codes
+2025-10-13 01:01:55,226 - INFO - Tokenizer vocab size: 2829
+2025-10-13 01:01:55,226 - INFO - Dataset size: 3000 patients
+2025-10-13 01:01:55,226 - INFO - Train size: 2400, Validation size: 600
+2025-10-13 01:01:55,227 - INFO - Train batches: 150, Validation batches: 38
+2025-10-13 01:01:55,227 - INFO - 
+================================================================================
+2025-10-13 01:01:55,227 - INFO - Initializing Model
+2025-10-13 01:01:55,227 - INFO - ================================================================================
+2025-10-13 01:01:55,391 - INFO - BART config vocab size: 2829
+2025-10-13 01:01:57,490 - INFO - Total parameters: 102,997,248
+2025-10-13 01:01:57,490 - INFO - Trainable parameters: 102,997,248
+2025-10-13 01:01:57,492 - INFO - Total training steps: 4500
+2025-10-13 01:01:57,492 - INFO - Warmup steps: 500
+2025-10-13 01:01:57,492 - INFO - 
+================================================================================
+2025-10-13 01:01:57,492 - INFO - Starting Training
+2025-10-13 01:01:57,492 - INFO - ================================================================================
+2025-10-13 01:02:07,358 - INFO - Epoch 1, Step 50/150 - Loss: 6.9795, Perplexity: 1323.7614, LR: 1.00e-05
+2025-10-13 01:02:16,936 - INFO - Epoch 1, Step 100/150 - Loss: 6.2147, Perplexity: 789.0978, LR: 2.00e-05
+2025-10-13 01:02:26,516 - INFO - Epoch 1, Step 150/150 - Loss: 5.7660, Perplexity: 573.3345, LR: 3.00e-05
+2025-10-13 01:02:26,517 - INFO - Epoch 1 Complete - Avg Loss: 5.7660, Avg Perplexity: 573.3345
+2025-10-13 01:02:28,781 - INFO - Validation - Loss: 4.6012, Perplexity: 104.5094, Token Accuracy: 0.3205, Code Accuracy: 0.0640
+2025-10-13 01:02:28,781 - INFO - New best model! Validation loss: 4.6012
+2025-10-13 01:02:32,565 - INFO - Checkpoint saved: epoch 1
+2025-10-13 01:02:42,163 - INFO - Epoch 2, Step 50/150 - Loss: 4.4004, Perplexity: 87.5821, LR: 4.00e-05
+2025-10-13 01:02:51,742 - INFO - Epoch 2, Step 100/150 - Loss: 4.3532, Perplexity: 84.8713, LR: 5.00e-05
+2025-10-13 01:03:01,325 - INFO - Epoch 2, Step 150/150 - Loss: 4.1708, Perplexity: 73.4170, LR: 6.00e-05
+2025-10-13 01:03:01,325 - INFO - Epoch 2 Complete - Avg Loss: 4.1708, Avg Perplexity: 73.4170
+2025-10-13 01:03:03,563 - INFO - Validation - Loss: 3.5863, Perplexity: 39.1152, Token Accuracy: 0.4419, Code Accuracy: 0.2331
+2025-10-13 01:03:03,563 - INFO - New best model! Validation loss: 3.5863
+2025-10-13 01:03:07,529 - INFO - Checkpoint saved: epoch 2
+2025-10-13 01:03:17,126 - INFO - Epoch 3, Step 50/150 - Loss: 3.1813, Perplexity: 29.0400, LR: 7.00e-05
+2025-10-13 01:03:26,700 - INFO - Epoch 3, Step 100/150 - Loss: 2.8358, Perplexity: 22.2423, LR: 8.00e-05
+2025-10-13 01:03:36,275 - INFO - Epoch 3, Step 150/150 - Loss: 2.4274, Perplexity: 16.8419, LR: 9.00e-05
+2025-10-13 01:03:36,276 - INFO - Epoch 3 Complete - Avg Loss: 2.4274, Avg Perplexity: 16.8419
+2025-10-13 01:03:38,511 - INFO - Validation - Loss: 1.2031, Perplexity: 3.8968, Token Accuracy: 0.8698, Code Accuracy: 0.8358
+2025-10-13 01:03:38,512 - INFO - New best model! Validation loss: 1.2031
+2025-10-13 01:03:42,614 - INFO - Checkpoint saved: epoch 3
+2025-10-13 01:03:52,203 - INFO - Epoch 4, Step 50/150 - Loss: 1.1247, Perplexity: 3.6754, LR: 1.00e-04
+2025-10-13 01:04:01,780 - INFO - Epoch 4, Step 100/150 - Loss: 0.9538, Perplexity: 3.0621, LR: 9.88e-05
+2025-10-13 01:04:11,356 - INFO - Epoch 4, Step 150/150 - Loss: 0.8667, Perplexity: 2.9315, LR: 9.75e-05
+2025-10-13 01:04:11,357 - INFO - Epoch 4 Complete - Avg Loss: 0.8667, Avg Perplexity: 2.9315
+2025-10-13 01:04:13,593 - INFO - Validation - Loss: 0.5111, Perplexity: 1.8451, Token Accuracy: 0.9486, Code Accuracy: 0.9338
+2025-10-13 01:04:13,593 - INFO - New best model! Validation loss: 0.5111
+2025-10-13 01:04:17,779 - INFO - Checkpoint saved: epoch 4
+2025-10-13 01:04:27,385 - INFO - Epoch 5, Step 50/150 - Loss: 0.5519, Perplexity: 2.1136, LR: 9.63e-05
+2025-10-13 01:04:36,960 - INFO - Epoch 5, Step 100/150 - Loss: 0.4726, Perplexity: 1.8784, LR: 9.50e-05
+2025-10-13 01:04:46,533 - INFO - Epoch 5, Step 150/150 - Loss: 0.4125, Perplexity: 1.7280, LR: 9.38e-05
+2025-10-13 01:04:46,534 - INFO - Epoch 5 Complete - Avg Loss: 0.4125, Avg Perplexity: 1.7280
+2025-10-13 01:04:48,770 - INFO - Validation - Loss: 0.3076, Perplexity: 1.4492, Token Accuracy: 0.9697, Code Accuracy: 0.9618
+2025-10-13 01:04:48,770 - INFO - New best model! Validation loss: 0.3076
+2025-10-13 01:04:52,689 - INFO - Checkpoint saved: epoch 5
+2025-10-13 01:05:02,295 - INFO - Epoch 6, Step 50/150 - Loss: 0.2592, Perplexity: 1.3947, LR: 9.25e-05
+2025-10-13 01:05:11,868 - INFO - Epoch 6, Step 100/150 - Loss: 0.2515, Perplexity: 1.3950, LR: 9.12e-05
+2025-10-13 01:05:21,440 - INFO - Epoch 6, Step 150/150 - Loss: 0.2249, Perplexity: 1.3352, LR: 9.00e-05
+2025-10-13 01:05:21,441 - INFO - Epoch 6 Complete - Avg Loss: 0.2249, Avg Perplexity: 1.3352
+2025-10-13 01:05:23,675 - INFO - Validation - Loss: 0.1936, Perplexity: 1.2583, Token Accuracy: 0.9827, Code Accuracy: 0.9781
+2025-10-13 01:05:23,675 - INFO - New best model! Validation loss: 0.1936
+2025-10-13 01:05:27,597 - INFO - Checkpoint saved: epoch 6
+2025-10-13 01:05:37,186 - INFO - Epoch 7, Step 50/150 - Loss: 0.1331, Perplexity: 1.2090, LR: 8.88e-05
+2025-10-13 01:05:46,757 - INFO - Epoch 7, Step 100/150 - Loss: 0.1530, Perplexity: 1.2310, LR: 8.75e-05
+2025-10-13 01:05:56,330 - INFO - Epoch 7, Step 150/150 - Loss: 0.1298, Perplexity: 1.1873, LR: 8.63e-05
+2025-10-13 01:05:56,331 - INFO - Epoch 7 Complete - Avg Loss: 0.1298, Avg Perplexity: 1.1873
+2025-10-13 01:05:58,566 - INFO - Validation - Loss: 0.1471, Perplexity: 1.1829, Token Accuracy: 0.9877, Code Accuracy: 0.9847
+2025-10-13 01:05:58,566 - INFO - New best model! Validation loss: 0.1471
+2025-10-13 01:06:02,599 - INFO - Checkpoint saved: epoch 7
+2025-10-13 01:06:12,188 - INFO - Epoch 8, Step 50/150 - Loss: 0.0879, Perplexity: 1.1070, LR: 8.50e-05
+2025-10-13 01:06:21,761 - INFO - Epoch 8, Step 100/150 - Loss: 0.0812, Perplexity: 1.0956, LR: 8.38e-05
+2025-10-13 01:06:31,334 - INFO - Epoch 8, Step 150/150 - Loss: 0.0824, Perplexity: 1.1047, LR: 8.25e-05
+2025-10-13 01:06:31,334 - INFO - Epoch 8 Complete - Avg Loss: 0.0824, Avg Perplexity: 1.1047
+2025-10-13 01:06:33,570 - INFO - Validation - Loss: 0.1155, Perplexity: 1.1341, Token Accuracy: 0.9924, Code Accuracy: 0.9901
+2025-10-13 01:06:33,570 - INFO - New best model! Validation loss: 0.1155
+========================================
+Training completed
+End Time: Mon Oct 13 01:06:36 CDT 2025
+Exit Code: 1
+========================================

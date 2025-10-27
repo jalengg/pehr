@@ -1,0 +1,11 @@
+Epoch 1:   0%|          | 0/1000 [00:00<?, ?it/s]Epoch 1:   0%|          | 0/1000 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/u/jalenj4/pehr_scratch/trainer.py", line 551, in <module>
+    main()
+  File "/u/jalenj4/pehr_scratch/trainer.py", line 501, in main
+    train_metrics = train_epoch(
+                    ^^^^^^^^^^^^
+  File "/u/jalenj4/pehr_scratch/trainer.py", line 273, in train_epoch
+    code_offset=tokenizer.code_offset  # Pass code offset for token-level age masking
+                ^^^^^^^^^
+NameError: name 'tokenizer' is not defined
