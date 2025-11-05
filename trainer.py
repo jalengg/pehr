@@ -19,6 +19,7 @@ from code_tokenizer import DiagnosisCodeTokenizer
 from dataset import EHRPatientDataset, EHRDataCollator
 from prompt_bart_model import PromptBartModel
 from metrics import MetricsTracker, compute_perplexity, compute_temporal_perplexity
+from cooccurrence_utils import build_cooccurrence_matrix, cooccurrence_loss_efficient
 
 
 def setup_logging(log_dir: str) -> logging.Logger:
@@ -248,7 +249,8 @@ def train_epoch(
     epoch: int,
     config: Config,
     logger: logging.Logger,
-    tokenizer=None  # NEW: Tokenizer for code_offset
+    tokenizer=None,  # NEW: Tokenizer for code_offset
+    cooccur_matrix: Optional[torch.Tensor] = None  # NEW: Co-occurrence matrix for regularization
 ) -> dict[str, float]:
     """Train for one epoch.
 
@@ -261,6 +263,8 @@ def train_epoch(
         epoch: Current epoch number.
         config: Configuration object.
         logger: Logger instance.
+        tokenizer: Tokenizer for code offset.
+        cooccur_matrix: Co-occurrence matrix for regularization loss.
 
     Returns:
         Dictionary with training metrics.
@@ -288,7 +292,20 @@ def train_epoch(
             code_offset=tokenizer.code_offset  # Pass code offset for token-level age masking
         )
 
+        # Get base loss (LM + age + sex)
         loss = outputs.loss
+
+        # Add co-occurrence regularization loss if enabled
+        cooccur_loss_value = 0.0
+        if cooccur_matrix is not None and config.model.cooccurrence_loss_weight > 0:
+            cooccur_loss = cooccurrence_loss_efficient(
+                generated_code_ids=input_ids,
+                cooccur_matrix=cooccur_matrix,
+                tokenizer=tokenizer,
+                threshold=5
+            )
+            loss = loss + config.model.cooccurrence_loss_weight * cooccur_loss
+            cooccur_loss_value = cooccur_loss.item()
 
         # Backward pass
         loss.backward()
@@ -310,6 +327,10 @@ def train_epoch(
             update_dict['age_loss'] = outputs.age_loss.item()
             update_dict['sex_loss'] = outputs.sex_loss.item()
 
+        # Track co-occurrence loss if enabled
+        if cooccur_loss_value > 0:
+            update_dict['cooccur_loss'] = cooccur_loss_value
+
         metrics_tracker.update(**update_dict)
 
         # Update progress bar
@@ -325,6 +346,10 @@ def train_epoch(
             postfix['lm'] = f"{current_metrics['lm_loss']:.4f}"
             postfix['age'] = f"{current_metrics['age_loss']:.2f}"
             postfix['sex'] = f"{current_metrics['sex_loss']:.3f}"
+
+        # Add co-occurrence loss to progress bar if available
+        if 'cooccur_loss' in current_metrics:
+            postfix['cooc'] = f"{current_metrics['cooccur_loss']:.3f}"
 
         progress_bar.set_postfix(postfix)
 
@@ -342,6 +367,10 @@ def train_epoch(
                            f"Age: {avg_metrics['age_loss']:.2f}, "
                            f"Sex: {avg_metrics['sex_loss']:.3f}")
 
+            # Add co-occurrence loss if available
+            if 'cooccur_loss' in avg_metrics:
+                log_msg += f", Cooccur: {avg_metrics['cooccur_loss']:.3f}"
+
             logger.info(log_msg)
 
     # Get epoch average metrics
@@ -356,6 +385,10 @@ def train_epoch(
         epoch_summary += (f", LM: {epoch_metrics['lm_loss']:.4f}, "
                          f"Age: {epoch_metrics['age_loss']:.2f}, "
                          f"Sex: {epoch_metrics['sex_loss']:.3f}")
+
+    # Add co-occurrence loss if available
+    if 'cooccur_loss' in epoch_metrics:
+        epoch_summary += f", Cooccur: {epoch_metrics['cooccur_loss']:.3f}"
 
     logger.info(epoch_summary)
 
@@ -504,6 +537,18 @@ def main():
     logger.info(f"Total training steps: {total_steps}")
     logger.info(f"Warmup steps: {config.training.warmup_steps}")
 
+    # Build co-occurrence matrix for regularization
+    logger.info("\n" + "=" * 80)
+    logger.info("Building Co-occurrence Matrix")
+    logger.info("=" * 80)
+
+    # Extract training patient records
+    train_patient_records = [patient_records[i] for i in train_dataset.indices]
+
+    # Build matrix from training data only
+    cooccur_matrix = build_cooccurrence_matrix(train_patient_records, vocab, logger)
+    logger.info(f"Co-occurrence weight: {config.model.cooccurrence_loss_weight}")
+
     # Training loop
     logger.info("\n" + "=" * 80)
     logger.info("Starting Training")
@@ -522,7 +567,8 @@ def main():
             epoch=epoch,
             config=config,
             logger=logger,
-            tokenizer=tokenizer  # Pass tokenizer for code_offset
+            tokenizer=tokenizer,  # Pass tokenizer for code_offset
+            cooccur_matrix=cooccur_matrix  # Pass co-occurrence matrix for regularization
         )
 
         # Validate

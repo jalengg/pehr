@@ -16,7 +16,7 @@ class DataConfig:
     diagnoses_file: str = "DIAGNOSES_ICD.csv"
 
     # Data sampling
-    num_patients: int = 25000  # Number of patients to load (increased from 3000)
+    num_patients: int = 50000  # Number of patients to load (full MIMIC-III for better co-occurrence learning)
     max_seq_length: int = 256  # Maximum token sequence length
     train_val_split: float = 0.2  # Validation split ratio
 
@@ -46,8 +46,9 @@ class ModelConfig:
     prompt_length: int = 1  # Number of prompt vectors per feature
 
     # Multi-task learning weights
-    age_loss_weight: float = 0.001  # Weight for age prediction auxiliary loss (token-level classification)
-    sex_loss_weight: float = 0.001  # Weight for sex prediction auxiliary loss
+    age_loss_weight: float = 0.005  # Weight for age prediction auxiliary loss (token-level classification)
+    sex_loss_weight: float = 0.005  # Weight for sex prediction auxiliary loss
+    cooccurrence_loss_weight: float = 0.05  # Weight for co-occurrence regularization loss (penalizes rare code pairs)
 
     def __post_init__(self):
         if self.cat_cardinalities is None:
