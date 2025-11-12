@@ -104,6 +104,7 @@ class MetricsTracker:
         self.lm_losses = []
         self.age_losses = []
         self.sex_losses = []
+        self.cooccur_losses = []
         self.reconstruction_jaccards = []
 
     def update(
@@ -115,6 +116,7 @@ class MetricsTracker:
         lm_loss: Optional[float] = None,
         age_loss: Optional[float] = None,
         sex_loss: Optional[float] = None,
+        cooccur_loss: Optional[float] = None,
         reconstruction_jaccard: Optional[float] = None
     ):
         """Update metrics with new batch results.
@@ -127,6 +129,7 @@ class MetricsTracker:
             lm_loss: Language modeling loss (optional).
             age_loss: Age prediction loss (optional).
             sex_loss: Sex prediction loss (optional).
+            cooccur_loss: Co-occurrence regularization loss (optional).
             reconstruction_jaccard: Reconstruction Jaccard score (optional).
         """
         self.losses.append(loss)
@@ -138,6 +141,8 @@ class MetricsTracker:
             self.age_losses.append(age_loss)
         if sex_loss is not None:
             self.sex_losses.append(sex_loss)
+        if cooccur_loss is not None:
+            self.cooccur_losses.append(cooccur_loss)
         if reconstruction_jaccard is not None:
             self.reconstruction_jaccards.append(reconstruction_jaccard)
 
@@ -165,6 +170,8 @@ class MetricsTracker:
             metrics['age_loss'] = sum(self.age_losses) / len(self.age_losses)
         if self.sex_losses:
             metrics['sex_loss'] = sum(self.sex_losses) / len(self.sex_losses)
+        if self.cooccur_losses:
+            metrics['cooccur_loss'] = sum(self.cooccur_losses) / len(self.cooccur_losses)
         if self.reconstruction_jaccards:
             metrics['reconstruction_jaccard'] = sum(self.reconstruction_jaccards) / len(self.reconstruction_jaccards)
 
@@ -193,6 +200,8 @@ class MetricsTracker:
             metrics['age_loss'] = self.age_losses[-1]
         if self.sex_losses:
             metrics['sex_loss'] = self.sex_losses[-1]
+        if self.cooccur_losses:
+            metrics['cooccur_loss'] = self.cooccur_losses[-1]
         if self.reconstruction_jaccards:
             metrics['reconstruction_jaccard'] = self.reconstruction_jaccards[-1]
 
