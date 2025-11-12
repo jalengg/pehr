@@ -257,7 +257,16 @@ def cooccurrence_loss_efficient(
 
     # Convert to code indices (subtract offset)
     code_indices = generated_code_ids - tokenizer.code_offset
-    code_indices = code_indices.clamp(min=0, max=len(tokenizer.vocab) - 1)
+
+    # Get vocab size (handle both DiagnosisCodeTokenizer and HierarchicalDiagnosisTokenizer)
+    if hasattr(tokenizer, 'vocab'):
+        vocab_size = len(tokenizer.vocab)
+    elif hasattr(tokenizer, 'hierarchy'):
+        vocab_size = len(tokenizer.hierarchy.vocabulary)
+    else:
+        vocab_size = cooccur_matrix.shape[0]
+
+    code_indices = code_indices.clamp(min=0, max=vocab_size - 1)
 
     # Zero out non-code positions
     code_indices = code_indices * code_mask.long()
