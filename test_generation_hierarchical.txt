@@ -1,0 +1,83 @@
+Generated Patients (Hierarchical Model)
+================================================================================
+
+Patient 1:
+  Age: 81.0
+  Sex: F
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53649, 53640, 9998, 9991, 9994
+
+Patient 2:
+  Age: 88.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53649, 53641, 9999, 99932
+
+Patient 3:
+  Age: 62.0
+  Sex: M
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 53649, 5362, 9998
+
+Patient 4:
+  Age: 29.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 5368, 99933, 99982
+
+Patient 5:
+  Age: 76.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 53640, 99933, 99932
+
+Patient 6:
+  Age: 60.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 5369, 53641, 9998
+
+Patient 7:
+  Age: 90.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5363, 9996, 99941
+
+Patient 8:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 5369, 9991, 99984
+
+Patient 9:
+  Age: 77.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53641, 53642, 9995, 99939
+
+Patient 10:
+  Age: 51.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5362, 99984, 99989
+

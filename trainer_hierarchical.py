@@ -1,6 +1,6 @@
 """
-Training pipeline for PromptEHR model.
-Integrates Phase 1 data with Phase 2 model architecture.
+Training pipeline for hierarchical PromptEHR model.
+Uses category-based training with ICD-9 hierarchy.
 """
 import logging
 import sys
@@ -15,29 +15,23 @@ from typing import Optional
 
 from config import Config
 from data_loader import load_mimic_data
-from code_tokenizer import DiagnosisCodeTokenizer
-from dataset import EHRPatientDataset, EHRDataCollator
+from icd9_hierarchy import ICD9Hierarchy
+from hierarchical_tokenizer import HierarchicalDiagnosisTokenizer
+from hierarchical_dataset import HierarchicalEHRDataset, HierarchicalEHRDataCollator
 from prompt_bart_model import PromptBartModel
 from metrics import MetricsTracker, compute_perplexity, compute_temporal_perplexity
 from cooccurrence_utils import build_cooccurrence_matrix, cooccurrence_loss_efficient
 
 
 def setup_logging(log_dir: str) -> logging.Logger:
-    """Set up logging to file and console.
-
-    Args:
-        log_dir: Directory for log files.
-
-    Returns:
-        Configured logger instance.
-    """
+    """Set up logging to file and console."""
     Path(log_dir).mkdir(exist_ok=True)
 
-    logger = logging.getLogger("trainer")
+    logger = logging.getLogger("trainer_hierarchical")
     logger.setLevel(logging.INFO)
 
     # File handler
-    fh = logging.FileHandler(Path(log_dir) / "training.log")
+    fh = logging.FileHandler(Path(log_dir) / "training_hierarchical.log")
     fh.setLevel(logging.INFO)
 
     # Console handler
@@ -56,13 +50,10 @@ def setup_logging(log_dir: str) -> logging.Logger:
 
 
 def set_seed(seed: int):
-    """Set random seed for reproducibility.
-
-    Args:
-        seed: Random seed value.
-    """
+    """Set random seed for reproducibility."""
     torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
 
 
 def save_checkpoint(
@@ -72,81 +63,27 @@ def save_checkpoint(
     epoch: int,
     val_loss: float,
     checkpoint_dir: str,
-    is_best: bool = False,
-    keep_last_n: int = 2
+    is_best: bool = False
 ):
-    """Save model checkpoint and clean up old ones.
-
-    Args:
-        model: PromptBartModel instance.
-        optimizer: Optimizer.
-        scheduler: Learning rate scheduler.
-        epoch: Current epoch number.
-        val_loss: Validation loss.
-        checkpoint_dir: Directory to save checkpoints.
-        is_best: Whether this is the best model so far.
-        keep_last_n: Number of recent checkpoints to keep (default: 2).
-    """
-    checkpoint_dir_path = Path(checkpoint_dir)
-    checkpoint_dir_path.mkdir(parents=True, exist_ok=True)
+    """Save model checkpoint."""
+    Path(checkpoint_dir).mkdir(exist_ok=True, parents=True)
 
     checkpoint = {
         'epoch': epoch,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
         'scheduler_state_dict': scheduler.state_dict(),
-        'val_loss': val_loss,
+        'val_loss': val_loss
     }
 
     # Save regular checkpoint
-    checkpoint_path = checkpoint_dir_path / f"checkpoint_epoch_{epoch}.pt"
+    checkpoint_path = Path(checkpoint_dir) / f"checkpoint_epoch_{epoch}.pt"
     torch.save(checkpoint, checkpoint_path)
 
     # Save best model
     if is_best:
-        best_path = checkpoint_dir_path / "best_model.pt"
+        best_path = Path(checkpoint_dir) / "best_hierarchical_model.pt"
         torch.save(checkpoint, best_path)
-
-    # Clean up old checkpoints (keep only last N + best_model.pt)
-    epoch_checkpoints = sorted(
-        checkpoint_dir_path.glob("checkpoint_epoch_*.pt"),
-        key=lambda p: int(p.stem.split('_')[-1])
-    )
-
-    # Keep only the last N checkpoints
-    if len(epoch_checkpoints) > keep_last_n:
-        for old_checkpoint in epoch_checkpoints[:-keep_last_n]:
-            old_checkpoint.unlink()  # Delete old checkpoint
-
-
-def load_checkpoint(
-    checkpoint_path: str,
-    model: nn.Module,
-    optimizer: Optional[torch.optim.Optimizer] = None,
-    scheduler: Optional[torch.optim.lr_scheduler.LRScheduler] = None
-) -> int:
-    """Load model checkpoint.
-
-    Args:
-        checkpoint_path: Path to checkpoint file.
-        model: PromptBartModel instance.
-        optimizer: Optimizer (optional).
-        scheduler: Learning rate scheduler (optional).
-
-    Returns:
-        Epoch number from checkpoint.
-    """
-    checkpoint = torch.load(checkpoint_path)
-
-    model.load_state_dict(checkpoint['model_state_dict'])
-
-    if optimizer is not None:
-        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-
-    if scheduler is not None:
-        scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
-
-    return checkpoint['epoch']
 
 
 def validate(
@@ -155,87 +92,50 @@ def validate(
     device: torch.device,
     logger: logging.Logger,
     config: Config,
-    tokenizer: DiagnosisCodeTokenizer,
+    tokenizer: HierarchicalDiagnosisTokenizer,
     val_patient_records: list
 ) -> dict[str, float]:
-    """Run validation loop with TPL computation.
-
-    Args:
-        model: PromptBartModel instance.
-        val_loader: Validation DataLoader.
-        device: Device to run on.
-        logger: Logger instance.
-        config: Configuration object.
-        tokenizer: DiagnosisCodeTokenizer instance.
-        val_patient_records: List of validation patient records for TPL.
-
-    Returns:
-        Dictionary with validation metrics including TPL.
-    """
+    """Validate model."""
     model.eval()
     metrics_tracker = MetricsTracker()
 
     with torch.no_grad():
-        for batch in tqdm(val_loader, desc="Validating", leave=False):
-            # Move batch to device
+        for batch in tqdm(val_loader, desc="Validating"):
             input_ids = batch['input_ids'].to(device)
             attention_mask = batch['attention_mask'].to(device)
             labels = batch['labels'].to(device)
             x_num = batch['x_num'].to(device)
             x_cat = batch['x_cat'].to(device)
 
-            # Forward pass
             outputs = model(
                 input_ids=input_ids,
                 attention_mask=attention_mask,
                 labels=labels,
                 x_num=x_num,
                 x_cat=x_cat,
-                code_offset=tokenizer.code_offset  # Pass code offset for token-level age masking
+                code_offset=tokenizer.category_offset
             )
 
-            # Track metrics
-            metrics_tracker.update(
-                loss=outputs.loss.item(),
-                logits=outputs.logits,
-                labels=labels,
-                compute_accuracy=True
-            )
+            update_dict = {'loss': outputs.loss.item()}
 
-    # Get average metrics
+            if hasattr(outputs, 'lm_loss'):
+                update_dict['lm_loss'] = outputs.lm_loss.item()
+                update_dict['age_loss'] = outputs.age_loss.item()
+                update_dict['sex_loss'] = outputs.sex_loss.item()
+
+            metrics_tracker.update(**update_dict)
+
     val_metrics = metrics_tracker.get_average_metrics()
 
-    logger.info(f"Validation - Loss: {val_metrics['loss']:.4f}, "
-                f"Perplexity: {val_metrics['perplexity']:.4f}, "
-                f"Token Accuracy: {val_metrics.get('token_accuracy', 0):.4f}, "
-                f"Code Accuracy: {val_metrics.get('code_accuracy', 0):.4f}")
+    val_summary = (f"Validation - Loss: {val_metrics['loss']:.4f}, "
+                  f"Perplexity: {val_metrics['perplexity']:.4f}")
 
-    # Compute TPL if enabled
-    if config.training.compute_tpl:
-        tpl = compute_temporal_perplexity(
-            model=model,
-            patient_records=val_patient_records,
-            tokenizer=tokenizer,
-            device=device,
-            logger=logger,
-            max_samples=500
-        )
-        val_metrics['tpl'] = tpl
-        logger.info(f"Temporal Perplexity (TPL): {tpl:.4f}")
+    if 'lm_loss' in val_metrics:
+        val_summary += (f", LM: {val_metrics['lm_loss']:.4f}, "
+                       f"Age: {val_metrics['age_loss']:.2f}, "
+                       f"Sex: {val_metrics['sex_loss']:.3f}")
 
-    # Compute Reconstruction Jaccard if enabled
-    if config.training.compute_reconstruction_jaccard:
-        from metrics import compute_reconstruction_jaccard
-        recon_jaccard = compute_reconstruction_jaccard(
-            model=model,
-            patient_records=val_patient_records,
-            tokenizer=tokenizer,
-            device=device,
-            logger=logger,
-            max_samples=100
-        )
-        val_metrics['reconstruction_jaccard'] = recon_jaccard
-        logger.info(f"Reconstruction Jaccard: {recon_jaccard:.4f}")
+    logger.info(val_summary)
 
     return val_metrics
 
@@ -249,26 +149,10 @@ def train_epoch(
     epoch: int,
     config: Config,
     logger: logging.Logger,
-    tokenizer=None,  # NEW: Tokenizer for code_offset
-    cooccur_matrix: Optional[torch.Tensor] = None  # NEW: Co-occurrence matrix for regularization
+    tokenizer: HierarchicalDiagnosisTokenizer,
+    cooccur_matrix: Optional[torch.Tensor] = None
 ) -> dict[str, float]:
-    """Train for one epoch.
-
-    Args:
-        model: PromptBartModel instance.
-        train_loader: Training DataLoader.
-        optimizer: Optimizer.
-        scheduler: Learning rate scheduler.
-        device: Device to run on.
-        epoch: Current epoch number.
-        config: Configuration object.
-        logger: Logger instance.
-        tokenizer: Tokenizer for code offset.
-        cooccur_matrix: Co-occurrence matrix for regularization loss.
-
-    Returns:
-        Dictionary with training metrics.
-    """
+    """Train for one epoch."""
     model.train()
     metrics_tracker = MetricsTracker()
 
@@ -289,7 +173,7 @@ def train_epoch(
             labels=labels,
             x_num=x_num,
             x_cat=x_cat,
-            code_offset=tokenizer.code_offset  # Pass code offset for token-level age masking
+            code_offset=tokenizer.category_offset  # Use category offset for hierarchical training
         )
 
         # Get base loss (LM + age + sex)
@@ -396,14 +280,14 @@ def train_epoch(
 
 
 def main():
-    """Main training function."""
+    """Main training function for hierarchical model."""
     # Load configuration
     config = Config.from_defaults()
 
     # Set up logging
     logger = setup_logging(config.training.log_dir)
     logger.info("=" * 80)
-    logger.info("PromptEHR Training Pipeline - Phase 3")
+    logger.info("PromptEHR Hierarchical Training Pipeline")
     logger.info("=" * 80)
     logger.info(f"\n{config}")
 
@@ -431,12 +315,21 @@ def main():
     logger.info(f"Loaded {len(patient_records)} patients")
     logger.info(f"Vocabulary size: {len(vocab)} diagnosis codes")
 
-    # Create tokenizer
-    tokenizer = DiagnosisCodeTokenizer(vocab)
-    logger.info(f"Tokenizer vocab size: {len(tokenizer)}")
+    # Build ICD-9 hierarchy
+    logger.info("\n" + "=" * 80)
+    logger.info("Building ICD-9 Hierarchy")
+    logger.info("=" * 80)
+
+    hierarchy = ICD9Hierarchy(vocab, logger)
+
+    # Create hierarchical tokenizer
+    tokenizer = HierarchicalDiagnosisTokenizer(hierarchy)
+    logger.info(f"Hierarchical tokenizer vocab size: {len(tokenizer)}")
+    logger.info(f"  Category tokens: {tokenizer.get_n_categories()}")
+    logger.info(f"  Code tokens: {tokenizer.get_n_codes()}")
 
     # Create dataset
-    dataset = EHRPatientDataset(patient_records, tokenizer, logger)
+    dataset = HierarchicalEHRDataset(patient_records, tokenizer, logger)
     logger.info(f"Dataset size: {len(dataset)} patients")
 
     # Train/validation split
@@ -449,8 +342,8 @@ def main():
     # Extract validation patient records for TPL computation
     val_patient_records = [patient_records[i] for i in val_dataset.indices]
 
-    # Create data collator with corruption parameters
-    collator = EHRDataCollator(
+    # Create data collator
+    collator = HierarchicalEHRDataCollator(
         tokenizer=tokenizer,
         max_seq_length=config.data.max_seq_length,
         logger=logger,
@@ -508,7 +401,7 @@ def main():
         sex_loss_weight=config.model.sex_loss_weight
     )
 
-    logger.info(f"Model: PromptBartWithDemographicPrediction (multi-task learning)")
+    logger.info(f"Model: PromptBartWithDemographicPrediction (hierarchical training)")
     logger.info(f"  Age loss weight: {config.model.age_loss_weight}")
     logger.info(f"  Sex loss weight: {config.model.sex_loss_weight}")
 
@@ -567,8 +460,8 @@ def main():
             epoch=epoch,
             config=config,
             logger=logger,
-            tokenizer=tokenizer,  # Pass tokenizer for code_offset
-            cooccur_matrix=cooccur_matrix  # Pass co-occurrence matrix for regularization
+            tokenizer=tokenizer,
+            cooccur_matrix=cooccur_matrix
         )
 
         # Validate
@@ -603,10 +496,9 @@ def main():
                 logger.info(f"Checkpoint saved: epoch {epoch + 1}")
 
     logger.info("\n" + "=" * 80)
-    logger.info("Training Complete!")
+    logger.info("Training Complete")
     logger.info("=" * 80)
     logger.info(f"Best validation loss: {best_val_loss:.4f}")
-    logger.info(f"Best validation perplexity: {compute_perplexity(best_val_loss):.4f}")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=jalenj4-ic
-#SBATCH --job-name=promptehr_semantic_fix_aux0001
+#SBATCH --job-name=promptehr_hierarchical
 #SBATCH --partition=IllinoisComputes-GPU
 #SBATCH --output=logs/train_%j.out
 #SBATCH --error=logs/train_%j.err
@@ -45,8 +45,8 @@ python -c "import torch; print(f'PyTorch version: {torch.__version__}'); print(f
 echo "========================================"
 
 # Run training
-echo "Starting PromptEHR training..."
-python trainer.py
+echo "Starting PromptEHR hierarchical training..."
+python trainer_hierarchical.py
 
 # Print completion info
 EXIT_CODE=$?

@@ -1,0 +1,803 @@
+Generated Patients (Hierarchical Model)
+================================================================================
+
+Patient 1:
+  Age: 47.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 5361, 9994, 99933
+
+Patient 2:
+  Age: 76.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53642, 5362, 5361, 9996, 99971
+
+Patient 3:
+  Age: 56.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53642, 53641, 9991, 9999, 99931
+
+Patient 4:
+  Age: 42.0
+  Sex: M
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 53640, 9999, 9994
+
+Patient 5:
+  Age: 69.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5362, 9993, 9994
+
+Patient 6:
+  Age: 79.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53640, 5369, 99971, 99931
+
+Patient 7:
+  Age: 41.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5362, 53640, 9992, 99982, 9999
+
+Patient 8:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 53649, 99931, 99932
+
+Patient 9:
+  Age: 70.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53640, 5369, 9993, 99984
+
+Patient 10:
+  Age: 76.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53649, 53640, 99971, 99939
+
+Patient 11:
+  Age: 48.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53640, 5362, 99971, 99982
+
+Patient 12:
+  Age: 68.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 5369, 99971, 99984
+
+Patient 13:
+  Age: 82.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53649, 5361, 99933, 9994
+
+Patient 14:
+  Age: 79.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53649, 5362, 99982, 99941
+
+Patient 15:
+  Age: 74.0
+  Sex: F
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53649, 5361, 9999, 9991, 9996
+
+Patient 16:
+  Age: 65.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53649, 53642, 5362, 99941, 99989
+
+Patient 17:
+  Age: 85.0
+  Sex: M
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 53642, 5363, 99939
+
+Patient 18:
+  Age: 45.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 53642, 9991, 9995
+
+Patient 19:
+  Age: 66.0
+  Sex: M
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 53641, 99941, 99931
+
+Patient 20:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5362, 99931, 99933
+
+Patient 21:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53641, 5363, 99982, 99971
+
+Patient 22:
+  Age: 58.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5363, 99982, 99932
+
+Patient 23:
+  Age: 81.0
+  Sex: F
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53642, 5369, 9993, 9996, 99989
+
+Patient 24:
+  Age: 47.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 5361, 99984, 99931
+
+Patient 25:
+  Age: 83.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5368, 5362, 99941, 99939
+
+Patient 26:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53642, 5369, 5361, 99989, 99939
+
+Patient 27:
+  Age: 80.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5363, 53649, 99932, 99971
+
+Patient 28:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5363, 53642, 99982, 9993
+
+Patient 29:
+  Age: 74.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5368, 53642, 99931, 99939, 9994
+
+Patient 30:
+  Age: 90.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 5363, 53640, 9999
+
+Patient 31:
+  Age: 90.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5362, 9999, 9991
+
+Patient 32:
+  Age: 86.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 53649, 99989, 99982
+
+Patient 33:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53641, 5368, 99939, 9998
+
+Patient 34:
+  Age: 67.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5362, 9992, 99989
+
+Patient 35:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5368, 99971, 9991
+
+Patient 36:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5368, 53642, 9999, 99932
+
+Patient 37:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 99932, 9993, 99989
+
+Patient 38:
+  Age: 58.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53641, 53642, 53640, 9996, 99941
+
+Patient 39:
+  Age: 34.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53640, 5368, 99982, 99931
+
+Patient 40:
+  Age: 47.0
+  Sex: M
+  Categories: 2
+  Codes: 2
+  Expansion ratio: 1.00
+  Codes: 5368, 99939
+
+Patient 41:
+  Age: 62.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53649, 5368, 53640, 9999, 99939
+
+Patient 42:
+  Age: 59.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 99931, 9996, 99989
+
+Patient 43:
+  Age: 46.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53640, 53649, 9996, 99939
+
+Patient 44:
+  Age: 84.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 5361, 9996, 99989
+
+Patient 45:
+  Age: 75.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53649, 5362, 53641, 99984
+
+Patient 46:
+  Age: 62.0
+  Sex: M
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 53641, 5368, 99989
+
+Patient 47:
+  Age: 55.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53641, 5363, 53642, 99971, 9999
+
+Patient 48:
+  Age: 84.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5363, 99932, 9996
+
+Patient 49:
+  Age: 60.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5363, 53642, 99941, 9999
+
+Patient 50:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53640, 5362, 99939, 99982, 9996
+
+Patient 51:
+  Age: 41.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5368, 99931, 99982
+
+Patient 52:
+  Age: 46.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 5368, 5369, 99931
+
+Patient 53:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53641, 5361, 9996, 99941, 9998
+
+Patient 54:
+  Age: 65.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5363, 9993, 9998
+
+Patient 55:
+  Age: 79.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53641, 53649, 9995, 99933
+
+Patient 56:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 53640, 99989, 99933
+
+Patient 57:
+  Age: 71.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5368, 5361, 9993, 99984
+
+Patient 58:
+  Age: 83.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53649, 5368, 99941, 9994
+
+Patient 59:
+  Age: 60.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5361, 5363, 99933, 9996
+
+Patient 60:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5369, 53642, 9998, 99939, 99941
+
+Patient 61:
+  Age: 62.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 9993, 99932, 9998
+
+Patient 62:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53649, 5362, 53640, 9998, 99931
+
+Patient 63:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53641, 53642, 99982, 99931
+
+Patient 64:
+  Age: 81.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 53641, 5361, 99971
+
+Patient 65:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 53649, 53640, 99971, 9992, 99941
+
+Patient 66:
+  Age: 58.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 53640, 99989, 9996
+
+Patient 67:
+  Age: 65.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5368, 53649, 9991, 9994, 99941
+
+Patient 68:
+  Age: 70.0
+  Sex: F
+  Categories: 2
+  Codes: 6
+  Expansion ratio: 3.00
+  Codes: 5368, 53649, 5361, 99989, 9992, 99932
+
+Patient 69:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5368, 9993, 9991
+
+Patient 70:
+  Age: 54.0
+  Sex: F
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5361, 53649, 53642, 99982, 99939
+
+Patient 71:
+  Age: 72.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5361, 53641, 9998, 99932
+
+Patient 72:
+  Age: 74.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53641, 5361, 99932, 99939
+
+Patient 73:
+  Age: 63.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5361, 5362, 99982, 9992
+
+Patient 74:
+  Age: 47.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53641, 5363, 9993, 99982
+
+Patient 75:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5362, 9998, 9993
+
+Patient 76:
+  Age: 78.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5361, 53640, 99971, 99982
+
+Patient 77:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 5363, 99989, 9998
+
+Patient 78:
+  Age: 58.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5361, 5369, 99939, 99982
+
+Patient 79:
+  Age: 48.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53649, 5362, 9991, 99984
+
+Patient 80:
+  Age: 45.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5362, 99941, 9991
+
+Patient 81:
+  Age: 71.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5362, 99982, 99931
+
+Patient 82:
+  Age: 46.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5361, 53649, 5363, 9999, 9993
+
+Patient 83:
+  Age: 78.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 53642, 9994, 99984
+
+Patient 84:
+  Age: 0.0
+  Sex: F
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5361, 5369, 9996, 9993, 99941
+
+Patient 85:
+  Age: 83.0
+  Sex: M
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5369, 53640, 5368, 9991, 9993
+
+Patient 86:
+  Age: 73.0
+  Sex: F
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5363, 5368, 99932, 9996, 99982
+
+Patient 87:
+  Age: 89.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5361, 5362, 99982, 99971
+
+Patient 88:
+  Age: 63.0
+  Sex: F
+  Categories: 2
+  Codes: 5
+  Expansion ratio: 2.50
+  Codes: 5361, 53642, 99989, 99941, 99933
+
+Patient 89:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5361, 9991, 9999
+
+Patient 90:
+  Age: 78.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5368, 53641, 9998, 9992
+
+Patient 91:
+  Age: 90.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5363, 5361, 99932, 9991
+
+Patient 92:
+  Age: 28.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53640, 5361, 9995, 99984
+
+Patient 93:
+  Age: 89.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53641, 53642, 99932, 9996
+
+Patient 94:
+  Age: 59.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5362, 53642, 99932, 99933
+
+Patient 95:
+  Age: 83.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5361, 53641, 99941, 99932
+
+Patient 96:
+  Age: 79.0
+  Sex: F
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 5369, 5361, 9995
+
+Patient 97:
+  Age: 46.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5363, 53640, 99933, 9992
+
+Patient 98:
+  Age: 77.0
+  Sex: M
+  Categories: 2
+  Codes: 3
+  Expansion ratio: 1.50
+  Codes: 53642, 99971, 99989
+
+Patient 99:
+  Age: 44.0
+  Sex: F
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 53642, 5363, 99984, 9995
+
+Patient 100:
+  Age: 0.0
+  Sex: M
+  Categories: 2
+  Codes: 4
+  Expansion ratio: 2.00
+  Codes: 5369, 5363, 9998, 9994
+
