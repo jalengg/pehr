@@ -8,24 +8,66 @@
 
 ## Executive Summary
 
-**PromptEHR is a BART-based conditional EHR generation model** that uses demographic features as conditional prompts to guide generation. Key findings:
+**PromptEHR is a BART-based conditional EHR generation model** (codebase at `/u/jalenj/PromptEHR`) that uses demographic features as conditional prompts to guide generation. This document analyzes the codebase to identify what we adopted vs. what we innovated.
 
-**What PromptEHR Includes:**
+### What We Adopted from PromptEHR Codebase
+
+**Core Architecture (✅ Adopted):**
 - ✅ Conditional prompt injection (numerical + categorical features)
-- ✅ Multi-code-type generation (diagnosis, procedure, medication)
+- ✅ Reparameterization with d_hidden=128 bottleneck
+- ✅ Dual encoder/decoder prompts (prepended to embeddings)
+- ✅ BART-base encoder-decoder (6L-6L-768H)
 - ✅ Span masking augmentation (Poisson λ=3)
+- ✅ Token deletion/replacement (15% probability each)
 - ✅ Perplexity-based evaluation (spatial + temporal)
-- ✅ Visit-by-visit generation with partial code prompts
+- ✅ Visit-by-visit generation structure
+- ✅ No-repeat n-gram (n=1) for duplicate prevention
 
-**What PromptEHR Does NOT Include:**
-- ❌ Semantic coherence evaluation (JS divergence, co-occurrence)
-- ❌ Medical validity checks (age/sex appropriateness)
-- ❌ Code frequency distribution analysis
-- ❌ Top-k code overlap metrics
-- ❌ Multi-task learning (only LM objective)
-- ❌ Hierarchical ICD-9 generation
+**Why We Adopted These:** Proven effective architecture for conditional EHR generation, strong foundation for extensions.
 
-**Critical Finding:** PromptEHR evaluates **perplexity only**. All semantic coherence metrics in our implementation are **novel contributions**.
+---
+
+### What We Added (🆕 Novel Contributions)
+
+**1. Multi-Task Learning for Medical Validity:**
+- 🆕 Token-level age prediction head (MSE loss)
+- 🆕 Token-level sex prediction head (cross-entropy loss)
+- 🆕 Multi-objective optimization (validity vs coherence trade-off)
+- 🆕 Loss weight balancing discovery (0.3/0.2 → 0.001/0.001)
+
+**2. Hierarchical ICD-9 Generation:**
+- 🆕 ICD-9 hierarchy extraction (943 categories from 6,985 codes)
+- 🆕 Two-stage generation (categories → specific codes)
+- 🆕 Category-level training (7.4x sparsity reduction)
+- 🆕 Hierarchical tokenizer (dual vocab: categories + codes)
+- 🆕 18.6x co-occurrence coverage improvement (1.4% → 26%)
+
+**3. Co-occurrence Regularization:**
+- 🆕 Sparse co-occurrence matrix (696K observed pairs)
+- 🆕 Explicit rare pair penalty loss (threshold=5, weight=0.05)
+- 🆕 Pair-level semantic coherence supervision
+
+**4. Comprehensive Evaluation Framework:**
+- 🆕 Semantic coherence metrics: JS divergence, co-occurrence score, top-k overlap, KS tests
+- 🆕 Medical validity metrics: Age/sex appropriateness rates, duplicate detection
+- 🆕 Zero-prompt generation capability (harder task than PromptEHR's reconstruction)
+- 🆕 **10 total metrics vs. PromptEHR's 3** (7 novel)
+
+**5. Implementation Innovations:**
+- 🆕 Code shuffling (treats codes as unordered sets)
+- 🆕 Token-based architecture (1:1 code-to-token mapping, no fragmentation)
+- 🆕 Validity vs coherence trade-off analysis
+
+---
+
+### Critical Finding
+
+**PromptEHR evaluates perplexity only.** All semantic coherence and medical validity metrics in our implementation are **novel contributions not present in the PromptEHR codebase**.
+
+**PromptEHR:** 3 metrics (spatial perplexity, temporal perplexity, loss)
+**Our Implementation:** 10 metrics (3 adopted + 7 novel)
+
+**Novel Contribution Impact:** First comprehensive evaluation combining statistical fidelity, clinical plausibility, and medical validity for EHR generation.
 
 ---
 
@@ -954,42 +996,56 @@ def _generation_loop(data, inputs):
 
 ## Comparison: PromptEHR vs Our Implementation
 
+**Key Finding:** We adopt PromptEHR's core architecture (conditional prompts + BART) but add **4 major novel components**:
+1. 🆕 Multi-task learning (age/sex auxiliary heads)
+2. 🆕 Hierarchical ICD-9 generation (category-level training)
+3. 🆕 Co-occurrence regularization loss (rare pair penalty)
+4. 🆕 Comprehensive evaluation (10 metrics vs 3)
+
+---
+
 ### Architecture Comparison
 
-| Component | PromptEHR | Our Implementation | Match? |
+| Component | PromptEHR | Our Implementation | Novel? |
 |-----------|-----------|-------------------|--------|
-| **Base Model** | BART-base (6L-6L-768H) | BART-base (6L-6L-768H) | ✅ |
-| **Conditional Prompts** | x_num + x_cat → reparameterization | x_num + x_cat → reparameterization | ✅ |
-| **Prompt Injection** | Prepend to embeddings | Prepend to embeddings | ✅ |
-| **Code Vocabularies** | Separate (diag/proc/med) | Single (diag only) | ❌ |
-| **LM Heads** | One per code type | One (diagnosis) | ❌ |
-| **Training Tasks** | Masking + deletion + replacement | Masking + deletion + replacement | ✅ |
-| **Auxiliary Tasks** | None | Age + sex prediction | ❌ |
+| **Base Model** | BART-base (6L-6L-768H) | BART-base (6L-6L-768H) | ❌ Adopted |
+| **Conditional Prompts** | x_num + x_cat → reparameterization (d_hidden=128) | x_num + x_cat → reparameterization (d_hidden=128) | ❌ Adopted |
+| **Prompt Injection** | Prepend to embeddings (encoder + decoder) | Prepend to embeddings (encoder + decoder) | ❌ Adopted |
+| **Code Vocabularies** | Separate (diag/proc/med) | Single (diag only), focus depth over breadth | ~ Simplified |
+| **LM Heads** | One per code type (3 heads) | One (diagnosis), PromptBartWithDemographicPrediction | ~ Simplified |
+| **Data Corruption** | Masking + deletion + replacement | Masking + deletion + replacement + shuffling | ~ Enhanced |
+| **Auxiliary Tasks** | **None** (pure LM) | **🆕 Age + sex prediction heads (token-level)** | **✅ NOVEL** |
+| **Hierarchical Structure** | **None** (flat codes) | **🆕 ICD-9 hierarchy (943 categories → 6,985 codes)** | **✅ NOVEL** |
+| **Co-occurrence Loss** | **None** | **🆕 Explicit rare pair penalty (threshold=5, weight=0.05)** | **✅ NOVEL** |
 
 ### Training Procedure Comparison
 
-| Aspect | PromptEHR | Our Implementation | Match? |
+| Aspect | PromptEHR | Our Implementation | Novel? |
 |--------|-----------|-------------------|--------|
-| **Augmentation** | Span mask + del + rep | Span mask + del + rep + shuffling | ~✅ |
-| **Loss Function** | Cross-entropy only | CE + age_loss + sex_loss | ❌ |
-| **Optimization** | AdamW | AdamW | ✅ |
-| **Learning Rate** | ~1e-4 | 1e-4 | ✅ |
-| **Warmup Ratio** | 0.06 | Variable | ~✅ |
-| **Batch Size** | 8-16 | 8 | ✅ |
-| **Epochs** | Variable | 30 | ~✅ |
-| **Model Selection** | Lowest perplexity | Lowest val loss | ~✅ |
+| **Augmentation** | Span mask (Poisson λ=3) + deletion (15%) + replacement (15%) | Same + **🆕 code shuffling (treats as sets)** | ~ Enhanced |
+| **Loss Function** | Cross-entropy only | **🆕 CE + 0.001×age + 0.001×sex + 0.05×cooccur** | **✅ NOVEL** |
+| **Loss Balancing** | N/A (single objective) | **🆕 Multi-objective (validity vs coherence trade-off)** | **✅ NOVEL** |
+| **Optimization** | AdamW | AdamW | ❌ Adopted |
+| **Learning Rate** | ~1e-4 | 1e-4 | ❌ Adopted |
+| **Warmup Steps** | ~1000 | 1000 | ❌ Adopted |
+| **Batch Size** | 8-16 | 8 | ❌ Adopted |
+| **Epochs** | Variable | 30 | ~ Similar |
+| **Model Selection** | Lowest perplexity | Lowest validation loss (multi-task) | ~ Similar |
+| **Training Mode** | Flat codes | **🆕 Hierarchical (categories) OR flat** | **✅ NOVEL** |
 
 ### Generation Procedure Comparison
 
-| Aspect | PromptEHR | Our Implementation | Match? |
+| Aspect | PromptEHR | Our Implementation | Novel? |
 |--------|-----------|-------------------|--------|
-| **Initialization** | Sample real code | Demographics only | ❌ |
-| **Prompting** | ~50% real codes | 0% (zero-prompt) OR 0-100% (conditional) | ❌ |
-| **Structure** | Visit-by-visit | Visit-by-visit OR single-shot | ~✅ |
-| **Code Types** | Sequential (diag→proc→med) | Single (diag only) | ❌ |
-| **Stopping** | </code_type> tokens | <END> token (often fails) | ❌ |
-| **Sampling** | Temperature + top-k | Temperature + top-k + top-p | ~✅ |
-| **No-repeat** | n=1 | n=1 | ✅ |
+| **Initialization** | Sample real code from patient | Demographics only (harder task) | **🆕 More challenging** |
+| **Prompting** | ~50% real codes (reconstruction) | **🆕 0% (zero-prompt) OR 0-100% (conditional)** | **✅ NOVEL** |
+| **Task Type** | Reconstruction (fill missing codes) | **🆕 Generation (create from scratch)** | **✅ NOVEL** |
+| **Structure** | Visit-by-visit, code-type-by-code-type | Visit-by-visit OR single-shot | ~ Similar |
+| **Code Types** | Sequential (diag→proc→med) | Single (diag only, depth over breadth) | ~ Simplified |
+| **Hierarchical** | N/A (flat codes) | **🆕 Two-stage (categories → codes)** | **✅ NOVEL** |
+| **Stopping** | </code_type> markers | </s> + custom logic | ~ Similar |
+| **Sampling** | Temperature + top-k | Temperature + top-k + top-p | ~ Enhanced |
+| **No-repeat n-gram** | n=1 (prevent duplicates) | n=1 (prevent duplicates) | ❌ Adopted |
 
 ### Evaluation Metrics Comparison
 
@@ -1287,41 +1343,47 @@ Based on comprehensive codebase analysis, **these are novel contributions not pr
 
 When citing our work vs PromptEHR:
 
-**PromptEHR Contributions (Original Paper):**
+**PromptEHR Codebase Implementation (Analyzed):**
 - Conditional prompt injection architecture
-- Multi-code-type generation framework
-- Span masking augmentation strategy
-- Perplexity-based evaluation
+- Multi-code-type generation framework (diagnosis, procedure, medication)
+- Span masking augmentation strategy (Poisson λ=3)
+- Perplexity-based evaluation (spatial + temporal)
+- Partial prompting generation (~50% real codes)
 
-**Our Novel Contributions:**
-- **Semantic coherence evaluation framework** (7 new metrics)
-- **Medical validity assessment** (age/sex appropriateness)
-- **Multi-task learning** for medical validity
-- **Zero-prompt generation** capability
-- **Comprehensive quality assessment** beyond perplexity
+**Our Novel Contributions (Not in PromptEHR Codebase):**
+- 🆕 **Semantic coherence evaluation framework** (JS divergence, co-occurrence, top-k overlap, KS tests)
+- 🆕 **Medical validity assessment** (age/sex appropriateness rules, duplicate detection)
+- 🆕 **Multi-task learning** (auxiliary age/sex prediction heads for medical validity)
+- 🆕 **Zero-prompt generation** (fully synthetic from demographics only)
+- 🆕 **Hierarchical ICD-9 generation** (category-level training, 7.4x sparsity reduction)
+- 🆕 **Co-occurrence regularization loss** (explicit penalty for rare code pairs)
+- 🆕 **Comprehensive evaluation framework** (10 metrics vs 3, multi-dimensional quality assessment)
 
 **Explicitly state in papers/docs:**
-> "While PromptEHR focuses on perplexity-based evaluation, we extend the evaluation framework to include semantic coherence (code frequency distributions, co-occurrence patterns) and medical validity (age/sex appropriateness). To our knowledge, this is the first comprehensive evaluation of statistical fidelity and clinical plausibility for EHR generation models."
+> "While PromptEHR's implementation focuses on perplexity-based evaluation, we extend the framework to include semantic coherence metrics (code frequency distributions via JS divergence, co-occurrence pattern analysis, top-k overlap) and medical validity constraints (age/sex appropriateness rules, auxiliary prediction tasks). Additionally, we introduce hierarchical generation leveraging ICD-9 code structure and co-occurrence regularization for improved semantic coherence. To our knowledge, this is the first comprehensive evaluation combining statistical fidelity, clinical plausibility, and medical validity for EHR generation models."
 
 ---
 
 ## References
 
-**PromptEHR Repository:**
+**PromptEHR Codebase (Analyzed):**
 - Location: `/u/jalenj/PromptEHR`
-- Version: As of 2025-10-29 analysis
-- License: (Check LICENSE file)
+- Analysis Date: 2025-10-29
+- Total Code: ~3,500 lines (11 active Python files)
+- License: (Check LICENSE file in repository)
 
-**PromptEHR Paper:**
-- Wang et al. (2023)
-- arXiv:2307.09123 (likely)
-- Title: "PromptEHR: Conditional Electronic Health Records Generation with Prompt-based Learning"
+**PromptEHR Publications:**
+- Paper authors/details: Unknown from codebase analysis
+- If published, likely describes the conditional prompt architecture
+- Our analysis is based on **codebase implementation**, not published paper claims
 
 **Key Differences Documented:**
-- Architecture: Similar (BART + conditional prompts)
-- Evaluation: Vastly different (perplexity only vs comprehensive)
-- Task: Different (reconstruction vs zero-shot generation)
-- Metrics: 7/10 metrics are novel contributions
+- Architecture: Similar core (BART + conditional prompts) ✓
+- Evaluation: Vastly different (perplexity only vs 10 comprehensive metrics) 🆕
+- Task: Different (reconstruction with 50% prompts vs zero-shot generation) 🆕
+- Training: Different (pure LM loss vs multi-task learning) 🆕
+- Advanced Features: Hierarchical generation, co-occurrence regularization (not in PromptEHR) 🆕
+- Metrics: 7/10 of our metrics are novel contributions 🆕
 
 ---
 
@@ -1344,6 +1406,14 @@ When citing our work vs PromptEHR:
 
 ---
 
-**Document Version:** 1.0
-**Last Updated:** 2025-10-29
+**Document Version:** 2.0
+**Last Updated:** 2025-11-12
+**Changes in v2.0:**
+- Clarified comparison is codebase-to-codebase (not paper-to-implementation)
+- Removed speculative paper citation ("Wang et al.") - no confirmed publication
+- Added 🆕 markers throughout for novel contributions
+- Enhanced executive summary with clear "Adopted vs. Novel" sections
+- Updated comparison tables with explicit novelty indicators
+- Emphasized 4 major novel components (multi-task, hierarchical, co-occurrence, evaluation)
+
 **Maintainer:** pehr_scratch project

@@ -228,3 +228,5 @@ Direct, blunt, no filler. Proven solutions only. State flaws directly. Skip theo
 - **Understanding architecture:** See `docs/wiki/01_ARCHITECTURE.md`
 - **Troubleshooting:** See `docs/wiki/08_DEPRECATED_HISTORY.md`
 - **Full documentation:** Browse `docs/wiki/00_INDEX.md`
+
+Important! please remember to commit to a feature branch. Then, once you get to a point where you verify that your changes pass unit tests and you have implemented one idea, please create a pull request with a title and a basic summary of what you changed (like what functions your adding to what files), and why (what purpose does each change serve, what bug you're fixing, what error message). 
