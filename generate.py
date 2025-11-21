@@ -13,7 +13,7 @@ from transformers import BartConfig
 from config import Config
 from data_loader import load_mimic_data, PatientRecord
 from code_tokenizer import DiagnosisCodeTokenizer
-from prompt_bart_model import PromptBartWithDemographicPrediction
+from prompt_bart_model import PromptBartModel
 
 
 def setup_logging() -> logging.Logger:
@@ -40,7 +40,7 @@ def load_trained_model(
     config: Config,
     device: torch.device,
     logger: logging.Logger
-) -> PromptBartWithDemographicPrediction:
+) -> PromptBartModel:
     """Load trained model from checkpoint.
 
     Args:
@@ -51,7 +51,7 @@ def load_trained_model(
         logger: Logger instance.
 
     Returns:
-        Loaded PromptBartWithDemographicPrediction instance.
+        Loaded PromptBartModel instance.
     """
     logger.info(f"Loading model from {checkpoint_path}")
 
@@ -63,14 +63,12 @@ def load_trained_model(
     bart_config.eos_token_id = tokenizer.eos_token_id
     bart_config.decoder_start_token_id = tokenizer.bos_token_id
 
-    model = PromptBartWithDemographicPrediction(
+    model = PromptBartModel(
         config=bart_config,
         n_num_features=config.model.n_num_features,
         cat_cardinalities=config.model.cat_cardinalities,
         d_hidden=config.model.d_hidden,
-        prompt_length=config.model.prompt_length,
-        age_loss_weight=config.model.age_loss_weight,
-        sex_loss_weight=config.model.sex_loss_weight
+        prompt_length=config.model.prompt_length
     )
 
     # Load weights
@@ -86,7 +84,7 @@ def load_trained_model(
 
 
 def generate_patient_sequence_conditional(
-    model: PromptBartWithDemographicPrediction,
+    model: PromptBartModel,
     tokenizer: DiagnosisCodeTokenizer,
     target_patient: 'PatientRecord',
     device: torch.device,
@@ -277,12 +275,12 @@ def sample_demographics(
 
 
 def generate_patient_from_demographics(
-    model: PromptBartWithDemographicPrediction,
+    model: PromptBartModel,
     tokenizer: DiagnosisCodeTokenizer,
     device: torch.device,
     age: Optional[float] = None,
     sex: Optional[int] = None,
-    temperature: float = 0.7,
+    temperature: float = 1.2,  # Phase 2: Increased for diverse sampling (was 0.7)
     top_k: int = 40,
     top_p: float = 0.9,
     max_sequence_length: int = 256
@@ -394,6 +392,144 @@ def generate_patient_from_demographics(
             }
 
 
+def generate_patient_warm_start(
+    model: PromptBartModel,
+    tokenizer: DiagnosisCodeTokenizer,
+    patient_record: 'PatientRecord',
+    context_ratio: float = 0.5,
+    device: torch.device = torch.device('cuda'),
+    max_length: int = 512,
+    temperature: float = 1.0,
+    top_k: int = 50,
+    top_p: float = 0.9,
+    no_repeat_ngram_size: int = 1,
+) -> dict:
+    """Generate patient continuation from partial history (warm start).
+
+    This matches PromptEHR paper's PRIMARY generation method. Uses a portion
+    of the patient's real visit history as context, then generates continuation.
+    This provides stronger conditioning than cold start (demographics only).
+
+    Args:
+        model: Trained PromptBartModel.
+        tokenizer: DiagnosisCodeTokenizer instance.
+        patient_record: Real patient from test set.
+        context_ratio: Fraction of visits to use as context (default 0.5 = 50%).
+        device: Device to run generation on.
+        max_length: Maximum total sequence length.
+        temperature: Sampling temperature.
+        top_k: Top-k sampling.
+        top_p: Nucleus sampling.
+        no_repeat_ngram_size: Prevent duplicate n-grams.
+
+    Returns:
+        Dictionary with:
+            - context: List of context visits
+            - ground_truth: List of ground truth continuation visits
+            - generated: List of generated visits
+            - num_context_visits: Number of visits used as context
+            - num_generated_visits: Number of visits generated
+            - metrics: Jaccard similarity, code overlap, etc.
+
+    Raises:
+        ValueError: If patient has fewer than 2 visits.
+    """
+    model.eval()
+
+    # Split patient history
+    num_visits = len(patient_record.visits)
+    if num_visits < 2:
+        raise ValueError("Patient must have at least 2 visits for warm start")
+
+    context_visits_count = max(1, int(num_visits * context_ratio))
+    context_visits = patient_record.visits[:context_visits_count]
+    ground_truth_visits = patient_record.visits[context_visits_count:]
+
+    # Encode context visits
+    context_token_ids = tokenizer.encode_patient(
+        context_visits,
+        add_special_tokens=True  # <s> <v> codes <\v> <v> codes <\v> ...
+    )
+
+    # Prepare demographics
+    x_num = torch.tensor([[patient_record.age]], dtype=torch.float32, device=device)
+    # Convert gender string ('M'/'F') to integer (0/1)
+    gender_int = 0 if patient_record.gender == 'M' else 1
+    x_cat = torch.tensor([[gender_int]], dtype=torch.long, device=device)
+
+    # Convert to tensor and move to device
+    input_ids = torch.tensor([context_token_ids], dtype=torch.long, device=device)
+
+    # Generate continuation
+    with torch.no_grad():
+        generated_ids = model.generate(
+            input_ids=input_ids,
+            x_num=x_num,
+            x_cat=x_cat,
+            max_length=max_length,
+            temperature=temperature,
+            top_k=top_k,
+            top_p=top_p,
+            do_sample=True,
+            num_beams=1,  # Disable beam search (use sampling)
+            no_repeat_ngram_size=no_repeat_ngram_size,
+            pad_token_id=tokenizer.pad_token_id,
+            eos_token_id=tokenizer.eos_token_id,
+            bos_token_id=tokenizer.bos_token_id,
+        )
+
+    # Decode generated sequence
+    all_generated_visits = parse_sequence_to_visits(
+        generated_ids[0].cpu().numpy().tolist(),
+        tokenizer
+    )
+
+    # Extract only the NEW visits (after context)
+    # Context had context_visits_count visits, so skip those
+    generated_continuation = all_generated_visits[context_visits_count:]
+
+    # Compute metrics
+    # Flatten to code sets
+    gt_codes = set()
+    for visit in ground_truth_visits:
+        gt_codes.update(visit)
+
+    gen_codes = set()
+    for visit in generated_continuation:
+        gen_codes.update(visit)
+
+    # Jaccard similarity
+    if len(gt_codes) == 0 and len(gen_codes) == 0:
+        jaccard = 1.0
+    elif len(gt_codes) == 0 or len(gen_codes) == 0:
+        jaccard = 0.0
+    else:
+        intersection = len(gt_codes & gen_codes)
+        union = len(gt_codes | gen_codes)
+        jaccard = intersection / union if union > 0 else 0.0
+
+    # Code overlap
+    overlap = len(gt_codes & gen_codes)
+
+    metrics = {
+        'jaccard': jaccard,
+        'overlap': overlap,
+        'gt_codes': len(gt_codes),
+        'gen_codes': len(gen_codes),
+        'num_gt_visits': len(ground_truth_visits),
+        'num_gen_visits': len(generated_continuation),
+    }
+
+    return {
+        'context': context_visits,
+        'ground_truth': ground_truth_visits,
+        'generated': generated_continuation,
+        'num_context_visits': context_visits_count,
+        'num_generated_visits': len(generated_continuation),
+        'metrics': metrics,
+    }
+
+
 def parse_sequence_to_visits(
     token_ids: list[int],
     tokenizer: DiagnosisCodeTokenizer
@@ -468,6 +604,180 @@ def decode_patient_demographics(age: float, gender: int) -> dict[str, str]:
     return {
         "age": f"{age:.1f}",
         "gender": gender_map.get(gender, "UNKNOWN")
+    }
+
+
+def generate_patient_with_structure_constraints(
+    model: PromptBartModel,
+    tokenizer: DiagnosisCodeTokenizer,
+    device: torch.device,
+    target_structure: dict,
+    age: Optional[float] = None,
+    sex: Optional[int] = None,
+    temperature: float = 0.7,
+    top_k: int = 40,
+    top_p: float = 0.9,
+    max_codes_per_visit: int = 25
+) -> dict:
+    """Generate patient with realistic visit structure constraints.
+
+    This function generates patients visit-by-visit with controlled code counts
+    sampled from real data distributions, producing more realistic EHR records.
+
+    Args:
+        model: Trained PromptBartModel.
+        tokenizer: DiagnosisCodeTokenizer instance.
+        device: Device to run on.
+        target_structure: Dict with 'num_visits' and 'codes_per_visit' list.
+        age: Patient age (if None, sampled from distribution).
+        sex: Patient sex ID (0=M, 1=F; if None, sampled).
+        temperature: Sampling temperature (default: 0.7).
+        top_k: Top-k sampling parameter (default: 40).
+        top_p: Nucleus sampling parameter (default: 0.9).
+        max_codes_per_visit: Maximum codes per visit safety cap (default: 25).
+
+    Returns:
+        Dictionary with:
+            - 'generated_visits': List[List[str]] of diagnosis codes
+            - 'demographics': dict with 'age' and 'sex'
+            - 'num_visits': int
+            - 'num_codes': int
+            - 'target_structure': dict (the structure we aimed for)
+    """
+    model.eval()
+
+    # Sample demographics if not provided
+    if age is None or sex is None:
+        sampled_demo = sample_demographics()
+        age = sampled_demo['age'] if age is None else age
+        sex = sampled_demo['sex'] if sex is None else sex
+
+    # Prepare demographic tensors
+    x_num = torch.tensor([[age]], dtype=torch.float32).to(device)
+    x_cat = torch.tensor([[sex]], dtype=torch.long).to(device)
+
+    # Special token IDs
+    bos_token_id = tokenizer.bos_token_id
+    v_token_id = tokenizer.convert_tokens_to_ids("<v>")
+    v_end_token_id = tokenizer.convert_tokens_to_ids("<\\v>")
+    end_token_id = tokenizer.convert_tokens_to_ids("<END>")
+
+    # Extract target structure
+    num_visits = target_structure['num_visits']
+    codes_per_visit = target_structure['codes_per_visit']
+
+    # Handle case with no visits
+    if num_visits == 0 or len(codes_per_visit) == 0:
+        return {
+            'generated_visits': [],
+            'demographics': {'age': age, 'sex': sex},
+            'num_visits': 0,
+            'num_codes': 0,
+            'target_structure': target_structure
+        }
+
+    # Initialize generation with BOS token
+    decoder_input_ids = torch.tensor([[bos_token_id]], dtype=torch.long).to(device)
+
+    # Create dummy encoder input
+    encoder_input_ids = torch.tensor([[tokenizer.pad_token_id]], dtype=torch.long).to(device)
+    encoder_attention_mask = torch.ones_like(encoder_input_ids)
+
+    all_visits = []
+
+    with torch.no_grad():
+        for visit_idx in range(num_visits):
+            target_codes = min(codes_per_visit[visit_idx], max_codes_per_visit)
+
+            # Skip if target is too small
+            if target_codes < 1:
+                continue
+
+            # Append <v> token to start visit
+            v_token_tensor = torch.tensor([[v_token_id]], dtype=torch.long).to(device)
+            decoder_input_ids = torch.cat([decoder_input_ids, v_token_tensor], dim=1)
+
+            # Calculate max tokens to generate for this visit
+            # Each code is ~1 token, plus 1 for <\v>
+            # Add 50% buffer for flexibility
+            max_new_tokens_this_visit = int(target_codes * 1.5) + 1
+
+            try:
+                # Generate codes for this visit
+                generated_visit_ids = model.generate(
+                    input_ids=encoder_input_ids,
+                    attention_mask=encoder_attention_mask,
+                    decoder_input_ids=decoder_input_ids,
+                    x_num=x_num,
+                    x_cat=x_cat,
+                    max_new_tokens=max_new_tokens_this_visit,
+                    do_sample=True,
+                    num_beams=1,
+                    temperature=temperature,
+                    top_k=top_k,
+                    top_p=top_p,
+                    no_repeat_ngram_size=1,
+                    eos_token_id=v_end_token_id,  # Stop at visit end
+                    pad_token_id=tokenizer.pad_token_id,
+                    bos_token_id=bos_token_id
+                )
+
+                # Extract only the newly generated tokens (after decoder_input_ids)
+                new_tokens = generated_visit_ids[0, decoder_input_ids.shape[1]:]
+
+                # Parse the generated visit codes
+                visit_codes = []
+                for token_id in new_tokens:
+                    token_id_val = token_id.item()
+                    if token_id_val == v_end_token_id:
+                        break  # End of visit
+                    elif token_id_val >= tokenizer.code_offset:
+                        # Diagnosis code
+                        code_idx = token_id_val - tokenizer.code_offset
+                        if code_idx < len(tokenizer.vocab):
+                            code = tokenizer.vocab.idx2code[code_idx]
+                            visit_codes.append(code)
+
+                # If we generated codes, add visit
+                if len(visit_codes) > 0:
+                    # Truncate to target if we over-generated
+                    if len(visit_codes) > target_codes:
+                        visit_codes = visit_codes[:target_codes]
+
+                    all_visits.append(visit_codes)
+
+                    # Update decoder_input_ids with the full visit (including <\v>)
+                    # Reconstruct the visit tokens
+                    visit_token_ids = [v_token_id]  # <v>
+                    for code in visit_codes:
+                        if code in tokenizer.vocab.code2idx:
+                            code_idx = tokenizer.vocab.code2idx[code]
+                            code_token_id = code_idx + tokenizer.code_offset
+                            visit_token_ids.append(code_token_id)
+                    visit_token_ids.append(v_end_token_id)  # <\v>
+
+                    # Convert to tensor and concatenate (skip first <v> since already added)
+                    visit_tensor = torch.tensor([visit_token_ids[1:]], dtype=torch.long).to(device)
+                    decoder_input_ids = torch.cat([decoder_input_ids, visit_tensor], dim=1)
+
+            except Exception as e:
+                # If generation fails for this visit, skip it
+                print(f"Warning: Generation failed for visit {visit_idx + 1}: {e}")
+                continue
+
+            # Check if we're approaching context limit (512 for BART)
+            if decoder_input_ids.shape[1] > 400:
+                break  # Stop generating more visits
+
+    # Compute statistics
+    total_codes = sum(len(visit) for visit in all_visits)
+
+    return {
+        'generated_visits': all_visits,
+        'demographics': {'age': age, 'sex': sex},
+        'num_visits': len(all_visits),
+        'num_codes': total_codes,
+        'target_structure': target_structure
     }
 
 
