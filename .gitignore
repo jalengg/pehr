@@ -4,3 +4,5 @@ data_splits
 venv
 reconstruction_results
 CLAUDE.md
+__pycache__
+*.pyc
